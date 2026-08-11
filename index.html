@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Nkem's Cozy Stitches</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", sans-serif;
+      background: #fffafb;
+      color: #7a5360;
+    }
+
+    header {
+      background: #fde3eb;
+      text-align: center;
+      padding: 35px 20px;
+      border-bottom: 4px solid #f7c4d3;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 42px;
+      color: #e89aae;
+    }
+
+    header p {
+      font-size: 18px;
+      color: #9b6877;
+    }
+
+    nav {
+      background: white;
+      text-align: center;
+      padding: 15px;
+      position: sticky;
+      top: 0;
+      border-bottom: 2px solid #f8d6df;
+    }
+
+    nav a {
+      color: #d9869d;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #b96780;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: #fff5f8;
+    }
+
+    .hero h2 {
+      font-size: 34px;
+      color: #e295aa;
+    }
+
+    .hero p {
+      font-size: 19px;
+    }
+
+    .button {
+      display: inline-block;
+      background: #efb3c4;
+      color: white;
+      padding: 13px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .button:hover {
+      background: #df91a8;
+    }
+
+    section {
+      padding: 45px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    section h2 {
+      text-align: center;
+      color: #df91a8;
+      font-size: 30px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .product {
+      background: white;
+      border: 2px solid #f8d6df;
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(200, 150, 165, 0.12);
+    }
+
+    .product .emoji {
+      font-size: 55px;
+    }
+
+    .product h3 {
+      color: #d9869d;
+      font-size: 22px;
+    }
+
+    .price {
+      color: #c8758c;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .about {
+      background: #fff0f5;
+      border-radius: 25px;
+      text-align: center;
+    }
+
+    .order {
+      text-align: center;
+    }
+
+    footer {
+      background: #fde3eb;
+      text-align: center;
+      padding: 25px;
+      margin-top: 30px;
+      color: #8e6170;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 31px;
+      }
+
+      nav a {
+        margin: 0 7px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🌸 Nkem's Cozy Stitches 🌸</h1>
+    <p>Handmade with love 🧶💕</p>
+  </header>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#shop">Shop</a>
+    <a href="#about">About</a>
+    <a href="#order">How to Order</a>
+  </nav>
+
+  <div class="hero" id="home">
+    <h2>Welcome to Nkem's Cozy Stitches! 🎀</h2>
+    <p>
+      Cute handmade crochet creations made with care,
+      creativity and lots of love.
+    </p>
+
+    <a class="button" href="#shop">Explore the Shop 🌷</a>
+  </div>
+
+  <section id="shop">
+    <h2>🧶 Our Crochet Collection 🧶</h2>
+
+    <div class="products">
+
+      <div class="product">
+        <div class="emoji">🎀</div>
+        <h3>Cozy Scrunchies</h3>
+        <p>Soft and cute handmade crochet scrunchies.</p>
+        <p class="price">₦2,000 – ₦3,000</p>
+      </div>
+
+      <div class="product">
+        <div class="emoji">🧸</div>
+        <h3>Tiny Cuddles</h3>
+        <p>Adorable little crochet plushies.</p>
+        <p class="price">₦4,000 – ₦7,000</p>
+      </div>
+
+      <div class="product">
+        <div class="emoji">🔑</div>
+        <h3>Little Loops</h3>
+        <p>Small crochet keychains for bags and keys.</p>
+        <p class="price">₦2,000 – ₦3,500</p>
+      </div>
+
+      <div class="product">
+        <div class="emoji">👜</div>
+        <h3>Cozy Carry</h3>
+        <p>Pretty handmade crochet bags.</p>
+        <p class="price">₦8,000 – ₦15,000</p>
+      </div>
+
+      <div class="product">
+        <div class="emoji">🌷</div>
+        <h3>Sweet Bloom</h3>
+        <p>Beautiful handmade crochet flowers.</p>
+        <p class="price">₦2,000 – ₦4,000</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <h2>💗 About Nkem's Cozy Stitches</h2>
+
+    <p>
+      Welcome to Nkem's Cozy Stitches!
+      Every item is handmade with care and creativity.
+      Our goal is to create cute, cozy crochet pieces
+      that make people smile. 🌸
+    </p>
+  </section>
+
+  <section id="order" class="order">
+    <h2>📦 How to Order</h2>
+
+    <p>
+      Choose something from our collection and ask about
+      available colors, designs and sizes.
+    </p>
+
+    <p>
+      A parent or guardian can help manage customer
+      messages, payments and deliveries.
+    </p>
+
+    <p>💕 Thank you for supporting Nkem's Cozy Stitches! 💕</p>
+  </section>
+
+  <footer>
+    <p>🌸 Nkem's Cozy Stitches 🌸</p>
+    <p>Handmade with love 🧶💕</p>
+  </footer>
+
+</body>
+</html>

@@ -1,272 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Nkem's Cozy Stitches</title>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: "Trebuchet MS", sans-serif;
-      background: #ffafb;
-      color: #7a5360;
-    }
-
-    header {
-      background: #fde3eb;
-      text-align: center;
-      padding: 35px 20px;
-      border-bottom: 4px solid #f7c4d3;
-    }
-    .logo {
-      width: 220px;
-      max-width: 80%;
-      display: block;
-      margin: 0 auto 15px;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 42px;
-      color: #e89aae;
-    }
-
-    header p {
-      font-size: 18px;
-      color: #9b6877;
-    }
-
-    nav {
-      background: white;
-      text-align: center;
-      padding: 15px;
-      position: sticky;
-      top: 0;
-      border-bottom: 2px solid #f8d6df;
-    }
-
-    nav a {
-      color: #d9869d;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      color: #b96780;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 60px 20px;
-      background: #fff5f8;
-    }
-
-    .hero h2 {
-      font-size: 34px;
-      color: #e295aa;
-    }
-
-    .hero p {
-      font-size: 19px;
-    }
-
-    .button {
-      display: inline-block;
-      background: #efb3c4;
-      color: white;
-      padding: 13px 25px;
-      border-radius: 25px;
-      text-decoration: none;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    .button:hover {
-      background: #df91a8;
-    }
-
-    section {
-      padding: 45px 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    section h2 {
-      text-align: center;
-      color: #df91a8;
-      font-size: 30px;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 25px;
-      margin-top: 30px;
-    }
-
-    .product {
-      background: white;
-      border: 2px solid #f8d6df;
-      border-radius: 20px;
-      padding: 25px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(200, 150, 165, 0.12);
-    }
-
-    .product .emoji {
-      font-size: 55px;
-    }
-
-    .product h3 {
-      color: #d9869d;
-      font-size: 22px;
-    }
-
-    .price {
-      color: #c8758c;
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .about {
-      background: #fff0f5;
-      border-radius: 25px;
-      text-align: center;
-    }
-
-    .order {
-      text-align: center;
-    }
-
-    footer {
-      background: #fde3eb;
-      text-align: center;
-      padding: 25px;
-      margin-top: 30px;
-      color: #8e6170;
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 31px;
-      }
-
-      nav a {
-        margin: 0 7px;.product img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 15px;
-}
-        font-size: 14px;
-      }
-      
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nkem's Cozy Stitches</title>
+<style>
+  :root{
+    --pink:#e8a0b5;
+    --dark-pink:#c96f8e;
+    --light-pink:#fff4f8;
+    --cream:#fffaf7;
+    --text:#75485a;
+    --border:#f3c8d6;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    background:linear-gradient(180deg,#fff7fa 0%,#fffdfb 100%);
+    color:var(--text);
+  }
+  nav{
+    position:sticky; top:0; z-index:10;
+    background:rgba(255,247,250,.96);
+    border-bottom:2px solid #f5c9d7;
+    display:flex; justify-content:center; gap:28px;
+    padding:14px 16px;
+  }
+  nav a{color:var(--dark-pink); text-decoration:none; font-weight:700}
+  nav a:hover{color:#a84f70}
+  .hero{
+    text-align:center;
+    padding:42px 20px 55px;
+    background:radial-gradient(circle at top,#ffe8f0,#fff8fb 58%,#fffdfb);
+  }
+  .logo{
+    width:210px; height:210px; object-fit:contain;
+    display:block; margin:0 auto 12px;
+  }
+  h1{
+    margin:4px 0 8px;
+    color:var(--pink);
+    font-size:clamp(2rem,6vw,3.5rem);
+  }
+  .tagline{font-size:1.08rem; margin:0 auto 22px; max-width:650px}
+  .button{
+    display:inline-block; background:var(--pink); color:white;
+    padding:12px 22px; border-radius:999px;
+    text-decoration:none; font-weight:700;
+    box-shadow:0 5px 14px rgba(201,111,142,.2);
+  }
+  section{max-width:1120px; margin:auto; padding:58px 18px}
+  .section-title{text-align:center; color:var(--pink); font-size:2rem; margin:0 0 10px}
+  .section-sub{text-align:center; margin:0 auto 30px; max-width:680px}
+  .products{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:24px;
+  }
+  .product{
+    background:white; border:2px solid var(--border);
+    border-radius:24px; overflow:hidden;
+    box-shadow:0 8px 22px rgba(201,111,142,.10);
+    transition:transform .2s, box-shadow .2s;
+  }
+  .product:hover{transform:translateY(-4px); box-shadow:0 12px 28px rgba(201,111,142,.16)}
+  .product img{
+    width:100%; height:240px; object-fit:cover; display:block;
+  }
+  .product-content{padding:18px}
+  .product h3{color:var(--pink); margin:0 0 8px; font-size:1.35rem}
+  .product p{margin:7px 0; line-height:1.45}
+  .price{font-weight:800; color:var(--dark-pink); margin-top:12px}
+  .about{
+    background:#fff0f5; border-top:2px solid #f7d2df; border-bottom:2px solid #f7d2df;
+  }
+  .about-box{
+    max-width:780px; margin:auto; text-align:center; line-height:1.7;
+  }
+  .steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:18px}
+  .step{
+    background:white; border:2px solid var(--border);
+    border-radius:20px; padding:20px; text-align:center;
+  }
+  .step span{font-size:2rem}
+  footer{
+    text-align:center; padding:30px 16px;
+    background:#fde6ef; color:#9c6074;
+  }
+  @media(max-width:600px){
+    nav{gap:14px; font-size:.9rem; flex-wrap:wrap}
+    .product img{height:210px}
+  }
+</style>
 </head>
-
 <body>
 
-  <header>
-    <img src="logo.png" alt="Nkem's Cozy Stiches logo" class="logo">
-    
-    <h1>🌸 Nkem's Cozy Stitches 🌸</h1>
-    <p>Handmade with love 🧶💕</p>
-  </header>
+<nav>
+  <a href="#home">Home</a>
+  <a href="#shop">Shop</a>
+  <a href="#about">About</a>
+  <a href="#order">How to Order</a>
+</nav>
 
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-    <a href="#order">How to Order</a>
-  </nav>
+<header class="hero" id="home">
+  <img class="logo" src="images/logo.png" alt="Nkem's Cozy Stitches logo">
+  <h1>Nkem's Cozy Stitches</h1>
+  <p class="tagline">Cute handmade crochet pieces made with lots of creativity and love. 🧶💕</p>
+  <a class="button" href="#shop">Explore the Shop</a>
+</header>
 
-  <div class="hero" id="home">
-    <h2>Welcome to Nkem's Cozy Stitches! 🎀</h2>
-    <p>
-      Cute handmade crochet creations made with care,
-      creativity and lots of love.
-    </p>
+<section id="shop">
+  <h2 class="section-title">🧶 Our Crochet Collection 🧶</h2>
+  <p class="section-sub">Soft, cozy and cute handmade pieces for your everyday life.</p>
 
-    <a class="button" href="#shop">Explore the Shop 🌷</a>
-  </div>
-
-  <section id="shop">
-    <h2>🧶 Our Crochet Collection 🧶</h2>
-
-    <div class="products">
-
-      <div class="product">
-        <div class="emoji">🎀</div>
+  <div class="products">
+    <article class="product">
+      <img src="images/cozy-scrunchies.png" alt="Pink and white crochet scrunchies">
+      <div class="product-content">
         <h3>Cozy Scrunchies</h3>
-        <p>Soft and cute handmade crochet scrunchies.</p>
+        <p>Soft and cute handmade crochet scrunchies in pretty pink and white.</p>
         <p class="price">₦2,000 – ₦3,000</p>
       </div>
-    <div class="product">
-        <img src="/Nkem-s-cozy-stiches/jellyfish.png" alt="Tiny Cuddles crochet jellyfish" style="width:220px; height:220px; object-fit:cover; border-radius:20px; display:block; margin:0 auto 15px;">
+    </article>
+
+    <article class="product">
+      <img src="images/jellyfish.png" alt="Pink and white crochet jellyfish plushies">
+      <div class="product-content">
         <h3>Tiny Cuddles</h3>
-        <p>Adorable little crochet plushies.</p>
+        <p>Adorable pink and white crochet jellyfish plushies made with soft yarn.</p>
         <p class="price">₦4,000 – ₦7,000</p>
       </div>
+    </article>
 
-      <div class="product">
-        <div class="emoji">🔑</div>
+    <article class="product">
+      <img src="images/bow-keychain.png" alt="Pink crochet bow keychain with gold chain and clasp">
+      <div class="product-content">
         <h3>Little Loops</h3>
-        <p>Small crochet keychains for bags and keys.</p>
+        <p>A cute pink crochet bow keychain with a chain and gold clasp.</p>
         <p class="price">₦2,000 – ₦3,500</p>
       </div>
+    </article>
 
-      <div class="product">
-        <div class="emoji">👜</div>
+    <article class="product">
+      <img src="images/cozy-carry.png" alt="Pink and white crochet bag with ruffles and bows">
+      <div class="product-content">
         <h3>Cozy Carry</h3>
-        <p>Pretty handmade crochet bags.</p>
+        <p>A pretty handmade crochet bag with ruffles and sweet pink bows.</p>
         <p class="price">₦8,000 – ₦15,000</p>
       </div>
+    </article>
+  </div>
+</section>
 
-      <div class="product">
-        <div class="emoji">🌷</div>
-        <h3>Sweet Bloom</h3>
-        <p>Beautiful handmade crochet flowers.</p>
-        <p class="price">₦2,000 – ₦4,000</p>
-      </div>
+<section class="about" id="about">
+  <div class="about-box">
+    <h2 class="section-title">About Nkem's Cozy Stitches 💕</h2>
+    <p>I make cute crochet items in soft pastel colors, with every piece created with care and love. From tiny plushies to cozy accessories, there's something special waiting for you.</p>
+  </div>
+</section>
 
-    </div>
-  </section>
+<section id="order">
+  <h2 class="section-title">How to Order 🛍️</h2>
+  <p class="section-sub">Ordering is simple!</p>
+  <div class="steps">
+    <div class="step"><span>💗</span><h3>1. Choose</h3><p>Pick your favorite item from the collection.</p></div>
+    <div class="step"><span>💬</span><h3>2. Message</h3><p>Send the item name and the quantity you want.</p></div>
+    <div class="step"><span>🧶</span><h3>3. Handmade</h3><p>Your crochet piece is prepared with care.</p></div>
+  </div>
+</section>
 
-  <section id="about" class="about">
-    <h2>💗 About Nkem's Cozy Stitches</h2>
-
-    <p>
-      Welcome to Nkem's Cozy Stitches!
-      Every item is handmade with care and creativity.
-      Our goal is to create cute, cozy crochet pieces
-      that make people smile. 🌸
-    </p>
-  </section>
-
-  <section id="order" class="order">
-    <h2>📦 How to Order</h2>
-
-    <p>
-      Choose something from our collection and ask about
-      available colors, designs and sizes.
-    </p>
-
-    <p>
-      A parent or guardian can help manage customer
-      messages, payments and deliveries.
-    </p>
-
-    <p>💕 Thank you for supporting Nkem's Cozy Stitches! 💕</p>
-  </section>
-
-  <footer>
-    <p>🌸 Nkem's Cozy Stitches 🌸</p>
-    <p>Handmade with love 🧶💕</p>
-  </footer>
+<footer>
+  <strong>Nkem's Cozy Stitches</strong><br>
+  Handmade with love 💕🧶
+</footer>
 
 </body>
 </html>

@@ -7,502 +7,1020 @@
 <title>Nkem's Cozy Stitches</title>
 
 <style>
+
+/* =========================
+   BASIC PAGE
+========================= */
+
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
     scroll-behavior: smooth;
 }
 
 body {
-    margin: 0;
-    font-family: "Trebuchet MS", Arial, sans-serif;
-    background: #fff5f8;
-    color: #7a4058;
+    font-family: "Trebuchet MS", sans-serif;
+    background: #ffdfe9;
+    color: #7b3859;
+    overflow-x: hidden;
 }
 
-/* NAVIGATION */
+
+/* =========================
+   DECORATIVE BACKGROUND
+========================= */
+
+body::before {
+    content: "♡  ✿  ♥  🌸  ♡  ✿  ♥  ♡  🌸";
+    position: fixed;
+    top: 120px;
+    left: 0;
+    width: 100%;
+    font-size: 28px;
+    color: #ff91ae;
+    opacity: 0.45;
+    word-spacing: 35px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::after {
+    content: "♥  🌸  ♡  ✿  ♥  ♡  🌸  ♥";
+    position: fixed;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    font-size: 25px;
+    color: #ff91ae;
+    opacity: 0.4;
+    word-spacing: 40px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
 nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: #fffafd;
-    border-bottom: 3px solid #f7b6ca;
-    padding: 14px 20px;
+    position: relative;
+    z-index: 10;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+
+    padding: 22px 35px;
 }
 
 .nav-left,
 .nav-right {
     display: flex;
-    gap: 10px;
     align-items: center;
+    gap: 22px;
+
+    padding: 12px 25px;
+
+    background: rgba(255,255,255,0.65);
+
+    border: 2px dashed #ff91ae;
+    border-radius: 40px;
 }
 
 nav a {
     text-decoration: none;
-    color: #df7195;
+    color: #ed5d88;
+
+    font-size: 20px;
     font-weight: bold;
-    font-size: 17px;
-    padding: 10px 18px;
-    border: 2px dashed #f5a5bd;
-    border-radius: 25px;
-    background: #fff7fa;
+
+    transition: 0.2s;
 }
 
 nav a:hover {
-    background: #ffe1eb;
+    color: #c92e61;
+    transform: scale(1.05);
 }
 
-/* HERO */
+
+/* =========================
+   HERO
+========================= */
+
 .hero {
+    position: relative;
+    z-index: 1;
+
+    min-height: 520px;
+
     text-align: center;
-    padding: 45px 20px 35px;
-    background: linear-gradient(#ffe7ef, #fff5f8);
+
+    padding-top: 10px;
+
+    overflow: hidden;
 }
+
+
+/* LOGO */
 
 .logo {
-    width: 260px;
-    max-width: 80%;
     display: block;
-    margin: 0 auto 15px;
-    mix-blend-mode: multiply;
+
+    width: 320px;
+    height: 320px;
+
+    object-fit: contain;
+
+    margin: 0 auto;
+
+    border-radius: 50%;
 }
+
+
+/* MAIN TITLE */
 
 .hero h1 {
-    margin: 5px 0;
-    color: #e65f88;
-    font-size: clamp(36px, 6vw, 64px);
-    text-shadow: 2px 2px white;
+    position: relative;
+    z-index: 3;
+
+    margin-top: -5px;
+
+    font-size: 60px;
+
+    color: #ed4775;
+
+    text-shadow:
+        3px 3px white,
+        -2px -2px white,
+        2px -2px white,
+        -2px 2px white;
 }
 
-.hero p {
+
+/* TAGLINE */
+
+.tagline {
+    position: relative;
+    z-index: 3;
+
+    display: inline-block;
+
+    margin-top: 8px;
+
+    padding: 7px 70px;
+
+    background: rgba(255,255,255,0.55);
+
+    border: 2px dashed #ff7fa1;
+
+    border-radius: 30px;
+
+    color: #d94670;
+
     font-size: 20px;
-    color: #a84d70;
 }
 
-/* SECTION TITLES */
-.section {
-    padding: 50px 25px;
-    max-width: 1250px;
-    margin: auto;
+
+/* =========================
+   HERO DECORATIONS
+========================= */
+
+.yarn-left {
+    position: absolute;
+
+    left: 5%;
+    top: 120px;
+
+    font-size: 105px;
+
+    z-index: 2;
 }
+
+.yarn-right {
+    position: absolute;
+
+    right: 24%;
+    top: 225px;
+
+    font-size: 70px;
+
+    z-index: 2;
+}
+
+.bunny {
+    position: absolute;
+
+    right: 5%;
+    top: 105px;
+
+    font-size: 145px;
+
+    z-index: 2;
+}
+
+
+/* EXTRA HEARTS */
+
+.hero-heart {
+    position: absolute;
+
+    color: #ff6f96;
+
+    font-size: 40px;
+
+    z-index: 2;
+}
+
+.heart-one {
+    left: 25%;
+    top: 260px;
+}
+
+.heart-two {
+    right: 30%;
+    top: 150px;
+}
+
+.heart-three {
+    left: 8%;
+    top: 330px;
+}
+
+.heart-four {
+    right: 8%;
+    top: 350px;
+}
+
+
+/* =========================
+   SECTION TITLE
+========================= */
 
 .section-title {
+    position: relative;
+    z-index: 2;
+
     text-align: center;
-    color: #d75f86;
-    font-size: 35px;
-    margin-bottom: 35px;
+
+    margin: 20px 0 25px;
+
+    font-size: 38px;
+
+    color: #d73568;
 }
 
-.section-title::before,
+.section-title::before {
+    content: "♥ ";
+}
+
 .section-title::after {
-    content: "♡";
-    margin: 0 18px;
-    color: #f58aaa;
+    content: " ♥";
 }
 
-/* PRODUCTS */
+
+/* =========================
+   PRODUCTS
+========================= */
+
 .products {
+    position: relative;
+    z-index: 2;
+
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 25px;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 18px;
+
+    max-width: 1500px;
+
+    margin: auto;
+
+    padding: 0 20px 35px;
 }
+
 
 .product {
-    background: white;
-    border: 3px solid #f8cad8;
+    background: rgba(255,255,255,0.94);
+
+    border: 3px solid #ffd0dd;
+
     border-radius: 25px;
-    overflow: hidden;
+
+    padding: 10px 10px 18px;
+
     text-align: center;
-    box-shadow: 0 6px 15px rgba(220, 120, 150, 0.15);
-    transition: transform 0.2s;
+
+    box-shadow:
+        0 8px 20px rgba(196,72,111,0.12);
+
+    transition: 0.25s;
 }
 
 .product:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 12px 25px rgba(196,72,111,0.22);
 }
+
+
+/* PRODUCT IMAGES */
 
 .product img {
     width: 100%;
-    height: 240px;
+    height: 250px;
+
     object-fit: cover;
+
     display: block;
+
+    border-radius: 18px;
 }
 
-.product-content {
-    padding: 18px;
-}
+
+/* PRODUCT TITLES */
 
 .product h3 {
-    color: #d9678b;
-    font-size: 24px;
+    margin: 14px 0 8px;
+
+    color: #df3f6e;
+
+    font-size: 21px;
+}
+
+
+/* PRODUCT DESCRIPTION */
+
+.product p {
+    font-size: 16px;
+
+    line-height: 1.4;
+
+    min-height: 48px;
+}
+
+
+/* PRICE */
+
+.price {
+    color: #d84270;
+
+    font-weight: bold;
+
     margin: 8px 0;
 }
 
-.product p {
-    line-height: 1.5;
-}
 
-.price {
-    color: #d85f83;
-    font-weight: bold;
-    font-size: 18px;
-}
+/* BUTTON */
 
-.cart-button {
-    border: none;
-    background: #f56f98;
+.button {
+    display: block;
+
+    background: #f9537c;
+
     color: white;
-    padding: 12px 25px;
+
+    text-decoration: none;
+
+    padding: 10px;
+
     border-radius: 25px;
-    font-size: 16px;
+
+    margin-top: 12px;
+
     font-weight: bold;
-    cursor: pointer;
+
+    transition: 0.2s;
 }
 
-.cart-button:hover {
-    background: #e85280;
+.button:hover {
+    background: #d93664;
+
+    transform: scale(1.03);
 }
 
-/* ABOUT */
+
+/* =========================
+   BUNNY PRODUCT
+========================= */
+
+.bunny-product {
+    width: 100%;
+    height: 250px;
+
+    border-radius: 18px;
+
+    background:
+        radial-gradient(circle at 30% 30%, #fff 0 8px, transparent 9px),
+        #ffdce8;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 150px;
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
 .about {
-    background: #ffe9f0;
-    border-top: 3px dashed #f5a8be;
-    border-bottom: 3px dashed #f5a8be;
+    position: relative;
+    z-index: 2;
+
     text-align: center;
+
+    padding: 60px 20px;
 }
 
 .about p {
-    max-width: 800px;
+    max-width: 700px;
+
     margin: auto;
-    font-size: 18px;
-    line-height: 1.8;
+
+    font-size: 19px;
+
+    line-height: 1.7;
 }
 
-/* CONTACT */
+
+/* =========================
+   CONTACT
+========================= */
+
 .contact {
+    position: relative;
+    z-index: 2;
+
     text-align: center;
+
+    padding: 50px 20px;
 }
 
-.contact-box {
-    max-width: 650px;
-    margin: auto;
-    background: white;
-    padding: 30px;
-    border-radius: 25px;
-    border: 3px solid #f8cad8;
+.contact p {
+    font-size: 19px;
+
+    margin-top: 10px;
 }
 
-.contact-box p {
-    font-size: 18px;
-}
 
-/* CART */
-.cart-section {
-    background: #fff0f5;
+/* =========================
+   CART
+========================= */
+
+.cart {
+    position: relative;
+    z-index: 2;
+
     text-align: center;
+
+    padding: 50px 20px;
 }
 
-#cart-items {
-    max-width: 600px;
-    margin: auto;
+.cart p {
+    font-size: 19px;
 }
 
-.cart-item {
-    background: white;
-    margin: 10px;
-    padding: 15px;
-    border-radius: 15px;
-    border: 2px solid #f8cad8;
-}
 
-.clear-cart {
-    margin-top: 15px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    background: #d9678b;
-    color: white;
-    cursor: pointer;
-}
+/* =========================
+   FOOTER
+========================= */
 
-/* FOOTER */
 footer {
+    position: relative;
+    z-index: 2;
+
     text-align: center;
-    padding: 30px;
-    background: #ffdce8;
-    color: #a84d70;
-    font-size: 16px;
+
+    padding: 30px 20px;
+
+    color: #d33e69;
+
+    font-size: 18px;
+
+    border-top: 2px dashed #ff91ad;
 }
+
+.social {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    margin-top: 15px;
+}
+
+.social span {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+
+    background: #ff5b86;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 22px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 1100px) {
+
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bunny {
+        display: none;
+    }
+
+    .yarn-left,
+    .yarn-right {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+}
+
+
+@media (max-width: 650px) {
+
+    nav {
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    .nav-left,
+    .nav-right {
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .logo {
+        width: 250px;
+        height: 250px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .tagline {
+        padding: 7px 30px;
+    }
+}
+
 </style>
 </head>
 
+
 <body>
 
-<!-- NAVIGATION -->
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
 <nav>
+
     <div class="nav-left">
-        <a href="#home">🏠 Home</a>
-        <a href="#shop">🧶 Shop</a>
-        <a href="#about">💗 About</a>
+
+        <a href="#home">
+            🏠 Home
+        </a>
+
+        <a href="#shop">
+            🧶 Shop
+        </a>
+
+        <a href="#about">
+            ♡ About
+        </a>
+
     </div>
 
+
     <div class="nav-right">
-        <a href="#contact">🌸 Contact</a>
-        <a href="#cart">🛍️ Cart (<span id="cart-count">0</span>)</a>
+
+        <a href="#contact">
+            🌸 Contact
+        </a>
+
+        <a href="#cart">
+            🛍️ Cart (0)
+        </a>
+
     </div>
+
 </nav>
 
 
-<!-- HOME -->
-<section id="home" class="hero">
 
-    <img src="logo.png" alt="Nkem's Cozy Stitches logo" class="logo">
+<!-- =========================
+     HOME / HERO
+========================= -->
 
-    <h1>Nkem's Cozy Stitches</h1>
+<section class="hero" id="home">
 
-    <p>🧶 Handmade with love 💗</p>
+
+    <div class="yarn-left">
+        🧶
+    </div>
+
+
+    <div class="hero-heart heart-one">
+        ♥
+    </div>
+
+    <div class="hero-heart heart-two">
+        ♡
+    </div>
+
+    <div class="hero-heart heart-three">
+        ♥
+    </div>
+
+    <div class="hero-heart heart-four">
+        ♡
+    </div>
+
+
+    <!-- YOUR LOGO -->
+
+    <img
+        src="logo.png"
+        class="logo"
+        alt="Nkem's Cozy Stitches logo"
+    >
+
+
+    <!-- BUNNY -->
+
+    <div class="bunny">
+        🐰
+    </div>
+
+
+    <div class="yarn-right">
+        🧶
+    </div>
+
+
+    <h1>
+        Nkem's Cozy Stitches
+    </h1>
+
+
+    <div class="tagline">
+        Handmade &nbsp; ♥ &nbsp; With Love
+    </div>
+
 
 </section>
 
 
-<!-- SHOP -->
-<section id="shop" class="section">
 
-    <h2 class="section-title">Our Creations</h2>
+<!-- =========================
+     SHOP
+========================= -->
+
+<section id="shop">
+
+
+    <h2 class="section-title">
+        Our Creations
+    </h2>
+
 
     <div class="products">
 
-        <!-- SCRUNCHIES -->
+
+        <!-- =====================
+             JELLYFISH
+        ====================== -->
+
         <div class="product">
 
-            <img src="cozy-scrunchies.png"
-                 alt="Cozy crochet scrunchies">
 
-            <div class="product-content">
+            <img
+                src="jellyfish.png"
+                alt="Crochet Jellyfish"
+            >
 
-                <h3>🎀 Cozy Scrunchies</h3>
 
-                <p>
-                    Soft and cute handmade crochet scrunchies.
-                </p>
+            <h3>
+                Twisty Jelly Buddies
+            </h3>
 
-                <p class="price">
-                    ₦2,000 - ₦3,000
-                </p>
 
-                <button class="cart-button"
-                        onclick="addToCart('Cozy Scrunchies')">
-                    💗 Add to Cart
-                </button>
+            <p>
+                Sweet little jellyfish friends
+                full of curls and charm. ♡
+            </p>
 
-            </div>
+
+            <p class="price">
+                ₦4,000 - ₦7,000
+            </p>
+
+
+            <a href="#" class="button">
+                ♥ View Details ♥
+            </a>
+
+
         </div>
 
 
-        <!-- JELLYFISH -->
+
+        <!-- =====================
+             BOW KEYCHAIN
+        ====================== -->
+
         <div class="product">
 
-            <img src="jellyfish.png"
-                 alt="Tiny Cuddles crochet jellyfish">
 
-            <div class="product-content">
+            <img
+                src="bow-keychain.png"
+                alt="Pink crochet bow keychain"
+            >
 
-                <h3>🪼 Tiny Cuddles</h3>
 
-                <p>
-                    Adorable little crochet jellyfish plushies.
-                </p>
+            <h3>
+                Bow Keychains
+            </h3>
 
-                <p class="price">
-                    ₦4,000 - ₦7,000
-                </p>
 
-                <button class="cart-button"
-                        onclick="addToCart('Tiny Cuddles')">
-                    💗 Add to Cart
-                </button>
+            <p>
+                Pretty handmade bows for
+                your bags and keys. ♡
+            </p>
 
-            </div>
+
+            <p class="price">
+                ₦2,000 - ₦3,500
+            </p>
+
+
+            <a href="#" class="button">
+                ♥ View Details ♥
+            </a>
+
+
         </div>
 
 
-        <!-- BOW KEYCHAIN -->
+
+        <!-- =====================
+             COZY CARRY
+        ====================== -->
+
         <div class="product">
 
-            <img src="bow-keychain.png"
-                 alt="Pink crochet bow keychain">
 
-            <div class="product-content">
+            <img
+                src="cozy-carry.png"
+                alt="Crochet Cozy Carry bag"
+            >
 
-                <h3>🎀 Bow Keychains</h3>
 
-                <p>
-                    Cute handmade crochet bow keychains.
-                </p>
+            <h3>
+                Cozy Carry
+            </h3>
 
-                <p class="price">
-                    ₦2,000 - ₦3,500
-                </p>
 
-                <button class="cart-button"
-                        onclick="addToCart('Bow Keychain')">
-                    💗 Add to Cart
-                </button>
+            <p>
+                Stylish handmade crochet
+                bags with lots of love. ♡
+            </p>
 
-            </div>
+
+            <p class="price">
+                ₦8,000 - ₦15,000
+            </p>
+
+
+            <a href="#" class="button">
+                ♥ View Details ♥
+            </a>
+
+
         </div>
 
 
-        <!-- BAG -->
+
+        <!-- =====================
+             SCRUNCHIES
+        ====================== -->
+
         <div class="product">
 
-            <img src="cozy-carry.png"
-                 alt="Cozy Carry crochet bag">
 
-            <div class="product-content">
+            <img
+                src="cozy-scrunchies.png"
+                alt="Pink and white crochet scrunchies"
+            >
 
-                <h3>👜 Cozy Carry</h3>
 
-                <p>
-                    Pretty handmade crochet bags.
-                </p>
+            <h3>
+                Cozy Scrunchies
+            </h3>
 
-                <p class="price">
-                    ₦8,000 - ₦15,000
-                </p>
 
-                <button class="cart-button"
-                        onclick="addToCart('Cozy Carry')">
-                    💗 Add to Cart
-                </button>
+            <p>
+                Soft, comfy and cute crochet
+                scrunchies for every hair day. ♡
+            </p>
 
-            </div>
+
+            <p class="price">
+                ₦2,000 - ₦3,000
+            </p>
+
+
+            <a href="#" class="button">
+                ♥ View Details ♥
+            </a>
+
+
         </div>
+
+
+
+        <!-- =====================
+             BUNNY PLUSHIE
+        ====================== -->
+
+        <div class="product">
+
+
+            <div class="bunny-product">
+                🐰
+            </div>
+
+
+            <h3>
+                Tiny Plushies
+            </h3>
+
+
+            <p>
+                Cuddle-sized crochet friends
+                made with love. ♡
+            </p>
+
+
+            <p class="price">
+                ₦5,000 - ₦10,000
+            </p>
+
+
+            <a href="#" class="button">
+                ♥ View Details ♥
+            </a>
+
+
+        </div>
+
 
     </div>
+
 </section>
 
 
-<!-- ABOUT -->
-<section id="about" class="section about">
 
-    <h2 class="section-title">About Nkem's Cozy Stitches</h2>
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="about" id="about">
+
+
+    <h2 class="section-title">
+        About Us
+    </h2>
+
 
     <p>
-        Welcome to Nkem's Cozy Stitches! 🧶💗
-        Everything is made with creativity, care and lots of love.
-        From cute scrunchies and keychains to cozy bags and cuddly
-        crochet creations, there's something special for everyone.
+
+        Welcome to Nkem's Cozy Stitches! ♡
+
+        Everything here is handmade with
+        care, creativity and lots of love.
+
+        From cute scrunchies and bows to
+        cozy crochet bags, jellyfish and
+        plushies, every creation is made
+        to bring a little extra happiness.
+
     </p>
 
-</section>
-
-
-<!-- CONTACT -->
-<section id="contact" class="section contact">
-
-    <h2 class="section-title">Contact Us</h2>
-
-    <div class="contact-box">
-
-        <p>💗 Have a question or want to place an order?</p>
-
-        <p>🌸 We'd love to hear from you!</p>
-
-        <p>📧 Email: nkemscozystitches@example.com</p>
-
-    </div>
 
 </section>
 
 
-<!-- CART -->
-<section id="cart" class="section cart-section">
 
-    <h2 class="section-title">Your Cart 🛍️</h2>
+<!-- =========================
+     CONTACT
+========================= -->
 
-    <div id="cart-items">
-        <p>Your cart is empty 💗</p>
-    </div>
+<section class="contact" id="contact">
 
-    <button class="clear-cart" onclick="clearCart()">
-        Clear Cart
-    </button>
+
+    <h2 class="section-title">
+        Contact
+    </h2>
+
+
+    <p>
+        🌸 We'd love to hear from you! 🌸
+    </p>
+
+
+    <p>
+        Message us to place your order.
+    </p>
+
 
 </section>
 
 
-<!-- FOOTER -->
+
+<!-- =========================
+     CART
+========================= -->
+
+<section class="cart" id="cart">
+
+
+    <h2 class="section-title">
+        Your Cart
+    </h2>
+
+
+    <p>
+        Your cart is currently empty. ♡
+    </p>
+
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
 
-    🧶 Nkem's Cozy Stitches 💗
 
-    <br><br>
+    ♥ Thank you for supporting small dreams! ♥
 
-    Handmade with love ♡
+
+    <div class="social">
+
+        <span>📷</span>
+
+        <span>🎵</span>
+
+        <span>📌</span>
+
+        <span>✉️</span>
+
+    </div>
+
 
 </footer>
 
-
-<script>
-
-let cart = [];
-
-function addToCart(productName) {
-
-    cart.push(productName);
-
-    document.getElementById("cart-count").textContent = cart.length;
-
-    displayCart();
-
-    alert(productName + " was added to your cart! 💗");
-
-}
-
-function displayCart() {
-
-    const cartItems = document.getElementById("cart-items");
-
-    if (cart.length === 0) {
-
-        cartItems.innerHTML =
-            "<p>Your cart is empty 💗</p>";
-
-        return;
-    }
-
-    cartItems.innerHTML = "";
-
-    cart.forEach(function(item, index) {
-
-        const div = document.createElement("div");
-
-        div.className = "cart-item";
-
-        div.textContent =
-            "💗 " + item;
-
-        cartItems.appendChild(div);
-
-    });
-
-}
-
-function clearCart() {
-
-    cart = [];
-
-    document.getElementById("cart-count").textContent = "0";
-
-    displayCart();
-
-}
-
-</script>
 
 </body>
 </html>

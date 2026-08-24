@@ -3,688 +3,963 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nkem's Cozy Stitches</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Pacifico&display=swap');
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-body {
-    font-family: "Trebuchet MS", Arial, sans-serif;
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Baloo 2',cursive;
+    background:#ffeaf1;
+    color:#7b3157;
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.background{
+    position:fixed;
+    inset:0;
+    z-index:-5;
     background:
-        radial-gradient(circle at 8% 20%, #fff 0 5px, transparent 6px),
-        radial-gradient(circle at 92% 30%, #fff 0 5px, transparent 6px),
-        radial-gradient(circle at 30% 8%, #fff 0 5px, transparent 6px),
-        radial-gradient(circle at 70% 12%, #fff 0 5px, transparent 6px),
-        linear-gradient(180deg, #ffdce8 0%, #ffe8ef 45%, #fff0f4 100%);
-    background-size: 140px 140px;
-    color: #9d285b;
-    min-height: 100vh;
-    overflow-x: hidden;
+        radial-gradient(circle at 10% 15%,rgba(255,255,255,.95) 0 5px,transparent 6px),
+        radial-gradient(circle at 25% 30%,rgba(255,255,255,.9) 0 5px,transparent 6px),
+        radial-gradient(circle at 40% 12%,rgba(255,255,255,.9) 0 5px,transparent 6px),
+        radial-gradient(circle at 65% 25%,rgba(255,255,255,.9) 0 5px,transparent 6px),
+        radial-gradient(circle at 85% 14%,rgba(255,255,255,.9) 0 5px,transparent 6px),
+        linear-gradient(#ffeaf1,#ffdfe9);
 }
 
-/* ---------------- DECORATIONS ---------------- */
+/* flowers */
 
-.decor {
-    position: fixed;
-    pointer-events: none;
-    z-index: 0;
+.flower{
+    position:absolute;
+    color:#ff79a4;
+    font-size:25px;
+    animation:float 5s ease-in-out infinite;
 }
 
-.heart {
-    color: #ff5d91;
-    font-size: 25px;
-    animation: float 4s ease-in-out infinite;
+.flower:nth-child(1){left:3%;top:17%}
+.flower:nth-child(2){left:29%;top:10%;font-size:20px}
+.flower:nth-child(3){left:72%;top:16%;font-size:24px}
+.flower:nth-child(4){right:4%;top:23%;font-size:20px}
+.flower:nth-child(5){left:16%;top:37%;font-size:18px}
+.flower:nth-child(6){right:23%;top:40%;font-size:22px}
+.flower:nth-child(7){left:7%;top:65%;font-size:23px}
+.flower:nth-child(8){right:7%;top:63%;font-size:25px}
+
+.heart{
+    position:absolute;
+    color:#ff5f91;
+    font-size:22px;
+    animation:float 4s ease-in-out infinite;
 }
 
-.flower {
-    color: #ff80a9;
-    font-size: 30px;
-    animation: float 5s ease-in-out infinite;
+.heart:nth-child(9){left:1%;top:10%}
+.heart:nth-child(10){left:27%;top:25%}
+.heart:nth-child(11){right:22%;top:18%}
+.heart:nth-child(12){right:3%;top:32%}
+.heart:nth-child(13){left:11%;top:53%}
+.heart:nth-child(14){right:13%;top:56%}
+
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-7px)}
 }
 
-.h1 { left: 2%; top: 14%; }
-.h2 { left: 28%; top: 17%; }
-.h3 { right: 25%; top: 12%; }
-.h4 { right: 4%; top: 25%; }
-.h5 { left: 15%; top: 43%; }
-.h6 { right: 14%; top: 48%; }
+/* =========================
+   NAVIGATION
+========================= */
 
-.f1 { left: 2%; top: 25%; }
-.f2 { left: 29%; top: 15%; }
-.f3 { right: 29%; top: 17%; }
-.f4 { right: 2%; top: 35%; }
-.f5 { left: 10%; top: 44%; }
-.f6 { right: 10%; top: 45%; }
-
-@keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+.nav{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 3%;
+    position:relative;
+    z-index:10;
 }
 
-/* ---------------- NAVIGATION ---------------- */
-
-nav {
-    position: relative;
-    z-index: 5;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 3%;
+.nav-group{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    border:2px dashed #ff6e9b;
+    border-radius:45px;
+    padding:9px 17px;
+    background:rgba(255,244,248,.78);
 }
 
-.nav-box {
-    border: 2px dashed #ff719d;
-    border-radius: 40px;
-    padding: 12px 25px;
-    background: rgba(255,255,255,0.35);
-    display: flex;
-    gap: 28px;
-    align-items: center;
-    box-shadow: 0 3px 12px rgba(255, 80, 130, .08);
+.nav a,
+.cart-button{
+    text-decoration:none;
+    color:#f33f78;
+    font-size:23px;
+    padding:8px 15px;
+    border-radius:30px;
+    transition:.25s;
+    cursor:pointer;
+    border:0;
+    background:transparent;
+    font-family:inherit;
 }
 
-.nav-box a {
-    text-decoration: none;
-    color: #e93670;
-    font-size: 22px;
-    font-weight: bold;
-    transition: .2s;
+.nav a:hover,
+.cart-button:hover{
+    background:#ffd3e1;
+    transform:translateY(-2px);
 }
 
-.nav-box a:hover {
-    color: #ff4d86;
-    transform: scale(1.06);
+.nav-icon{
+    font-size:25px;
+    margin-right:4px;
 }
 
-.nav-icon {
-    font-size: 25px;
-    margin-right: 5px;
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    position:relative;
+    min-height:520px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding-top:20px;
 }
 
-/* ---------------- HERO ---------------- */
+/* left basket */
 
-.hero {
-    position: relative;
-    z-index: 2;
-    min-height: 490px;
-    padding: 10px 3% 0;
-    display: grid;
-    grid-template-columns: 1fr 1.5fr 1fr;
-    align-items: center;
-    gap: 20px;
+.yarn-basket{
+    position:absolute;
+    left:4%;
+    top:75px;
+    width:280px;
+    height:300px;
 }
 
-/* LEFT BASKET */
-
-.craft-area {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.basket {
-    width: 260px;
-    height: 190px;
+.basket{
+    position:absolute;
+    bottom:10px;
+    left:25px;
+    width:245px;
+    height:160px;
+    border-radius:25px 25px 45px 45px;
     background:
         repeating-linear-gradient(
             0deg,
-            #b97943 0px,
-            #d89a5d 10px,
-            #b97943 18px
+            #b97942 0 12px,
+            #d99a59 12px 22px
         );
-    border-radius: 30px 30px 55px 55px;
-    border: 7px solid #9b5d31;
-    position: relative;
-    box-shadow: 0 15px 20px rgba(130,70,50,.18);
+    border:6px solid #9b5d31;
+    box-shadow:0 12px 20px rgba(120,55,60,.2);
 }
 
-.basket:before {
-    content: "";
-    position: absolute;
-    width: 220px;
-    height: 65px;
-    left: 13px;
-    top: -35px;
-    background: #c8874d;
-    border-radius: 50%;
-    border: 7px solid #9b5d31;
+.basket-top{
+    position:absolute;
+    top:-27px;
+    left:5px;
+    width:235px;
+    height:60px;
+    border-radius:50%;
+    background:#c98248;
+    border:6px solid #9b5d31;
 }
 
-.yarn {
-    position: absolute;
-    width: 105px;
-    height: 105px;
-    border-radius: 50%;
+.yarn-ball{
+    position:absolute;
+    width:92px;
+    height:92px;
+    border-radius:50%;
     background:
         repeating-linear-gradient(
-            35deg,
-            #ff91b3 0 7px,
-            #ffb5ca 8px 13px
+            25deg,
+            #ff9fbd 0 8px,
+            #ff78a5 8px 13px,
+            #ffc0d2 13px 19px
         );
-    border: 5px solid #ee729d;
-    left: 25px;
-    top: -55px;
+    box-shadow:inset -12px -10px 20px rgba(200,65,110,.18);
 }
 
-.yarn.white {
-    left: 105px;
-    width: 90px;
-    height: 90px;
+.yarn-one{
+    left:65px;
+    top:20px;
+}
+
+.yarn-two{
+    left:130px;
+    top:30px;
     background:
         repeating-linear-gradient(
-            35deg,
-            #fff 0 7px,
-            #f5dfe5 8px 13px
+            -20deg,
+            #fff7f8 0 8px,
+            #ffdce7 8px 14px
         );
-    border-color: #e9c8d2;
 }
 
-.hook {
-    position: absolute;
-    width: 14px;
-    height: 135px;
-    border-radius: 10px;
-    transform: rotate(18deg);
-    top: -100px;
-    background: #f38bb0;
-    border: 3px solid #d95c89;
+.hook{
+    position:absolute;
+    width:13px;
+    height:135px;
+    border-radius:10px;
+    background:#ff5f91;
+    transform:rotate(17deg);
+    top:-10px;
+    z-index:5;
 }
 
-.hook.one { left: 95px; }
-.hook.two { left: 135px; transform: rotate(8deg); background:#e5a03f; }
-.hook.three { left: 170px; transform: rotate(25deg); background:#e27ca6; }
-
-.big-bow {
-    position: absolute;
-    left: 15px;
-    top: -85px;
-    font-size: 65px;
+.hook:after{
+    content:"";
+    position:absolute;
+    top:-10px;
+    left:-2px;
+    width:18px;
+    height:18px;
+    border:5px solid #ff5f91;
+    border-bottom:0;
+    border-radius:50%;
 }
 
-/* CENTER LOGO */
+.hook.one{left:95px}
+.hook.two{
+    left:145px;
+    background:#ffbd52;
+    transform:rotate(4deg);
+}
+.hook.two:after{border-color:#ffbd52}
 
-.logo-area {
-    text-align: center;
+.hook.three{
+    left:190px;
+    background:#e96a9a;
+    transform:rotate(-17deg);
+}
+.hook.three:after{border-color:#e96a9a}
+
+/* bunny */
+
+.bunny-area{
+    position:absolute;
+    right:4%;
+    top:65px;
+    width:310px;
+    height:310px;
 }
 
-.logo-area img {
-    width: 360px;
-    max-width: 100%;
-    border-radius: 50%;
-    filter: drop-shadow(0 8px 10px rgba(190,80,120,.15));
+.bunny{
+    position:absolute;
+    right:25px;
+    bottom:0;
+    width:210px;
+    height:220px;
 }
 
-.brand-name {
-    font-size: clamp(42px, 5vw, 70px);
-    color: #f03f76;
-    font-weight: 900;
+/* bunny ears */
+
+.ear{
+    position:absolute;
+    width:70px;
+    height:120px;
+    background:#fffaf9;
+    border:7px solid #e8c5c9;
+    border-radius:50px 50px 35px 35px;
+    top:0;
+}
+
+.ear:after{
+    content:"";
+    position:absolute;
+    inset:15px 17px;
+    border-radius:50px;
+    background:#ffb4ca;
+}
+
+.ear.left{
+    left:25px;
+    transform:rotate(-8deg);
+}
+
+.ear.right{
+    right:25px;
+    transform:rotate(8deg);
+}
+
+/* bunny head */
+
+.bunny-head{
+    position:absolute;
+    left:12px;
+    bottom:22px;
+    width:185px;
+    height:170px;
+    border-radius:50%;
+    background:#fffaf8;
+    border:7px solid #e8c5c9;
+    box-shadow:0 8px 15px rgba(150,80,100,.12);
+}
+
+/* bunny eyes */
+
+.eye{
+    position:absolute;
+    width:27px;
+    height:35px;
+    border-radius:50%;
+    background:#4b3034;
+    top:62px;
+}
+
+.eye:after{
+    content:"";
+    position:absolute;
+    width:8px;
+    height:10px;
+    background:white;
+    border-radius:50%;
+    top:5px;
+    left:6px;
+}
+
+.eye.left{left:45px}
+.eye.right{right:45px}
+
+.nose{
+    position:absolute;
+    left:82px;
+    top:102px;
+    width:20px;
+    height:14px;
+    background:#ff91ad;
+    border-radius:50% 50% 45% 45%;
+}
+
+.mouth{
+    position:absolute;
+    left:88px;
+    top:114px;
+    width:8px;
+    height:14px;
+    border-left:3px solid #7d555b;
+    border-bottom:3px solid #7d555b;
+    transform:rotate(-45deg);
+}
+
+.cheek{
+    position:absolute;
+    width:32px;
+    height:17px;
+    border-radius:50%;
+    background:#ffc3d1;
+    top:104px;
+    opacity:.7;
+}
+
+.cheek.left{left:18px}
+.cheek.right{right:18px}
+
+/* bow */
+
+.bunny-bow{
+    position:absolute;
+    right:-6px;
+    bottom:82px;
+    width:52px;
+    height:52px;
+    z-index:5;
+}
+
+.bunny-bow:before,
+.bunny-bow:after{
+    content:"";
+    position:absolute;
+    width:38px;
+    height:45px;
+    background:#ff5b91;
+    border:4px solid #e83b72;
+    top:0;
+    border-radius:10px 22px 10px 22px;
+}
+
+.bunny-bow:before{
+    left:-25px;
+    transform:rotate(18deg);
+}
+
+.bunny-bow:after{
+    right:-25px;
+    transform:scaleX(-1) rotate(18deg);
+}
+
+.bunny-bow span{
+    position:absolute;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:#ff3e7b;
+    border:4px solid #e83b72;
+    left:14px;
+    top:13px;
+    z-index:2;
+}
+
+/* pink yarn beside bunny */
+
+.bunny-yarn{
+    position:absolute;
+    left:0;
+    bottom:65px;
+    width:105px;
+    height:105px;
+    border-radius:50%;
+    background:
+        repeating-linear-gradient(
+            25deg,
+            #ff9fbd 0 9px,
+            #ff70a1 9px 14px,
+            #ffc4d5 14px 20px
+        );
+    border:5px solid #f57ea5;
+}
+
+.yarn-string{
+    position:absolute;
+    left:75px;
+    bottom:58px;
+    width:170px;
+    height:55px;
+    border-bottom:4px solid #ff7da5;
+    border-radius:50%;
+    transform:rotate(-7deg);
+}
+
+/* center logo */
+
+.logo{
+    width:320px;
+    height:320px;
+    object-fit:contain;
+    border-radius:50%;
+    position:relative;
+    z-index:3;
+}
+
+.brand-name{
+    margin-top:-8px;
+    font-family:'Pacifico',cursive;
+    font-size:58px;
+    color:#f03d75;
     text-shadow:
         3px 3px 0 white,
-        -2px -2px 0 white,
-        0 4px 8px rgba(180,40,90,.15);
-    margin-top: 5px;
+        -1px -1px 0 white;
+    text-align:center;
+    position:relative;
+    z-index:4;
 }
 
-.tagline {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 8px 55px;
-    border: 2px dashed #ff719d;
-    border-radius: 30px;
-    color: #e83d75;
-    font-size: 21px;
-    background: rgba(255,255,255,.25);
+.tagline{
+    margin-top:5px;
+    border:2px dashed #ff6b99;
+    border-radius:30px;
+    padding:5px 45px;
+    background:#fff1f6;
+    color:#f03d75;
+    font-size:21px;
 }
 
-/* RIGHT BUNNY + YARN */
+/* =========================
+   PRODUCTS
+========================= */
 
-.bunny-area {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+.products-section{
+    padding:15px 1.5% 50px;
+    position:relative;
 }
 
-.pink-ball {
-    position: absolute;
-    left: 2%;
-    top: 8%;
-    width: 125px;
-    height: 125px;
-    border-radius: 50%;
-    background:
-        repeating-linear-gradient(
-            35deg,
-            #ff8eae 0 8px,
-            #ffb4c8 9px 15px
-        );
-    border: 5px solid #ee719d;
-    box-shadow: 0 10px 20px rgba(220,70,120,.15);
+.section-title{
+    text-align:center;
+    color:#ef3c75;
+    font-size:38px;
+    margin-bottom:15px;
 }
 
-.pink-ball:after {
-    content: "";
-    position: absolute;
-    width: 180px;
-    height: 70px;
-    border-bottom: 5px solid #ee719d;
-    border-radius: 50%;
-    right: -125px;
-    bottom: -30px;
-    transform: rotate(-8deg);
+.section-title:before,
+.section-title:after{
+    content:"♥";
+    color:#ff5b91;
+    margin:0 20px;
 }
 
-/* Cute bunny made from CSS */
-
-.bunny {
-    width: 210px;
-    height: 235px;
-    position: relative;
-    margin-top: 25px;
+.products{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+    max-width:1450px;
+    margin:auto;
 }
 
-.ear {
-    position: absolute;
-    width: 60px;
-    height: 105px;
-    background: #fff4ef;
-    border: 5px solid #e5c5c2;
-    border-radius: 55% 55% 45% 45%;
-    top: -60px;
+.product-card{
+    background:#fff7fa;
+    border:3px solid #ffc1d3;
+    border-radius:22px;
+    padding:10px;
+    box-shadow:0 7px 16px rgba(230,95,135,.16);
+    text-align:center;
+    transition:.25s;
+    overflow:hidden;
 }
 
-.ear:after {
-    content: "";
-    position: absolute;
-    width: 28px;
-    height: 70px;
-    background: #ffb0c5;
-    border-radius: 50%;
-    left: 11px;
-    top: 12px;
+.product-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 13px 24px rgba(230,95,135,.23);
 }
 
-.ear.left {
-    left: 30px;
-    transform: rotate(-12deg);
+.product-image{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    border-radius:17px;
+    border:3px solid #ffe0e9;
+    background:#ffeef3;
 }
 
-.ear.right {
-    right: 30px;
-    transform: rotate(12deg);
+.product-name{
+    color:#f03472;
+    font-size:25px;
+    margin-top:9px;
+    line-height:1.05;
 }
 
-.bunny-head {
-    position: absolute;
-    width: 185px;
-    height: 165px;
-    left: 13px;
-    top: 25px;
-    background: #fff8f3;
-    border: 5px solid #e4c6c1;
-    border-radius: 48%;
-    box-shadow: 0 10px 20px rgba(150,80,70,.12);
+.product-description{
+    font-size:17px;
+    line-height:1.25;
+    min-height:52px;
+    margin:6px 4px;
+    color:#7a4562;
 }
 
-.eye {
-    position: absolute;
-    width: 25px;
-    height: 31px;
-    background: #493333;
-    border-radius: 50%;
-    top: 70px;
+.price{
+    font-size:20px;
+    color:#e72f6c;
+    font-weight:bold;
+    margin:5px;
 }
 
-.eye.left { left: 43px; }
-.eye.right { right: 43px; }
-
-.eye:after {
-    content: "";
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: white;
-    border-radius: 50%;
-    left: 5px;
-    top: 5px;
+.details-btn{
+    width:100%;
+    border:0;
+    background:#ff4f88;
+    color:white;
+    padding:11px;
+    border-radius:30px;
+    font-family:inherit;
+    font-size:18px;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.nose {
-    position: absolute;
-    left: 80px;
-    top: 105px;
-    width: 23px;
-    height: 16px;
-    background: #f08096;
-    border-radius: 50% 50% 55% 55%;
+.details-btn:hover{
+    background:#ed3470;
+    transform:scale(1.02);
 }
 
-.bunny-bow {
-    position: absolute;
-    right: -22px;
-    top: 65px;
-    color: #ff7da3;
-    font-size: 58px;
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    border-top:2px dashed #ff719d;
+    padding:20px;
+    text-align:center;
+    color:#ed3973;
+    font-size:19px;
 }
 
-.body {
-    position: absolute;
-    width: 125px;
-    height: 95px;
-    background: #fff8f3;
-    border: 5px solid #e4c6c1;
-    border-radius: 50%;
-    left: 43px;
-    bottom: 0;
+.socials{
+    margin-top:12px;
+    display:flex;
+    justify-content:center;
+    gap:12px;
 }
 
-.heart-body {
-    position: absolute;
-    color: #ff87a8;
-    font-size: 45px;
-    left: 38px;
-    top: 20px;
+.social{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#ff4f88;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:21px;
 }
 
-/* ---------------- PRODUCTS ---------------- */
+/* =========================
+   MODAL
+========================= */
 
-.products-section {
-    position: relative;
-    z-index: 3;
-    padding: 10px 1.5% 35px;
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(95,35,55,.45);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
 }
 
-.section-title {
-    text-align: center;
-    color: #e52e6c;
-    font-size: 39px;
-    margin-bottom: 15px;
-    font-weight: 900;
+.modal.active{
+    display:flex;
 }
 
-.products {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 15px;
+.modal-box{
+    background:#fff8fb;
+    width:min(560px,95%);
+    border:4px solid #ffadc6;
+    border-radius:30px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 20px 60px rgba(80,20,40,.3);
+    position:relative;
 }
 
-.card {
-    background: rgba(255,255,255,.88);
-    border: 3px solid #ffd0df;
-    border-radius: 24px;
-    padding: 10px;
-    box-shadow: 0 5px 15px rgba(190,60,100,.12);
-    text-align: center;
-    transition: .25s;
+.modal-image{
+    width:220px;
+    height:220px;
+    object-fit:cover;
+    border-radius:20px;
+    border:3px solid #ffd3df;
 }
 
-.card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 25px rgba(190,60,100,.18);
+.modal-title{
+    font-size:32px;
+    color:#ed3973;
+    margin:10px;
 }
 
-.product-image {
-    width: 100%;
-    height: 260px;
-    object-fit: cover;
-    border-radius: 18px;
-    border: 3px solid #fff;
+.modal-description{
+    font-size:19px;
+    line-height:1.45;
+    margin:10px 20px;
 }
 
-.card h3 {
-    color: #ed3d76;
-    font-size: 20px;
-    margin: 12px 0 8px;
+.modal-price{
+    color:#e8326d;
+    font-size:24px;
+    font-weight:bold;
 }
 
-.card p {
-    color: #743c59;
-    font-size: 15px;
-    line-height: 1.45;
-    min-height: 65px;
+.add-btn{
+    margin-top:15px;
+    border:0;
+    background:#ff4380;
+    color:white;
+    padding:12px 35px;
+    border-radius:30px;
+    font-family:inherit;
+    font-size:19px;
+    cursor:pointer;
 }
 
-.price {
-    color: #e62968;
-    font-size: 17px;
-    font-weight: bold;
-    margin: 8px 0;
+.close-btn{
+    position:absolute;
+    right:17px;
+    top:12px;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:0;
+    background:#ffd0de;
+    color:#d72d68;
+    font-size:23px;
+    cursor:pointer;
 }
 
-.details-btn {
-    width: 100%;
-    border: none;
-    border-radius: 25px;
-    padding: 12px;
-    background: linear-gradient(90deg,#ff4c83,#ff709b);
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(240,50,110,.2);
+/* =========================
+   CART
+========================= */
+
+.cart-panel{
+    position:fixed;
+    right:-430px;
+    top:0;
+    width:400px;
+    max-width:95%;
+    height:100vh;
+    background:#fff8fb;
+    z-index:150;
+    box-shadow:-10px 0 30px rgba(80,20,40,.2);
+    padding:25px;
+    transition:.3s;
+    overflow-y:auto;
 }
 
-.details-btn:hover {
-    transform: scale(1.02);
+.cart-panel.open{
+    right:0;
 }
 
-/* ---------------- FOOTER ---------------- */
-
-footer {
-    position: relative;
-    z-index: 3;
-    border-top: 2px dashed #ff719d;
-    padding: 18px;
-    text-align: center;
-    color: #e52e6c;
-    font-size: 18px;
+.cart-title{
+    color:#ed3973;
+    font-size:32px;
+    border-bottom:2px dashed #ff9db9;
+    padding-bottom:12px;
 }
 
-.socials {
-    margin-top: 12px;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
+.cart-item{
+    padding:15px 0;
+    border-bottom:1px solid #ffd2df;
 }
 
-.social {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: #ff4e88;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
+.cart-item-name{
+    color:#e8326d;
+    font-size:21px;
 }
 
-/* ---------------- MODAL ---------------- */
-
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(100,30,60,.45);
-    z-index: 100;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+.cart-total{
+    margin-top:20px;
+    color:#e8326d;
+    font-size:25px;
+    font-weight:bold;
 }
 
-.modal-box {
-    width: 430px;
-    max-width: 100%;
-    background: #fff7fa;
-    border: 4px solid #ff9fbd;
-    border-radius: 28px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 15px 50px rgba(100,30,60,.3);
+.empty-cart{
+    text-align:center;
+    margin-top:40px;
+    color:#9c627b;
+    font-size:20px;
 }
 
-.modal-box h2 {
-    color: #e52e6c;
-    margin-bottom: 10px;
+.close-cart{
+    float:right;
+    border:0;
+    background:none;
+    color:#ed3973;
+    font-size:25px;
+    cursor:pointer;
 }
 
-.modal-box p {
-    color: #743c59;
-    line-height: 1.6;
-    margin: 12px 0;
-}
+/* =========================
+   RESPONSIVE
+========================= */
 
-.close-btn {
-    margin-top: 12px;
-    border: none;
-    background: #ff4c83;
-    color: white;
-    padding: 11px 25px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-}
+@media(max-width:1100px){
 
-/* ---------------- RESPONSIVE ---------------- */
-
-@media(max-width:1100px) {
-    .products {
-        grid-template-columns: repeat(3,1fr);
+    .products{
+        grid-template-columns:repeat(3,1fr);
     }
 
-    .hero {
-        grid-template-columns: 1fr;
+    .yarn-basket{
+        opacity:.75;
+        left:-50px;
     }
 
-    .craft-area,
-    .bunny-area {
-        display: none;
+    .bunny-area{
+        opacity:.75;
+        right:-50px;
     }
+
 }
 
-@media(max-width:700px) {
-    nav {
-        flex-direction: column;
-        gap: 10px;
+@media(max-width:750px){
+
+    .nav{
+        flex-direction:column;
+        gap:10px;
     }
 
-    .nav-box {
-        gap: 12px;
-        padding: 10px 15px;
+    .nav-group{
+        width:100%;
+        justify-content:center;
+        flex-wrap:wrap;
     }
 
-    .nav-box a {
-        font-size: 15px;
+    .nav a,
+    .cart-button{
+        font-size:18px;
     }
 
-    .products {
-        grid-template-columns: 1fr 1fr;
+    .hero{
+        min-height:650px;
     }
 
-    .product-image {
-        height: 210px;
+    .yarn-basket{
+        transform:scale(.65);
+        left:-60px;
+        top:20px;
     }
 
-    .brand-name {
-        font-size: 38px;
+    .bunny-area{
+        transform:scale(.65);
+        right:-70px;
+        top:20px;
     }
+
+    .logo{
+        width:260px;
+        height:260px;
+    }
+
+    .brand-name{
+        font-size:40px;
+    }
+
+    .tagline{
+        font-size:17px;
+    }
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
+
 }
 
-@media(max-width:480px) {
-    .products {
-        grid-template-columns: 1fr;
+@media(max-width:500px){
+
+    .products{
+        grid-template-columns:1fr;
     }
+
+    .product-image{
+        height:300px;
+    }
+
+    .brand-name{
+        font-size:32px;
+    }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- FLOATING DECOR -->
+<div class="background">
 
-<div class="decor heart h1">♥</div>
-<div class="decor heart h2">♡</div>
-<div class="decor heart h3">♥</div>
-<div class="decor heart h4">♡</div>
-<div class="decor heart h5">♥</div>
-<div class="decor heart h6">♡</div>
+    <span class="flower">🌸</span>
+    <span class="flower">🌸</span>
+    <span class="flower">🌸</span>
+    <span class="flower">🌸</span>
+    <span class="flower">🌸</span>
+    <span class="flower">🌸</span>
+    <span class="flower">🌸</span>
+    <span class="flower">🌸</span>
 
-<div class="decor flower f1">✿</div>
-<div class="decor flower f2">✿</div>
-<div class="decor flower f3">✿</div>
-<div class="decor flower f4">✿</div>
-<div class="decor flower f5">✿</div>
-<div class="decor flower f6">✿</div>
+    <span class="heart">♡</span>
+    <span class="heart">♥</span>
+    <span class="heart">♡</span>
+    <span class="heart">♥</span>
+    <span class="heart">♡</span>
+    <span class="heart">♥</span>
+
+</div>
 
 
-<!-- NAVIGATION -->
+<!-- =========================
+     NAVIGATION
+========================= -->
 
-<nav>
+<nav class="nav">
 
-    <div class="nav-box">
-        <a href="#home"><span class="nav-icon">⌂</span> Home</a>
-        <a href="#shop"><span class="nav-icon">🧶</span> Shop</a>
-        <a href="#about"><span class="nav-icon">♡</span> About</a>
+    <div class="nav-group">
+
+        <a href="#home">
+            <span class="nav-icon">⌂</span>
+            Home
+        </a>
+
+        <a href="#shop">
+            <span class="nav-icon">🧶</span>
+            Shop
+        </a>
+
+        <a href="#about">
+            <span class="nav-icon">♡</span>
+            About
+        </a>
+
     </div>
 
-    <div class="nav-box">
-        <a href="#contact"><span class="nav-icon">🌸</span> Contact</a>
-        <a href="#cart"><span class="nav-icon">🛍</span> Cart (<span id="cartCount">0</span>)</a>
+    <div class="nav-group">
+
+        <a href="#contact">
+            <span class="nav-icon">🌸</span>
+            Contact
+        </a>
+
+        <button class="cart-button" onclick="openCart()">
+            <span class="nav-icon">🛍</span>
+            Cart (<span id="cartCount">0</span>)
+        </button>
+
     </div>
 
 </nav>
 
 
-<!-- HERO -->
+<!-- =========================
+     HERO
+========================= -->
 
 <section class="hero" id="home">
 
-    <!-- BASKET -->
+    <!-- LEFT YARN BASKET -->
 
-    <div class="craft-area">
+    <div class="yarn-basket">
 
-        <div class="basket">
+        <div class="basket-top"></div>
 
-            <div class="big-bow">🎀</div>
+        <div class="yarn-ball yarn-one"></div>
+        <div class="yarn-ball yarn-two"></div>
 
-            <div class="yarn"></div>
-            <div class="yarn white"></div>
+        <div class="hook one"></div>
+        <div class="hook two"></div>
+        <div class="hook three"></div>
 
-            <div class="hook one"></div>
-            <div class="hook two"></div>
-            <div class="hook three"></div>
-
-        </div>
+        <div class="basket"></div>
 
     </div>
 
 
     <!-- LOGO -->
 
-    <div class="logo-area">
+    <img
+        src="logo.png"
+        class="logo"
+        alt="Nkem's Cozy Stitches logo"
+    >
 
-        <img src="logo.png" alt="Nkem's Cozy Stitches logo">
+    <h1 class="brand-name">
+        Nkem's Cozy Stitches
+    </h1>
 
-        <h1 class="brand-name">
-            Nkem's Cozy Stitches
-        </h1>
-
-        <div class="tagline">
-            Handmade &nbsp; ♥ &nbsp; With Love
-        </div>
-
+    <div class="tagline">
+        Handmade　♥　With Love
     </div>
 
 
-    <!-- BUNNY -->
+    <!-- RIGHT BUNNY -->
 
     <div class="bunny-area">
 
-        <div class="pink-ball"></div>
+        <div class="bunny-yarn"></div>
+
+        <div class="yarn-string"></div>
 
         <div class="bunny">
 
@@ -696,14 +971,16 @@ footer {
                 <div class="eye left"></div>
                 <div class="eye right"></div>
 
-                <div class="nose"></div>
+                <div class="cheek left"></div>
+                <div class="cheek right"></div>
 
-                <div class="bunny-bow">🎀</div>
+                <div class="nose"></div>
+                <div class="mouth"></div>
 
             </div>
 
-            <div class="body">
-                <div class="heart-body">♥</div>
+            <div class="bunny-bow">
+                <span></span>
             </div>
 
         </div>
@@ -713,30 +990,35 @@ footer {
 </section>
 
 
-<!-- PRODUCTS -->
+<!-- =========================
+     PRODUCTS
+========================= -->
 
 <section class="products-section" id="shop">
 
     <h2 class="section-title">
-        ♥ Our Creations ♥
+        Our Creations
     </h2>
 
     <div class="products">
 
+
         <!-- JELLYFISH -->
 
-        <div class="card">
+        <div class="product-card">
 
             <img
-                class="product-image"
                 src="jellyfish.png"
+                class="product-image"
                 alt="Twisty Jelly Buddies"
             >
 
-            <h3>🪼 Twisty Jelly Buddies</h3>
+            <h3 class="product-name">
+                🪼 Twisty Jelly Buddies
+            </h3>
 
-            <p>
-                Sweet little jelly friends full of curls and charm. ♥
+            <p class="product-description">
+                Sweet little jelly friends full of curls and charm. ♡
             </p>
 
             <div class="price">
@@ -745,11 +1027,13 @@ footer {
 
             <button
                 class="details-btn"
-                onclick="showDetails(
-                'Twisty Jelly Buddies',
-                'Sweet handmade crochet jellyfish with cute curly tentacles. Perfect as a tiny friend or a special gift.',
-                '₦4,000 - ₦7,000'
-                )">
+                onclick="showProduct(
+                    'Twisty Jelly Buddies',
+                    'jellyfish.png',
+                    'Sweet little handmade jelly friends with adorable curly tentacles. A cute cozy companion made with lots of love.',
+                    '₦4,000 - ₦7,000'
+                )"
+            >
                 ♥ View Details ♥
             </button>
 
@@ -758,18 +1042,20 @@ footer {
 
         <!-- BOW -->
 
-        <div class="card">
+        <div class="product-card">
 
             <img
-                class="product-image"
                 src="bow-keychain.png"
-                alt="Bow Keychains"
+                class="product-image"
+                alt="Bow Keychain"
             >
 
-            <h3>🎀 Bow Keychains</h3>
+            <h3 class="product-name">
+                🎀 Bow Keychains
+            </h3>
 
-            <p>
-                Perfect little bows to brighten your day. ♥
+            <p class="product-description">
+                Perfect little bows to brighten your day. ♡
             </p>
 
             <div class="price">
@@ -778,31 +1064,35 @@ footer {
 
             <button
                 class="details-btn"
-                onclick="showDetails(
-                'Bow Keychains',
-                'Cute handmade crochet bow keychains that add a sweet little touch to your bag, keys or pencil case.',
-                '₦2,000 - ₦3,500'
-                )">
+                onclick="showProduct(
+                    'Bow Keychains',
+                    'bow-keychain.png',
+                    'Cute handmade crochet bow keychains that are perfect for bags, keys, pencil cases and little gifts.',
+                    '₦2,000 - ₦3,500'
+                )"
+            >
                 ♥ View Details ♥
             </button>
 
         </div>
 
 
-        <!-- HANDBAG -->
+        <!-- BAG -->
 
-        <div class="card">
+        <div class="product-card">
 
             <img
-                class="product-image"
                 src="cozy-carry.png"
+                class="product-image"
                 alt="Ruffle Handbag"
             >
 
-            <h3>👜 Ruffle Handbag</h3>
+            <h3 class="product-name">
+                👜 Ruffle Handbag
+            </h3>
 
-            <p>
-                Stylish, soft and handmade with lots of love. ♥
+            <p class="product-description">
+                Stylish, soft & handmade with lots of love. ♡
             </p>
 
             <div class="price">
@@ -811,11 +1101,13 @@ footer {
 
             <button
                 class="details-btn"
-                onclick="showDetails(
-                'Ruffle Handbag',
-                'A cute handmade crochet handbag with beautiful ruffles and a cozy pastel design.',
-                '₦8,000 - ₦15,000'
-                )">
+                onclick="showProduct(
+                    'Ruffle Handbag',
+                    'cozy-carry.png',
+                    'A sweet handmade crochet handbag with beautiful ruffles. Perfect for carrying your everyday little essentials.',
+                    '₦8,000 - ₦15,000'
+                )"
+            >
                 ♥ View Details ♥
             </button>
 
@@ -824,18 +1116,20 @@ footer {
 
         <!-- SCRUNCHIES -->
 
-        <div class="card">
+        <div class="product-card">
 
             <img
-                class="product-image"
                 src="cozy-scrunchies.png"
+                class="product-image"
                 alt="Cozy Scrunchies"
             >
 
-            <h3>🎀 Cozy Scrunchies</h3>
+            <h3 class="product-name">
+                🎀 Cozy Scrunchies
+            </h3>
 
-            <p>
-                Soft, comfy and cute for every hair day. ♥
+            <p class="product-description">
+                Soft, comfy & cute for every hair day. ♡
             </p>
 
             <div class="price">
@@ -844,31 +1138,35 @@ footer {
 
             <button
                 class="details-btn"
-                onclick="showDetails(
-                'Cozy Scrunchies',
-                'Soft handmade crochet scrunchies in cozy pastel colours. Cute, comfortable and made with love.',
-                '₦2,000 - ₦3,000'
-                )">
+                onclick="showProduct(
+                    'Cozy Scrunchies',
+                    'cozy-scrunchies.png',
+                    'Soft handmade crochet scrunchies made in cozy pink and white colors. Cute, comfortable and perfect for everyday use.',
+                    '₦2,000 - ₦3,000'
+                )"
+            >
                 ♥ View Details ♥
             </button>
 
         </div>
 
 
-        <!-- PLUSHIES -->
+        <!-- PLUSHIE -->
 
-        <div class="card">
+        <div class="product-card">
 
             <img
-                class="product-image"
                 src="logo.png"
+                class="product-image"
                 alt="Tiny Plushies"
             >
 
-            <h3>🐰 Tiny Plushies</h3>
+            <h3 class="product-name">
+                🐰 Tiny Plushies
+            </h3>
 
-            <p>
-                Cuddle-sized friends made with love. ♥
+            <p class="product-description">
+                Cuddle-sized friends made with love. ♡
             </p>
 
             <div class="price">
@@ -877,11 +1175,13 @@ footer {
 
             <button
                 class="details-btn"
-                onclick="showDetails(
-                'Tiny Plushies',
-                'Adorable handmade crochet plushies designed to be tiny, soft and cuddly.',
-                '₦4,000 - ₦8,000'
-                )">
+                onclick="showProduct(
+                    'Tiny Plushies',
+                    'logo.png',
+                    'Adorable handmade crochet plushies designed to be soft, cute and cozy. Perfect little friends and gifts.',
+                    '₦4,000 - ₦8,000'
+                )"
+            >
                 ♥ View Details ♥
             </button>
 
@@ -892,42 +1192,133 @@ footer {
 </section>
 
 
-<!-- FOOTER -->
+<!-- =========================
+     ABOUT
+========================= -->
 
-<footer id="contact">
+<section
+    id="about"
+    style="
+        text-align:center;
+        padding:60px 20px;
+        max-width:850px;
+        margin:auto;
+    "
+>
+
+    <h2 class="section-title">
+        About Nkem's Cozy Stitches
+    </h2>
+
+    <p style="
+        font-size:20px;
+        line-height:1.6;
+        color:#74445d;
+    ">
+        Welcome to Nkem's Cozy Stitches! ♡
+        Everything here is made with creativity,
+        care and lots of love. From cozy scrunchies
+        and cute keychains to sweet little crochet
+        creations, every stitch is made to bring a
+        little more happiness to your day.
+    </p>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section
+    id="contact"
+    style="
+        text-align:center;
+        padding:50px 20px;
+    "
+>
+
+    <h2 class="section-title">
+        Contact
+    </h2>
+
+    <p style="font-size:20px;">
+        Have a question about an item? ♡
+    </p>
+
+    <p style="
+        font-size:20px;
+        color:#e93270;
+        margin-top:8px;
+    ">
+        We'd love to hear from you!
+    </p>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
 
     ♥ Thank you for supporting small dreams! ♥
 
     <div class="socials">
+
         <div class="social">◎</div>
         <div class="social">♪</div>
         <div class="social">P</div>
         <div class="social">✉</div>
+
     </div>
 
 </footer>
 
 
-<!-- DETAILS MODAL -->
+<!-- =========================
+     PRODUCT DETAILS MODAL
+========================= -->
 
-<div class="modal" id="detailsModal">
+<div class="modal" id="productModal">
 
     <div class="modal-box">
 
-        <h2 id="modalName"></h2>
-
-        <p id="modalDescription"></p>
-
-        <strong id="modalPrice"></strong>
-
-        <br>
-
-        <button class="details-btn" onclick="addToCart()">
-            🛍 Add to Cart
+        <button
+            class="close-btn"
+            onclick="closeModal()"
+        >
+            ×
         </button>
 
-        <button class="close-btn" onclick="closeDetails()">
-            Close
+        <img
+            id="modalImage"
+            class="modal-image"
+            src=""
+            alt=""
+        >
+
+        <h2
+            id="modalTitle"
+            class="modal-title"
+        ></h2>
+
+        <p
+            id="modalDescription"
+            class="modal-description"
+        ></p>
+
+        <div
+            id="modalPrice"
+            class="modal-price"
+        ></div>
+
+        <button
+            class="add-btn"
+            id="modalAddButton"
+        >
+            ♡ Add to Cart ♡
         </button>
 
     </div>
@@ -935,58 +1326,222 @@ footer {
 </div>
 
 
+<!-- =========================
+     CART
+========================= -->
+
+<div class="cart-panel" id="cartPanel">
+
+    <button
+        class="close-cart"
+        onclick="closeCart()"
+    >
+        ×
+    </button>
+
+    <h2 class="cart-title">
+        Your Cozy Cart ♡
+    </h2>
+
+    <div id="cartItems"></div>
+
+    <div
+        class="cart-total"
+        id="cartTotal"
+    >
+        Total: ₦0
+    </div>
+
+</div>
+
+
 <script>
 
-let cart = 0;
-let selectedProduct = "";
+/* =========================
+   CART
+========================= */
 
-function showDetails(name, description, price) {
+let cart = [];
 
-    selectedProduct = name;
+let selectedProduct = null;
 
-    document.getElementById("modalName").textContent = name;
 
-    document.getElementById("modalDescription").textContent =
-        description;
+/* PRODUCT DETAILS */
 
-    document.getElementById("modalPrice").textContent =
-        price;
+function showProduct(name,image,description,price){
 
-    document.getElementById("detailsModal").style.display =
-        "flex";
+    selectedProduct = {
+        name:name,
+        image:image,
+        description:description,
+        price:price
+    };
+
+    document.getElementById("modalImage").src = image;
+    document.getElementById("modalTitle").textContent = name;
+    document.getElementById("modalDescription").textContent = description;
+    document.getElementById("modalPrice").textContent = price;
+
+    document
+        .getElementById("productModal")
+        .classList
+        .add("active");
 }
 
-function closeDetails() {
 
-    document.getElementById("detailsModal").style.display =
-        "none";
+/* CLOSE DETAILS */
+
+function closeModal(){
+
+    document
+        .getElementById("productModal")
+        .classList
+        .remove("active");
+
 }
 
-function addToCart() {
 
-    cart++;
+/* ADD TO CART */
 
-    document.getElementById("cartCount").textContent =
-        cart;
+document
+    .getElementById("modalAddButton")
+    .addEventListener("click",function(){
 
-    alert(
-        selectedProduct +
-        " has been added to your cart! ♥"
-    );
+        if(!selectedProduct) return;
 
-    closeDetails();
-}
+        cart.push(selectedProduct);
 
-window.onclick = function(event) {
+        updateCart();
 
-    const modal =
-        document.getElementById("detailsModal");
+        closeModal();
 
-    if (event.target === modal) {
-        closeDetails();
+        openCart();
+
+    });
+
+
+/* UPDATE CART */
+
+function updateCart(){
+
+    document
+        .getElementById("cartCount")
+        .textContent = cart.length;
+
+    const container =
+        document.getElementById("cartItems");
+
+    if(cart.length === 0){
+
+        container.innerHTML =
+            '<div class="empty-cart">Your cozy cart is empty ♡</div>';
+
+        document
+            .getElementById("cartTotal")
+            .textContent = "Total: ₦0";
+
+        return;
     }
 
-};
+    container.innerHTML = "";
+
+    cart.forEach((item,index)=>{
+
+        const div =
+            document.createElement("div");
+
+        div.className = "cart-item";
+
+        div.innerHTML = `
+            <div class="cart-item-name">
+                ${item.name}
+            </div>
+
+            <div>
+                ${item.price}
+            </div>
+
+            <button
+                onclick="removeFromCart(${index})"
+                style="
+                    margin-top:6px;
+                    border:0;
+                    background:#ffd0df;
+                    color:#d92e69;
+                    border-radius:20px;
+                    padding:5px 12px;
+                    cursor:pointer;
+                    font-family:inherit;
+                "
+            >
+                Remove
+            </button>
+        `;
+
+        container.appendChild(div);
+
+    });
+
+
+    document
+        .getElementById("cartTotal")
+        .textContent =
+        "Items in cart: " + cart.length;
+
+}
+
+
+/* REMOVE */
+
+function removeFromCart(index){
+
+    cart.splice(index,1);
+
+    updateCart();
+
+}
+
+
+/* OPEN CART */
+
+function openCart(){
+
+    document
+        .getElementById("cartPanel")
+        .classList
+        .add("open");
+
+}
+
+
+/* CLOSE CART */
+
+function closeCart(){
+
+    document
+        .getElementById("cartPanel")
+        .classList
+        .remove("open");
+
+}
+
+
+/* CLOSE MODAL WHEN CLICKING OUTSIDE */
+
+document
+    .getElementById("productModal")
+    .addEventListener("click",function(e){
+
+        if(e.target === this){
+            closeModal();
+        }
+
+    });
+
+
+/* INITIAL CART */
+
+updateCart();
 
 </script>
 

@@ -474,6 +474,69 @@ nav{
   cursor:pointer;
 }
 
+
+/* =========================
+   PRODUCT OPTIONS
+   ========================= */
+
+.product-options{
+  margin-top:15px;
+  text-align:left;
+}
+
+.product-options label{
+  display:block;
+  color:#7b3157;
+  font-size:17px;
+  font-weight:600;
+  margin:10px 0 5px;
+}
+
+.product-options select,
+.product-options textarea,
+.product-options input[type="file"]{
+  width:100%;
+  border:2px solid #ffc2d4;
+  border-radius:14px;
+  background:#fff;
+  color:#7b3157;
+  font-family:inherit;
+  font-size:16px;
+  padding:9px 11px;
+}
+
+.product-options textarea{
+  min-height:80px;
+  resize:vertical;
+}
+
+.product-options .option-note{
+  font-size:14px;
+  color:#9b607c;
+  margin-top:4px;
+}
+
+.price-breakdown{
+  margin:12px 0;
+  padding:10px;
+  border-radius:14px;
+  background:#fff0f5;
+  color:#7b3157;
+  font-size:17px;
+  text-align:left;
+}
+
+.custom-fee{
+  color:#d92e68;
+  font-weight:700;
+}
+
+.file-name{
+  font-size:14px;
+  margin-top:5px;
+  color:#9b607c;
+}
+
 /* =========================
    CART
    ========================= */
@@ -792,12 +855,7 @@ footer{
 
         <button
           class="btn"
-          onclick="showDetails(
-            'Twisty Jelly Buddies',
-            'jellyfish.png',
-            'Sweet little jelly friends full of curls and charm. A cute handmade crochet buddy perfect for gifts and collecting.',
-            '₦4,000 - ₦7,000'
-          )">
+          onclick="showDetails('Twisty Jelly Buddies')"">
           ♥ View Details ♥
         </button>
 
@@ -822,12 +880,7 @@ footer{
 
         <button
           class="btn"
-          onclick="showDetails(
-            'Bow Keychains',
-            'bow-keychain.png',
-            'A cute handmade crochet bow keychain. Small, adorable and perfect for decorating your bag or keys.',
-            '₦2,000 - ₦3,500'
-          )">
+          onclick="showDetails('Bow Keychains')"">
           ♥ View Details ♥
         </button>
 
@@ -848,16 +901,11 @@ footer{
           Stylish, soft & handmade with lots of love. ♡
         </p>
 
-        <span class="price">₦8,000 - ₦15,000</span>
+        <span class="price">₦8,000 - ₦13,000</span>
 
         <button
           class="btn"
-          onclick="showDetails(
-            'Ruffle Handbag',
-            'cozy-carry.png',
-            'A pretty handmade crochet handbag with soft ruffles and a cozy feminine design.',
-            '₦8,000 - ₦15,000'
-          )">
+          onclick="showDetails('Ruffle Handbag')"">
           ♥ View Details ♥
         </button>
 
@@ -882,12 +930,7 @@ footer{
 
         <button
           class="btn"
-          onclick="showDetails(
-            'Cozy Scrunchies',
-            'cozy-scrunchies.png',
-            'Soft handmade crochet scrunchies in cozy pink and white. Cute, comfortable and made with love.',
-            '₦2,000 - ₦3,000'
-          )">
+          onclick="showDetails('Cozy Scrunchies')"">
           ♥ View Details ♥
         </button>
 
@@ -912,12 +955,7 @@ footer{
 
         <button
           class="btn"
-          onclick="showDetails(
-            'Tiny Plushies',
-            'bunny.png',
-            'A cute handmade crochet bunny plushie with a sweet, cozy design. Perfect as a little handmade friend or gift.',
-            '₦4,000 - ₦8,000'
-          )">
+          onclick="showDetails('Tiny Plushies')"">
           ♥ View Details ♥
         </button>
 
@@ -1037,13 +1075,39 @@ footer{
 
     <p id="modalDescription"></p>
 
-    <p>
-      <strong id="modalPrice"></strong>
-    </p>
+    <div class="product-options">
 
-    <button class="btn" id="modalCartButton">
-      🛍 Add to Cart
-    </button>
+      <label for="sizeSelect">📏 Size</label>
+      <select id="sizeSelect"></select>
+
+      <label for="colourSelect">🎨 Colour</label>
+      <select id="colourSelect"></select>
+
+      <div id="designOptionWrap">
+        <label for="designSelect">✨ Custom Design</label>
+        <select id="designSelect">
+          <option value="no">No custom design</option>
+          <option value="yes">Yes — custom design (+₦300)</option>
+        </select>
+        <div class="option-note">The ₦300 fee applies only when a custom design is requested.</div>
+      </div>
+
+      <div id="customDetailsWrap" style="display:none;">
+        <label for="customDetails">📝 Custom Order Details</label>
+        <textarea id="customDetails" placeholder="Tell us what you would like..."></textarea>
+
+        <label for="designImage">📷 Upload a picture of your design (optional)</label>
+        <input id="designImage" type="file" accept="image/*">
+        <div class="file-name" id="fileName">No picture selected</div>
+      </div>
+
+      <div class="price-breakdown" id="priceBreakdown"></div>
+
+      <button class="btn" id="modalCartButton">
+        🛍 Add to Cart
+      </button>
+
+    </div>
 
   </div>
 
@@ -1053,67 +1117,177 @@ footer{
 <script>
 
 /* =========================
+   PRODUCT DATA
+   ========================= */
+
+const products = {
+  "Twisty Jelly Buddies": {
+    image: "jellyfish.png",
+    description: "Sweet little jelly friends full of curls and charm. A cute handmade crochet buddy perfect for gifts and collecting.",
+    sizes: {
+      "Small": 4000,
+      "Medium": 5000,
+      "Large": 6000,
+      "Extra Large": 7000
+    },
+    colours: [
+      "Pink & Purple",
+      "White & Black",
+      "Grey & White",
+      "Pink & Light Pink",
+      "Yellow & Blue",
+      "White, Purple & Light Purple",
+      "Custom Colours"
+    ],
+    customDesign: false
+  },
+
+  "Bow Keychains": {
+    image: "bow-keychain.png",
+    description: "A cute handmade crochet bow keychain. Small, adorable and perfect for decorating your bag or keys.",
+    sizes: {
+      "Small": 2000,
+      "Medium": 2900,
+      "Large": 3500
+    },
+    colours: [
+      "Pink",
+      "Purple",
+      "White",
+      "Blue",
+      "Yellow",
+      "Light Blue",
+      "Light Pink",
+      "Custom Colours"
+    ],
+    customDesign: false
+  },
+
+  "Ruffle Handbag": {
+    image: "cozy-carry.png",
+    description: "A pretty handmade crochet handbag with soft white ruffles and a cozy feminine design.",
+    sizes: {
+      "Small": 8000,
+      "Medium": 9500,
+      "Large": 11000,
+      "Extra Large": 13000
+    },
+    colours: [
+      "Pink + White Ruffles",
+      "Purple + White Ruffles",
+      "Red + White Ruffles",
+      "Blue + White Ruffles",
+      "Orange + White Ruffles",
+      "Yellow + White Ruffles",
+      "Custom Colour + White Ruffles"
+    ],
+    customDesign: false
+  },
+
+  "Cozy Scrunchies": {
+    image: "cozy-scrunchies.png",
+    description: "Soft, comfy and cute handmade crochet scrunchies. Custom designs are available when needed.",
+    sizes: {
+      "Small": 2000,
+      "Medium": 2500,
+      "Large": 3000
+    },
+    colours: [
+      "Pink",
+      "Purple",
+      "Blue",
+      "Orange",
+      "Custom Colours"
+    ],
+    customDesign: true
+  },
+
+  "Tiny Plushies": {
+    image: "bunny.png",
+    description: "A cute handmade crochet plushie with a sweet, cozy design. Custom colours and custom designs are available.",
+    sizes: {
+      "Small": 4000,
+      "Medium": 5500,
+      "Large": 8000
+    },
+    colours: [
+      "White",
+      "Brown",
+      "Pink",
+      "Custom Colours"
+    ],
+    customDesign: true
+  }
+};
+
+
+/* =========================
    CART
    ========================= */
 
 let cart = [];
 
 
-/* Add item */
-function addToCart(name, price){
-
-  cart.push({
-    name:name,
-    price:price
-  });
-
-  updateCart();
-
+/* Format Nigerian naira */
+function naira(amount){
+  return "₦" + amount.toLocaleString("en-NG");
 }
 
 
-/* Update cart */
+/* Add item to cart */
+function addToCart(item){
+  cart.push(item);
+  updateCart();
+}
+
+
+/* Update cart display */
 function updateCart(){
 
-  const count =
-    document.getElementById("cartCount");
-
-  const items =
-    document.getElementById("cartItems");
-
-  const total =
-    document.getElementById("cartTotal");
+  const count = document.getElementById("cartCount");
+  const items = document.getElementById("cartItems");
+  const total = document.getElementById("cartTotal");
 
   count.textContent = cart.length;
 
   if(cart.length === 0){
-
-    items.innerHTML =
-      '<div class="empty">Your cart is empty. ♡</div>';
-
-    total.textContent =
-      "Total: ₦0";
-
+    items.innerHTML = '<div class="empty">Your cart is empty. ♡</div>';
+    total.textContent = "Total: ₦0";
     return;
   }
-
 
   items.innerHTML = "";
 
   let totalAmount = 0;
 
-
   cart.forEach((item,index)=>{
 
-    const row =
-      document.createElement("div");
+    totalAmount += item.total;
 
+    const row = document.createElement("div");
     row.className = "cart-item";
+
+    const customText = item.customDesign
+      ? `<br>Custom design: Yes (+₦300)`
+      : "";
+
+    const detailsText = item.details
+      ? `<br>Details: ${escapeHtml(item.details)}`
+      : "";
+
+    const imageText = item.imageName
+      ? `<br>Design picture: ${escapeHtml(item.imageName)}`
+      : "";
 
     row.innerHTML = `
       <span>
-        <strong>${item.name}</strong><br>
-        ${item.price}
+        <strong>${escapeHtml(item.name)}</strong><br>
+        Size: ${escapeHtml(item.size)}<br>
+        Colour: ${escapeHtml(item.colour)}
+        ${customText}
+        ${detailsText}
+        ${imageText}
+        <br><strong>${naira(item.total)}</strong>
       </span>
 
       <button
@@ -1125,30 +1299,30 @@ function updateCart(){
     `;
 
     items.appendChild(row);
-
-    /*
-      Because the prices contain ranges,
-      the cart displays the selected item's
-      displayed price rather than pretending
-      a single price was chosen.
-    */
-
   });
 
+  total.textContent = "Total: " + naira(totalAmount);
+}
 
-  total.textContent =
-    "Items in cart: " + cart.length;
 
+/* Safely display typed customer details */
+function escapeHtml(value){
+  return String(value).replace(/[&<>"']/g, function(char){
+    return {
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[char];
+  });
 }
 
 
 /* Remove item */
 function removeFromCart(index){
-
   cart.splice(index,1);
-
   updateCart();
-
 }
 
 
@@ -1159,41 +1333,87 @@ function removeFromCart(index){
 let selectedProduct = null;
 
 
-function showDetails(
-  name,
-  image,
-  description,
-  price
-){
+function showDetails(name){
+
+  const product = products[name];
+
+  if(!product) return;
 
   selectedProduct = {
     name:name,
-    image:image,
-    description:description,
-    price:price
+    ...product
   };
 
+  document.getElementById("modalImage").src = product.image;
+  document.getElementById("modalImage").alt = name;
+  document.getElementById("modalTitle").textContent = name;
+  document.getElementById("modalDescription").textContent = product.description;
 
-  document.getElementById("modalImage").src =
-    image;
+  const sizeSelect = document.getElementById("sizeSelect");
+  sizeSelect.innerHTML = "";
 
-  document.getElementById("modalImage").alt =
-    name;
+  Object.entries(product.sizes).forEach(([size,price])=>{
+    const option = document.createElement("option");
+    option.value = size;
+    option.textContent = `${size} — ${naira(price)}`;
+    sizeSelect.appendChild(option);
+  });
 
-  document.getElementById("modalTitle").textContent =
-    name;
+  const colourSelect = document.getElementById("colourSelect");
+  colourSelect.innerHTML = "";
 
-  document.getElementById("modalDescription").textContent =
-    description;
+  product.colours.forEach(colour=>{
+    const option = document.createElement("option");
+    option.value = colour;
+    option.textContent = colour;
+    colourSelect.appendChild(option);
+  });
 
-  document.getElementById("modalPrice").textContent =
-    price;
+  const designWrap = document.getElementById("designOptionWrap");
+  const designSelect = document.getElementById("designSelect");
 
+  if(product.customDesign){
+    designWrap.style.display = "block";
+  }else{
+    designWrap.style.display = "none";
+    designSelect.value = "no";
+  }
+
+  document.getElementById("customDetailsWrap").style.display = "none";
+  document.getElementById("customDetails").value = "";
+  document.getElementById("designImage").value = "";
+  document.getElementById("fileName").textContent = "No picture selected";
+
+  updatePriceBreakdown();
 
   document
     .getElementById("detailsModal")
     .classList.add("open");
+}
 
+
+function updatePriceBreakdown(){
+
+  if(!selectedProduct) return;
+
+  const size = document.getElementById("sizeSelect").value;
+  const basePrice = selectedProduct.sizes[size];
+
+  const customDesign =
+    selectedProduct.customDesign &&
+    document.getElementById("designSelect").value === "yes";
+
+  const fee = customDesign ? 300 : 0;
+  const total = basePrice + fee;
+
+  document.getElementById("priceBreakdown").innerHTML = `
+    Size price: <strong>${naira(basePrice)}</strong>
+    ${fee ? `<br>Custom design fee: <strong class="custom-fee">+${naira(fee)}</strong>` : ""}
+    <br><strong>Total: ${naira(total)}</strong>
+  `;
+
+  document.getElementById("customDetailsWrap").style.display =
+    customDesign ? "block" : "none";
 }
 
 
@@ -1202,45 +1422,93 @@ function closeDetails(){
   document
     .getElementById("detailsModal")
     .classList.remove("open");
-
 }
 
 
-/* Add from details window */
+/* Update price when choices change */
+document
+  .getElementById("sizeSelect")
+  .addEventListener("change", updatePriceBreakdown);
 
 document
+  .getElementById("colourSelect")
+  .addEventListener("change", updatePriceBreakdown);
+
+document
+  .getElementById("designSelect")
+  .addEventListener("change", updatePriceBreakdown);
+
+
+/* Show selected filename */
+document
+  .getElementById("designImage")
+  .addEventListener("change", function(){
+
+    const fileName = this.files.length
+      ? this.files[0].name
+      : "No picture selected";
+
+    document.getElementById("fileName").textContent = fileName;
+  });
+
+
+/* Add configured product to cart */
+document
   .getElementById("modalCartButton")
-  .addEventListener("click",function(){
+  .addEventListener("click", function(){
 
     if(!selectedProduct) return;
 
-    addToCart(
-      selectedProduct.name,
-      selectedProduct.price
-    );
+    const size = document.getElementById("sizeSelect").value;
+    const colour = document.getElementById("colourSelect").value;
+
+    const customDesign =
+      selectedProduct.customDesign &&
+      document.getElementById("designSelect").value === "yes";
+
+    const details =
+      document.getElementById("customDetails").value.trim();
+
+    const fileInput =
+      document.getElementById("designImage");
+
+    const imageName =
+      fileInput.files.length
+        ? fileInput.files[0].name
+        : "";
+
+    const basePrice = selectedProduct.sizes[size];
+    const customFee = customDesign ? 300 : 0;
+
+    addToCart({
+      name:selectedProduct.name,
+      size:size,
+      colour:colour,
+      customDesign:customDesign,
+      details:details,
+      imageName:imageName,
+      price:basePrice,
+      customFee:customFee,
+      total:basePrice + customFee
+    });
 
     closeDetails();
-
   });
 
 
 /* Close modal when clicking outside */
-
 document
   .getElementById("detailsModal")
-  .addEventListener("click",function(event){
+  .addEventListener("click", function(event){
 
     if(event.target === this){
-
       closeDetails();
-
     }
 
   });
 
 
 /* Start cart */
-
 updateCart();
 
 </script>

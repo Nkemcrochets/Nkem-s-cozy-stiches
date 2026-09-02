@@ -82,6 +82,9 @@ nav{position:relative;z-index:20;display:flex;justify-content:space-between;alig
 
 .creations .card > .btn{margin-top:10px}
 
+
+.details-error{display:none;margin:10px 0;padding:10px 12px;border-radius:12px;background:#fff0f3;color:#d72f63;font-weight:700;text-align:center}
+
 </style>
 </head>
 <body>
@@ -104,10 +107,10 @@ nav{position:relative;z-index:20;display:flex;justify-content:space-between;alig
 <section class="creations" id="shop">
 <h2 class="section-title"><span>♥</span>Our Creations<span>♥</span></h2>
 <div class="products">
-<article class="card"><img class="product-image" src="jellyfish.png" alt="Twisty Jelly Buddies"><h3>🪼 Twisty Jelly Buddies</h3><p>Sweet little jelly friends full of curls and charm. ♡</p><span class="price">₦4,000 - ₦7,000</span><button class="btn" onclick="showOldDetails('Twisty Jelly Buddies')">♥ View Details ♥</button></article>
-<article class="card"><img class="product-image" src="bow-keychain.png" alt="Pink bow keychain"><h3>🎀 Bow Keychains</h3><p>Perfect little bows to brighten your day. ♡</p><span class="price">₦2,000 - ₦3,500</span><button class="btn" onclick="showOldDetails('Bow Keychains')">♥ View Details ♥</button></article>
-<article class="card"><img class="product-image" src="cozy-carry.png" alt="Ruffle handbag"><h3>👜 Ruffle Handbag</h3><p>Stylish, soft & handmade with lots of love. ♡</p><span class="price">₦8,000 - ₦13,000</span><button class="btn" onclick="showOldDetails('Ruffle Handbag')">♥ View Details ♥</button></article>
-<article class="card"><img class="product-image" src="cozy-scrunchies.png" alt="Pink and white crochet scrunchies"><h3>🎀 Cozy Scrunchies</h3><p>Soft, comfy & cute for every hair day. ♡</p><span class="price">₦2,000 - ₦3,000</span><button class="btn" onclick="showOldDetails('Cozy Scrunchies')">♥ View Details ♥</button></article>
+<article class="card"><img class="product-image" src="jellyfish.png" alt="Twisty Jelly Buddies"><h3>🪼 Twisty Jelly Buddies</h3><p>Sweet little jelly friends full of curls and charm. ♡</p><span class="price">₦4,000 - ₦7,000</span><button class="btn" onclick="showDetails('Twisty Jelly Buddies')">♥ View Details ♥</button></article>
+<article class="card"><img class="product-image" src="bow-keychain.png" alt="Pink bow keychain"><h3>🎀 Bow Keychains</h3><p>Perfect little bows to brighten your day. ♡</p><span class="price">₦2,000 - ₦3,500</span><button class="btn" onclick="showDetails('Bow Keychains')">♥ View Details ♥</button></article>
+<article class="card"><img class="product-image" src="cozy-carry.png" alt="Ruffle handbag"><h3>👜 Ruffle Handbag</h3><p>Stylish, soft & handmade with lots of love. ♡</p><span class="price">₦8,000 - ₦13,000</span><button class="btn" onclick="showDetails('Ruffle Handbag')">♥ View Details ♥</button></article>
+<article class="card"><img class="product-image" src="cozy-scrunchies.png" alt="Pink and white crochet scrunchies"><h3>🎀 Cozy Scrunchies</h3><p>Soft, comfy & cute for every hair day. ♡</p><span class="price">₦2,000 - ₦3,000</span><button class="btn" onclick="showDetails('Cozy Scrunchies')">♥ View Details ♥</button></article>
 </div>
 </section>
 
@@ -196,6 +199,7 @@ const oldProducts={
 };
 
 const allProductColours=["Pink","Purple","White","Blue","Yellow","Orange","Red","Grey","Brown"];
+function showDetails(name){ showOldDetails(name); }
 
 let cart=[];
 function naira(n){return "₦"+Number(n).toLocaleString("en-NG")}
@@ -277,7 +281,7 @@ function addPlush(i){
  const colourFee=count>3?300:0,designFee=custom?300:0;
  const details=custom?document.getElementById("details-"+i).value.trim():"";
  const input=document.getElementById("file-"+i),imageName=input.files.length?input.files[0].name:"";
- if(custom && !details && !imageName){alert("Please describe your custom design or upload a picture.");return}
+ if(custom && !details && !imageName){const e=document.getElementById("old-error");if(e){e.textContent="Please describe your custom design or upload a picture.";e.style.display="block";}return}
  cart.push({name:p.name,size,colour,customDesign:custom,details,imageName,customFee:designFee,colourFee,total:base+designFee+colourFee});
  updateCart();
  closeDetails();
@@ -314,6 +318,7 @@ function showOldDetails(name){
      </div>
 
      <div class="mini-note">More than 3 colours adds a separate ₦300 colour fee.</div>
+     <div class="details-error" id="old-error"></div>
      <div class="fee-box" id="old-fee"></div>
      <button class="btn plush-add" type="button" onclick="addOldProduct()">🛍 Add to Cart</button>
    </div>`;
@@ -351,7 +356,7 @@ function addOldProduct(){
  const checked=[...document.querySelectorAll(".old-colour:checked")].map(x=>x.value);
  const typed=document.getElementById("old-custom-colour").value.trim();
  const colourCount=checked.length+(typed?1:0);
- if(!colourCount){alert("Please choose at least one colour or type a custom colour.");return}
+ if(!colourCount){const e=document.getElementById("old-error");if(e){e.textContent="Please choose at least one colour or type a custom colour.";e.style.display="block";}return}
  const custom=document.getElementById("old-design").value==="yes";
  const details=custom?document.getElementById("old-details").value.trim():"";
  const file=document.getElementById("old-file");

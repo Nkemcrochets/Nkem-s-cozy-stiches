@@ -79,6 +79,9 @@ nav{position:relative;z-index:20;display:flex;justify-content:space-between;alig
 .plush-card .price{display:block;margin:8px 0 2px;font-weight:800}
 .plush-card .details-btn{margin-top:8px}
 
+
+.creations .card > .btn{margin-top:10px}
+
 </style>
 </head>
 <body>
@@ -170,11 +173,30 @@ const plushies=[
 {name:"Octo Boo",emoji:"🐙",image:"octo-plushie.png",description:"A cute crochet octopus with playful, curly tentacles.",sizes:{Small:2800,Medium:5000,Large:7500,"Extra Large":9000}}
 ];
 const oldProducts={
-"Twisty Jelly Buddies":{image:"jellyfish.png",sizes:{Small:4000,Medium:5000,Large:6000,"Extra Large":7000}},
-"Bow Keychains":{image:"bow-keychain.png",sizes:{Small:2000,Medium:2900,Large:3500}},
-"Ruffle Handbag":{image:"cozy-carry.png",sizes:{Small:8000,Medium:9500,Large:11000,"Extra Large":13000}},
-"Cozy Scrunchies":{image:"cozy-scrunchies.png",sizes:{Small:2000,Medium:2500,Large:3000}}
+"Twisty Jelly Buddies":{
+ image:"jellyfish.png",
+ description:"Sweet little jelly friends full of curls and charm. A cute handmade crochet buddy perfect for gifts and collecting.",
+ sizes:{Small:4000,Medium:5000,Large:6000,"Extra Large":7000}
+},
+"Bow Keychains":{
+ image:"bow-keychain.png",
+ description:"Perfect little crochet bows to brighten your day. ♡",
+ sizes:{Small:2000,Medium:2900,Large:3500}
+},
+"Ruffle Handbag":{
+ image:"cozy-carry.png",
+ description:"Stylish, soft and handmade with lots of love. ♡",
+ sizes:{Small:8000,Medium:9500,Large:11000,"Extra Large":13000}
+},
+"Cozy Scrunchies":{
+ image:"cozy-scrunchies.png",
+ description:"Soft, comfy and cute for every hair day. ♡",
+ sizes:{Small:2000,Medium:2500,Large:3000}
+}
 };
+
+const allProductColours=["Pink","Purple","White","Blue","Yellow","Orange","Red","Grey","Brown"];
+
 let cart=[];
 function naira(n){return "₦"+Number(n).toLocaleString("en-NG")}
 function escapeHtml(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
@@ -257,12 +279,96 @@ function addPlush(i){
  const input=document.getElementById("file-"+i),imageName=input.files.length?input.files[0].name:"";
  if(custom && !details && !imageName){alert("Please describe your custom design or upload a picture.");return}
  cart.push({name:p.name,size,colour,customDesign:custom,details,imageName,customFee:designFee,colourFee,total:base+designFee+colourFee});
- updateCart();alert(p.name+" has been added to your cart. ♡");
+ updateCart();
+ closeDetails();
+ document.getElementById("cart").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function showOldDetails(name){
- const p=oldProducts[name];let text=name+"\\n\\nSizes:\\n"+Object.entries(p.sizes).map(([s,v])=>s+" — "+naira(v)).join("\\n");
- alert(text);
+ const p=oldProducts[name];
+ const sizeOptions=Object.entries(p.sizes).map(([size,price])=>`<option value="${size}">${size} — ${naira(price)}</option>`).join("");
+ const colourOptions=allProductColours.map(c=>`<label class="colour-choice"><input type="checkbox" class="old-colour" value="${c}" onchange="updateOldDetails()"> ${c}</label>`).join("");
+ document.getElementById("detailsContent").innerHTML=`
+   <h2>♡ ${escapeHtml(name)} ♡</h2>
+   <img class="product-image" src="${p.image}" alt="${escapeHtml(name)}" style="max-width:300px;display:block;margin:0 auto 14px">
+   <p style="text-align:center">${escapeHtml(p.description)}</p>
+   <div class="plush-options" style="display:block;margin-top:18px">
+     <label>📏 Size</label>
+     <select id="old-size" onchange="updateOldDetails()">${sizeOptions}</select>
+
+     <label>🎨 Colour</label>
+     <div class="colour-grid" id="old-colours">${colourOptions}</div>
+     <input id="old-custom-colour" class="custom-colour-input" type="text" placeholder="Type a custom colour..." oninput="updateOldDetails()">
+
+     <label>✨ Custom Design</label>
+     <select id="old-design" onchange="updateOldDetails()">
+       <option value="no">No custom design</option>
+       <option value="yes">Yes — custom design (+₦300)</option>
+     </select>
+
+     <div id="old-design-box" style="display:none">
+       <label for="old-details">📝 Custom Order Details</label>
+       <textarea id="old-details" placeholder="Tell us what you would like..."></textarea>
+       <label for="old-file">📷 Upload a picture of your design (optional)</label>
+       <input id="old-file" type="file" accept="image/*">
+       <div class="file-name" id="old-file-name">No picture selected</div>
+     </div>
+
+     <div class="mini-note">More than 3 colours adds a separate ₦300 colour fee.</div>
+     <div class="fee-box" id="old-fee"></div>
+     <button class="btn plush-add" type="button" onclick="addOldProduct()">🛍 Add to Cart</button>
+   </div>`;
+ document.getElementById("detailsModal").classList.add("open");
+ const file=document.getElementById("old-file");
+ if(file) file.addEventListener("change",function(){
+   document.getElementById("old-file-name").textContent=this.files.length?this.files[0].name:"No picture selected";
+ });
+ updateOldDetails();
 }
+
+function updateOldDetails(){
+ const name=document.querySelector("#detailsContent h2").textContent.replace(/^♡ | ♡$/g,"").trim();
+ const p=oldProducts[name];
+ if(!p) return;
+ const base=p.sizes[document.getElementById("old-size").value];
+ const checked=[...document.querySelectorAll(".old-colour:checked")].map(x=>x.value);
+ const typed=document.getElementById("old-custom-colour").value.trim();
+ const colourCount=checked.length+(typed?1:0);
+ const colourFee=colourCount>3?300:0;
+ const designFee=document.getElementById("old-design").value==="yes"?300:0;
+ document.getElementById("old-design-box").style.display=designFee?"block":"none";
+ document.getElementById("old-fee").innerHTML=
+   `Size price: <strong>${naira(base)}</strong><br>`+
+   `Custom design fee: <strong>${naira(designFee)}</strong><br>`+
+   `More-than-3-colours fee: <strong>${naira(colourFee)}</strong><br>`+
+   `<strong>Total: ${naira(base+designFee+colourFee)}</strong>`;
+}
+
+function addOldProduct(){
+ const title=document.querySelector("#detailsContent h2").textContent.replace(/^♡ | ♡$/g,"").trim();
+ const p=oldProducts[title];
+ const size=document.getElementById("old-size").value;
+ const base=p.sizes[size];
+ const checked=[...document.querySelectorAll(".old-colour:checked")].map(x=>x.value);
+ const typed=document.getElementById("old-custom-colour").value.trim();
+ const colourCount=checked.length+(typed?1:0);
+ if(!colourCount){alert("Please choose at least one colour or type a custom colour.");return}
+ const custom=document.getElementById("old-design").value==="yes";
+ const details=custom?document.getElementById("old-details").value.trim():"";
+ const file=document.getElementById("old-file");
+ const imageName=file.files.length?file.files[0].name:"";
+ if(custom && !details && !imageName){alert("Please describe your custom design or upload a picture.");return}
+ const colourFee=colourCount>3?300:0,designFee=custom?300:0;
+ cart.push({
+   name:title,size,
+   colour:[...checked,...(typed?["Custom: "+typed]:[])].join(", "),
+   customDesign:custom,details,imageName,
+   customFee:designFee,colourFee,total:base+designFee+colourFee
+ });
+ updateCart();
+ closeDetails();
+ document.getElementById("cart").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
 function updateCart(){
  const count=document.getElementById("cartCount"),items=document.getElementById("cartItems"),total=document.getElementById("cartTotal");
  count.textContent=cart.length;if(!cart.length){items.innerHTML='<div class="empty">Your cart is empty. ♡</div>';total.textContent="Total: ₦0";return}
@@ -280,7 +386,8 @@ document.getElementById("customOrderImage").addEventListener("change",function()
 document.getElementById("customOrderButton").addEventListener("click",function(){
  const d=document.getElementById("customOrderDescription").value.trim(),f=document.getElementById("customOrderImage"),image=f.files.length?f.files[0].name:"",checked=[...document.querySelectorAll('input[name="customColour"]:checked')].map(x=>x.value),typed=document.getElementById("customColourText").value.trim(),count=checked.length+(typed?1:0);
  if(!d&&!image){alert("Please upload a picture or describe your custom order.");return} if(!count){alert("Please choose at least one colour or type a custom colour.");return}
- const cf=count>3?300:0;cart.push({name:"Custom Order",size:"To be discussed",colour:[...checked,...(typed?["Custom: "+typed]:[])].join(", "),customDesign:true,details:d||"See uploaded picture.",imageName:image,customFee:300,colourFee:cf,total:300+cf});updateCart();alert("Your custom order has been added to the cart. ♡");
+ const cf=count>3?300:0;cart.push({name:"Custom Order",size:"To be discussed",colour:[...checked,...(typed?["Custom: "+typed]:[])].join(", "),customDesign:true,details:d||"See uploaded picture.",imageName:image,customFee:300,colourFee:cf,total:300+cf});updateCart();
+document.getElementById("cart").scrollIntoView({behavior:"smooth",block:"start"});
 });
 document.getElementById("placeOrderButton").addEventListener("click",function(){
  if(!cart.length){alert("Your cart is empty. Please add an item first.");return}

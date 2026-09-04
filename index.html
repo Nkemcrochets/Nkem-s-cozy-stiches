@@ -3,406 +3,2086 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nkem's Cozy Stitches</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:"Baloo 2",cursive;background:#ffeaf1;color:#7b3157;overflow-x:hidden}
-.page{min-height:100vh;position:relative;overflow:hidden;background:
-radial-gradient(circle at 10% 18%,rgba(255,255,255,.9) 0 5px,transparent 6px),
-radial-gradient(circle at 25% 7%,rgba(255,255,255,.85) 0 4px,transparent 5px),
-radial-gradient(circle at 48% 10%,rgba(255,255,255,.85) 0 5px,transparent 6px),
-radial-gradient(circle at 72% 12%,rgba(255,255,255,.85) 0 5px,transparent 6px),
-radial-gradient(circle at 91% 23%,rgba(255,255,255,.8) 0 4px,transparent 5px),
-linear-gradient(180deg,#ffeef4 0%,#ffe4ed 48%,#ffedf3 100%)}
-.page:before{content:"";position:absolute;inset:120px 0 auto;height:140px;background:rgba(255,255,255,.23);pointer-events:none}
-.page:after{content:"";position:absolute;left:0;right:0;top:390px;height:125px;background:rgba(255,255,255,.18);pointer-events:none}
-.decor{position:absolute;z-index:1;pointer-events:none;user-select:none}
-.heart{color:#ff5b8a;font-size:24px;text-shadow:0 1px 0 white}.heart.light{color:#ff9fbd;font-size:20px}
-.flower{color:#ff75a2;font-size:27px;text-shadow:1px 1px 0 #fff}.flower.small{font-size:21px}
-.sparkle{color:white;font-size:24px;text-shadow:0 1px 3px #ffabc5}
-.wave{position:absolute;left:0;width:100%;height:34px;z-index:2;pointer-events:none;overflow:hidden}
-.wave svg{width:100%;height:100%}.wave path{fill:none;stroke:#ff7da5;stroke-width:2;stroke-dasharray:8 7;opacity:.85}
-nav{position:relative;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:20px 3%}
-.nav-group{display:flex;align-items:center;gap:4px;border:2px dashed #ff82a8;border-radius:40px;padding:7px 15px;background:rgba(255,245,248,.68);box-shadow:0 2px 0 rgba(255,255,255,.8)}
-.nav-link{border:0;background:transparent;color:#f04f82;font-family:inherit;font-size:23px;padding:7px 13px;cursor:pointer;text-decoration:none;transition:.2s;white-space:nowrap}.nav-link:hover{transform:translateY(-2px);color:#d92e68}
-.hero{position:relative;z-index:5;min-height:470px;display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:center;gap:20px;padding:20px 4% 5px}
-.hero-side{display:flex;justify-content:center;align-items:center;position:relative;min-height:330px}
-.basket,.hero-logo-basket{width:min(390px,90%);max-height:350px;object-fit:contain;filter:drop-shadow(0 12px 12px rgba(165,77,105,.18));transition:.25s}.basket:hover,.hero-logo-basket:hover{transform:translateY(-5px)}
-.hero-center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative}
-.logo{width:min(360px,82%);max-height:360px;object-fit:contain;filter:drop-shadow(0 8px 8px rgba(224,93,130,.12))}
-.brand-title{margin-top:-8px;font-weight:700;font-size:clamp(42px,5vw,76px);line-height:1;color:#f03f76;-webkit-text-stroke:5px white;paint-order:stroke fill;text-shadow:0 5px 0 #ffb2c9}
-.brand-subtitle{margin-top:13px;border:2px dashed #ff79a1;border-radius:30px;padding:3px 42px;color:#ed4c7d;background:rgba(255,250,252,.6);font-size:22px}
-.yarn-ball{position:absolute;width:92px;height:92px;left:7%;bottom:43px;border-radius:50%;background:repeating-linear-gradient(155deg,#ff9cba 0 7px,#f47ea1 8px 11px,#ffb1c8 12px 17px);box-shadow:inset -12px -9px 15px rgba(196,57,100,.16),0 7px 10px rgba(174,67,101,.16)}
-.yarn-ball:after{content:"";position:absolute;width:55px;height:30px;border-bottom:4px solid #f36f98;border-radius:50%;left:18px;top:29px;transform:rotate(-18deg)}
-.yarn-string{position:absolute;width:115px;height:55px;border-bottom:3px solid #f67da0;border-radius:50%;left:-54px;bottom:15px;transform:rotate(-13deg)}
-.creations{position:relative;z-index:10;padding:10px 2% 20px}.section-title{text-align:center;color:#ed3d75;font-size:38px;font-weight:700;margin:10px 0 18px}.section-title span{color:#ff5b8a;margin:0 12px}
-.products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1500px;margin:auto}
-.card{background:rgba(255,251,252,.95);border:2px solid #ffc2d4;border-radius:25px;padding:10px;box-shadow:0 5px 15px rgba(198,77,117,.13),inset 0 0 0 4px rgba(255,255,255,.65);text-align:center;overflow:hidden;transition:.25s}
-.card:hover{transform:translateY(-5px);box-shadow:0 9px 22px rgba(198,77,117,.2)}
-.product-image{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:18px;border:3px solid #fff;background:#ffe8ef}
-.card h3{color:#ed3c75;font-size:24px;margin:9px 3px 2px;line-height:1.05}.card p{color:#7e4564;font-size:16px;line-height:1.25;padding:0 6px}
-.price{display:block;color:#e32f6c;font-size:18px;font-weight:700;margin:5px 0}
-.btn{border:0;border-radius:25px;background:linear-gradient(90deg,#ff4d83,#ff6a98);color:white;font-family:inherit;font-size:18px;padding:8px 18px;cursor:pointer;box-shadow:0 3px 0 #dc356a;transition:.2s;width:92%}.btn:hover{transform:translateY(-2px);box-shadow:0 5px 0 #dc356a}.btn:active{transform:translateY(2px);box-shadow:0 1px 0 #dc356a}
-.plushies-section{margin-top:28px}.plushies-section .section-title{margin-top:25px}
-.plush-card{text-align:left}.plush-card h3{text-align:center}.plush-card .product-image{display:block}
-.plush-options{margin-top:10px}.plush-options label{display:block;color:#7b3157;font-size:16px;font-weight:600;margin:9px 0 4px}
-.plush-options select,.plush-options textarea,.plush-options input[type=file],.custom-colour-input{width:100%;border:2px solid #ffc2d4;border-radius:12px;background:#fff;color:#7b3157;font-family:inherit;font-size:15px;padding:8px 9px}
-.plush-options textarea{min-height:58px;resize:vertical}.mini-note{font-size:13px;color:#9b607c;line-height:1.25;margin-top:3px}
-.colour-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.colour-choice{display:flex!important;align-items:center;gap:4px;margin:0!important;padding:6px 5px;border:1px solid #ffc2d4;border-radius:9px;background:#fff;font-size:12px!important}
-.colour-choice input{accent-color:#ed3d75}.fee-box{margin:9px 0;padding:8px;border-radius:12px;background:#fff0f5;font-size:14px;color:#7b3157;line-height:1.45}.fee-box strong{color:#d92e68}
-.plush-add{width:100%;font-size:16px;margin-top:4px}
-.cart-section{position:relative;z-index:10;max-width:1100px;margin:30px auto;padding:25px;background:rgba(255,250,252,.9);border:2px solid #ffc0d4;border-radius:28px}.cart-section h2{text-align:center;color:#e83b73;font-size:34px;margin-bottom:15px}
-.cart-item{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:12px;margin:8px 0;background:#fff;border-radius:15px;border:1px solid #ffd0de}.cart-total{text-align:right;font-size:23px;font-weight:700;color:#e83b73;margin-top:15px}.empty{text-align:center;font-size:18px;padding:15px}
-.product-options{margin-top:15px;text-align:left}.product-options label{display:block;color:#7b3157;font-size:17px;font-weight:600;margin:10px 0 5px}.product-options select,.product-options textarea,.product-options input[type=file],.product-options input[type=text],.product-options input[type=email],.product-options input[type=tel]{width:100%;border:2px solid #ffc2d4;border-radius:14px;background:#fff;color:#7b3157;font-family:inherit;font-size:16px;padding:9px 11px}.product-options textarea{min-height:80px;resize:vertical}
-.custom-colour-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:7px}.custom-colour-grid label{display:flex;align-items:center;gap:7px;margin:0;padding:9px 10px;border:2px solid #ffc2d4;border-radius:12px;background:#fff;font-size:15px;font-weight:600}.custom-colour-grid input{accent-color:#ed3d75}
-.colour-fee-note{margin-top:7px;font-size:14px;color:#9b607c}.file-name{font-size:14px;margin-top:5px;color:#9b607c}.price-breakdown{margin:12px 0;padding:10px;border-radius:14px;background:#fff0f5;color:#7b3157;font-size:17px;text-align:left}.custom-fee{color:#d92e68;font-weight:700}
-.footer-wave{margin-top:30px}footer{position:relative;z-index:10;text-align:center;padding:25px 15px 35px}.footer-message{color:#ef4d80;font-size:21px;margin-bottom:15px}.socials{display:flex;justify-content:center;gap:12px}.social{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#ff4f86;color:white;border:3px solid white;text-decoration:none;font-size:17px;font-weight:700;box-shadow:0 3px 8px rgba(211,52,104,.2)}
-@media(max-width:1100px){.products{grid-template-columns:repeat(3,1fr)}.hero{grid-template-columns:1fr 1.3fr 1fr}.nav-link{font-size:19px}}
-@media(max-width:750px){nav{flex-direction:column;gap:10px}.hero{grid-template-columns:1fr;min-height:auto;padding-top:20px}.hero-side{min-height:220px}.hero-side:first-child{order:2}.hero-center{order:1}.hero-side:last-child{order:3}.products{grid-template-columns:repeat(2,1fr)}.brand-title{font-size:44px;-webkit-text-stroke:3px white}.yarn-ball{left:10%}.colour-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.nav-group{width:96%;justify-content:center;flex-wrap:wrap}.nav-link{font-size:16px;padding:5px 7px}.products{grid-template-columns:1fr}.brand-subtitle{font-size:17px;padding:3px 20px}}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-.details-btn{margin:10px auto 0;display:block;width:92%;border:2px solid #ff82a8;border-radius:22px;background:#fff0f5;color:#e83b73;font-family:inherit;font-size:18px;font-weight:700;padding:9px 14px;cursor:pointer;transition:.2s}
-.details-btn:hover{transform:translateY(-2px);background:#ffe3ed}
-.plush-options{display:none}
-.details-modal{display:none;position:fixed;inset:0;z-index:1000;background:rgba(90,35,60,.42);padding:20px;overflow:auto}
-.details-modal.open{display:flex;align-items:center;justify-content:center}
-.details-content{width:min(620px,96vw);max-height:92vh;overflow:auto;background:#fff9fb;border:3px solid #ffb4cb;border-radius:28px;padding:22px;box-shadow:0 15px 45px rgba(100,40,70,.25);position:relative}
-.details-content h2{text-align:center;color:#ed3d75;margin-bottom:14px}
-.close-details{position:absolute;right:14px;top:10px;border:0;background:transparent;color:#ed3d75;font-size:30px;cursor:pointer}
+html{
+  scroll-behavior:smooth;
+}
 
+body{
+  font-family:"Baloo 2",cursive;
+  background:#ffeaf1;
+  color:#7b3157;
+  overflow-x:hidden;
+}
 
-.plush-card p{margin:6px 10px 8px;line-height:1.35}
-.plush-card .price{display:block;margin:8px 0 2px;font-weight:800}
-.plush-card .details-btn{margin-top:8px}
+.page{
+  min-height:100vh;
+  background:
+  radial-gradient(circle at 10% 18%,rgba(255,255,255,.9) 0 5px,transparent 6px),
+  radial-gradient(circle at 25% 7%,rgba(255,255,255,.85) 0 4px,transparent 5px),
+  radial-gradient(circle at 48% 10%,rgba(255,255,255,.85) 0 5px,transparent 6px),
+  radial-gradient(circle at 72% 12%,rgba(255,255,255,.85) 0 5px,transparent 6px),
+  radial-gradient(circle at 91% 23%,rgba(255,255,255,.8) 0 4px,transparent 5px),
+  linear-gradient(180deg,#ffeef4,#ffe4ed,#ffedf3);
+}
 
+nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 3%;
+}
 
-.creations .card > .btn{margin-top:10px}
+.nav-group{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  border:2px dashed #ff82a8;
+  border-radius:40px;
+  padding:7px 15px;
+  background:rgba(255,245,248,.8);
+}
 
+.nav-link{
+  border:0;
+  background:transparent;
+  color:#f04f82;
+  font-family:inherit;
+  font-size:20px;
+  padding:7px 13px;
+  cursor:pointer;
+  text-decoration:none;
+}
 
-.details-error{display:none;margin:10px 0;padding:10px 12px;border-radius:12px;background:#fff0f3;color:#d72f63;font-weight:700;text-align:center}
+.nav-link:hover{
+  color:#d92e68;
+}
 
+.hero{
+  min-height:470px;
+  display:grid;
+  grid-template-columns:1fr 1.15fr 1fr;
+  align-items:center;
+  gap:20px;
+  padding:20px 4%;
+}
+
+.hero-side{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:330px;
+}
+
+.basket,
+.hero-logo-basket,
+.logo{
+  width:min(390px,90%);
+  max-height:350px;
+  object-fit:contain;
+}
+
+.hero-center{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+.brand-title{
+  font-weight:700;
+  font-size:clamp(42px,5vw,76px);
+  line-height:1;
+  color:#f03f76;
+  -webkit-text-stroke:5px white;
+  paint-order:stroke fill;
+  text-shadow:0 5px 0 #ffb2c9;
+}
+
+.brand-subtitle{
+  margin-top:13px;
+  border:2px dashed #ff79a1;
+  border-radius:30px;
+  padding:3px 42px;
+  color:#ed4c7d;
+  background:rgba(255,250,252,.6);
+  font-size:22px;
+}
+
+.creations{
+  padding:20px 2%;
+}
+
+.section-title{
+  text-align:center;
+  color:#ed3d75;
+  font-size:38px;
+  margin:15px 0 20px;
+}
+
+.section-title span{
+  color:#ff5b8a;
+  margin:0 12px;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  max-width:1500px;
+  margin:auto;
+}
+
+.card{
+  background:rgba(255,251,252,.95);
+  border:2px solid #ffc2d4;
+  border-radius:25px;
+  padding:10px;
+  box-shadow:0 5px 15px rgba(198,77,117,.13);
+  text-align:center;
+}
+
+.product-image{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:18px;
+  border:3px solid white;
+  background:#ffe8ef;
+}
+
+.card h3{
+  color:#ed3c75;
+  font-size:24px;
+  margin:9px 3px 2px;
+}
+
+.card p{
+  color:#7e4564;
+  font-size:16px;
+  line-height:1.3;
+  padding:0 6px;
+}
+
+.price{
+  display:block;
+  color:#e32f6c;
+  font-size:18px;
+  font-weight:700;
+  margin:5px 0;
+}
+
+.btn,
+.details-btn{
+  border-radius:25px;
+  font-family:inherit;
+  font-size:17px;
+  padding:9px 18px;
+  cursor:pointer;
+  width:92%;
+}
+
+.btn{
+  border:0;
+  background:linear-gradient(90deg,#ff4d83,#ff6a98);
+  color:white;
+  box-shadow:0 3px 0 #dc356a;
+}
+
+.details-btn{
+  border:2px solid #ff82a8;
+  background:#fff0f5;
+  color:#e83b73;
+  font-weight:700;
+  margin:8px auto;
+}
+
+.cart-section{
+  max-width:1100px;
+  margin:30px auto;
+  padding:25px;
+  background:rgba(255,250,252,.9);
+  border:2px solid #ffc0d4;
+  border-radius:28px;
+}
+
+.cart-section h2{
+  text-align:center;
+  color:#e83b73;
+  font-size:34px;
+  margin-bottom:15px;
+}
+
+.product-options{
+  margin-top:15px;
+  text-align:left;
+}
+
+.product-options label{
+  display:block;
+  color:#7b3157;
+  font-size:17px;
+  font-weight:600;
+  margin:10px 0 5px;
+}
+
+.product-options select,
+.product-options textarea,
+.product-options input{
+  width:100%;
+  border:2px solid #ffc2d4;
+  border-radius:14px;
+  background:white;
+  color:#7b3157;
+  font-family:inherit;
+  font-size:16px;
+  padding:9px 11px;
+}
+
+.product-options textarea{
+  min-height:80px;
+  resize:vertical;
+}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:12px;
+  margin:8px 0;
+  background:white;
+  border-radius:15px;
+  border:1px solid #ffd0de;
+}
+
+.cart-total{
+  text-align:right;
+  font-size:23px;
+  font-weight:700;
+  color:#e83b73;
+  margin-top:15px;
+}
+
+.empty{
+  text-align:center;
+  font-size:18px;
+  padding:15px;
+}
+
+.colour-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+}
+
+.colour-choice{
+  display:flex!important;
+  align-items:center;
+  gap:5px;
+  margin:0!important;
+  padding:6px;
+  border:1px solid #ffc2d4;
+  border-radius:9px;
+  background:white;
+  font-size:13px!important;
+}
+
+.colour-choice input{
+  width:auto;
+  accent-color:#ed3d75;
+}
+
+.mini-note{
+  font-size:13px;
+  color:#9b607c;
+  margin-top:5px;
+}
+
+.fee-box{
+  margin:10px 0;
+  padding:10px;
+  border-radius:12px;
+  background:#fff0f5;
+  line-height:1.5;
+}
+
+.details-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:rgba(90,35,60,.45);
+  padding:20px;
+  overflow:auto;
+}
+
+.details-modal.open{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.details-content{
+  width:min(620px,96vw);
+  max-height:92vh;
+  overflow:auto;
+  background:#fff9fb;
+  border:3px solid #ffb4cb;
+  border-radius:28px;
+  padding:22px;
+  position:relative;
+}
+
+.details-content h2{
+  text-align:center;
+  color:#ed3d75;
+  margin-bottom:14px;
+}
+
+.close-details{
+  position:absolute;
+  right:14px;
+  top:8px;
+  border:0;
+  background:transparent;
+  color:#ed3d75;
+  font-size:30px;
+  cursor:pointer;
+}
+
+.details-options{
+  margin-top:18px;
+}
+
+.details-options label{
+  display:block;
+  font-weight:600;
+  margin:10px 0 5px;
+}
+
+.details-options select,
+.details-options textarea,
+.details-options input[type="file"],
+.details-options input[type="text"]{
+  width:100%;
+  border:2px solid #ffc2d4;
+  border-radius:12px;
+  padding:9px;
+  font-family:inherit;
+}
+
+.details-options textarea{
+  min-height:75px;
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  color:#ef4d80;
+  font-size:20px;
+}
+
+@media(max-width:1100px){
+  .products{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+
+@media(max-width:750px){
+  nav{
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .hero{
+    grid-template-columns:1fr;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .brand-title{
+    font-size:44px;
+  }
+}
+
+@media(max-width:480px){
+  .products{
+    grid-template-columns:1fr;
+  }
+
+  .nav-group{
+    width:96%;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  .nav-link{
+    font-size:16px;
+  }
+
+  .colour-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
 </style>
 </head>
+
 <body>
+
 <div class="page">
-<span class="decor heart" style="top:105px;left:2%">♥</span><span class="decor flower" style="top:82px;left:27%">✿</span><span class="decor heart light" style="top:145px;left:39%">♡</span><span class="decor flower" style="top:120px;left:70%">✿</span><span class="decor heart" style="top:90px;right:2%">♥</span>
-<span class="decor flower small" style="top:230px;left:1%">✿</span><span class="decor heart light" style="top:270px;left:17%">♡</span><span class="decor heart" style="top:205px;left:31%">♥</span><span class="decor flower small" style="top:255px;right:23%">✿</span><span class="decor heart light" style="top:310px;right:8%">♡</span>
-<div class="wave" style="top:92px"><svg viewBox="0 0 1200 40" preserveAspectRatio="none"><path d="M0 20 C60 0,120 0,180 20 S300 40,360 20 S480 0,540 20 S660 40,720 20 S840 0,900 20 S1020 40,1080 20 S1140 0,1200 20"/></svg></div>
 
 <nav>
-<div class="nav-group"><a class="nav-link" href="#home">⌂ Home</a><a class="nav-link" href="#shop">🧶 Shop</a><a class="nav-link" href="#about">♡ About</a></div>
-<div class="nav-group"><a class="nav-link" href="#contact">🌸 Contact</a><a class="nav-link" href="#custom-order">✨ Custom Order</a><a class="nav-link" href="#cart">🛍 Cart (<span id="cartCount">0</span>)</a></div>
+  <div class="nav-group">
+    <a class="nav-link" href="#home">⌂ Home</a>
+    <a class="nav-link" href="#shop">🧶 Shop</a>
+    <a class="nav-link" href="#about">♡ About</a>
+  </div>
+
+  <div class="nav-group">
+    <a class="nav-link" href="#contact">🌸 Contact</a>
+    <a class="nav-link" href="#custom-order">✨ Custom Order</a>
+    <a class="nav-link" href="#cart">🛍 Cart (<span id="cartCount">0</span>)</a>
+  </div>
 </nav>
 
+
 <section class="hero" id="home">
-<div class="hero-side"><img class="basket" src="basket.png" alt="Pink yarn basket with crochet hooks"></div>
-<div class="hero-center"><img class="logo" src="logo.png" alt="Nkem's Cozy Stitches logo"><h1 class="brand-title">Nkem's Cozy Stitches</h1><div class="brand-subtitle">Handmade &nbsp; ♥ &nbsp; With Love</div></div>
-<div class="hero-side"><div class="yarn-ball"><div class="yarn-string"></div></div><img class="hero-logo-basket" src="logo-basket.png" alt="Nkem's Cozy Stitches logo and crochet basket"></div>
+
+  <div class="hero-side">
+    <img class="basket" src="basket.png" alt="Yarn basket">
+  </div>
+
+  <div class="hero-center">
+    <img class="logo" src="logo.png" alt="Nkem's Cozy Stitches">
+    <h1 class="brand-title">Nkem's Cozy Stitches</h1>
+    <div class="brand-subtitle">
+      Handmade ♥ With Love
+    </div>
+  </div>
+
+  <div class="hero-side">
+    <img class="hero-logo-basket" src="logo-basket.png" alt="Crochet basket">
+  </div>
+
 </section>
+
+
+<!-- ORIGINAL PRODUCTS -->
 
 <section class="creations" id="shop">
-<h2 class="section-title"><span>♥</span>Our Creations<span>♥</span></h2>
+
+<h2 class="section-title">
+  <span>♥</span>Our Creations<span>♥</span>
+</h2>
+
 <div class="products">
-<article class="card"><img class="product-image" src="jellyfish.png" alt="Twisty Jelly Buddies"><h3>🪼 Twisty Jelly Buddies</h3><p>Sweet little jelly friends full of curls and charm. ♡</p><span class="price">₦4,000 - ₦7,000</span><button class="btn" onclick="showDetails('Twisty Jelly Buddies')">♥ View Details ♥</button></article>
-<article class="card"><img class="product-image" src="bow-keychain.png" alt="Pink bow keychain"><h3>🎀 Bow Keychains</h3><p>Perfect little bows to brighten your day. ♡</p><span class="price">₦2,000 - ₦3,500</span><button class="btn" onclick="showDetails('Bow Keychains')">♥ View Details ♥</button></article>
-<article class="card"><img class="product-image" src="cozy-carry.png" alt="Ruffle handbag"><h3>👜 Ruffle Handbag</h3><p>Stylish, soft & handmade with lots of love. ♡</p><span class="price">₦8,000 - ₦13,000</span><button class="btn" onclick="showDetails('Ruffle Handbag')">♥ View Details ♥</button></article>
-<article class="card"><img class="product-image" src="cozy-scrunchies.png" alt="Pink and white crochet scrunchies"><h3>🎀 Cozy Scrunchies</h3><p>Soft, comfy & cute for every hair day. ♡</p><span class="price">₦2,000 - ₦3,000</span><button class="btn" onclick="showDetails('Cozy Scrunchies')">♥ View Details ♥</button></article>
+
+<article class="card">
+<img class="product-image" src="jellyfish.png" alt="Twisty Jelly Buddies">
+<h3>🪼 Twisty Jelly Buddies</h3>
+<p>Sweet little jelly friends full of curls and charm. ♡</p>
+<span class="price">₦4,000 - ₦7,000</span>
+<button class="details-btn" onclick="showOldDetails('Twisty Jelly Buddies')">
+♥ View Details ♥
+</button>
+</article>
+
+<article class="card">
+<img class="product-image" src="bow-keychain.png" alt="Bow Keychains">
+<h3>🎀 Bow Keychains</h3>
+<p>Perfect little bows to brighten your day. ♡</p>
+<span class="price">₦2,000 - ₦3,500</span>
+<button class="details-btn" onclick="showOldDetails('Bow Keychains')">
+♥ View Details ♥
+</button>
+</article>
+
+<article class="card">
+<img class="product-image" src="cozy-carry.png" alt="Ruffle Handbag">
+<h3>👜 Ruffle Handbag</h3>
+<p>Stylish, soft and handmade with lots of love. ♡</p>
+<span class="price">₦8,000 - ₦13,000</span>
+<button class="details-btn" onclick="showOldDetails('Ruffle Handbag')">
+♥ View Details ♥
+</button>
+</article>
+
+<article class="card">
+<img class="product-image" src="cozy-scrunchies.png" alt="Cozy Scrunchies">
+<h3>🎀 Cozy Scrunchies</h3>
+<p>Soft, comfy and cute for every hair day. ♡</p>
+<span class="price">₦2,000 - ₦3,000</span>
+<button class="details-btn" onclick="showOldDetails('Cozy Scrunchies')">
+♥ View Details ♥
+</button>
+</article>
+
 </div>
 </section>
 
-<section class="creations plushies-section" id="plushies">
-<h2 class="section-title"><span>♥</span>Plushies<span>♥</span></h2>
+
+<!-- PLUSHIES -->
+
+<section class="creations" id="plushies">
+
+<h2 class="section-title">
+  <span>♥</span>Plushies<span>♥</span>
+</h2>
+
 <div class="products" id="plushieGrid"></div>
+
 </section>
+
+
+<!-- KEYCHAINS -->
+
+<section class="creations" id="keychains">
+
+<h2 class="section-title">
+  <span>♥</span>Keychains<span>♥</span>
+</h2>
+
+<div class="products" id="keychainGrid"></div>
+
+</section>
+
+
+<!-- CUSTOM ORDER -->
 
 <section class="cart-section" id="custom-order">
+
 <h2>✨ Custom Order</h2>
-<p style="text-align:center;font-size:20px;line-height:1.5">Want something that isn't in our collection? ♡ You can request <strong>any crochet item you would like</strong>.</p>
-<div class="product-options" style="max-width:650px;margin:22px auto 0">
-<label>🎨 Choose your colours</label>
-<div class="custom-colour-grid">
-<label><input type="checkbox" name="customColour" value="Pink"> Pink</label><label><input type="checkbox" name="customColour" value="Purple"> Purple</label><label><input type="checkbox" name="customColour" value="White"> White</label><label><input type="checkbox" name="customColour" value="Blue"> Blue</label><label><input type="checkbox" name="customColour" value="Yellow"> Yellow</label><label><input type="checkbox" name="customColour" value="Orange"> Orange</label><label><input type="checkbox" name="customColour" value="Red"> Red</label><label><input type="checkbox" name="customColour" value="Grey"> Grey</label><label><input type="checkbox" name="customColour" value="Brown"> Brown</label>
+
+<p style="text-align:center;font-size:19px">
+Want something that isn't in our collection? ♡
+Request any crochet item you would like!
+</p>
+
+<div class="product-options" style="max-width:650px;margin:20px auto">
+
+<label>🎨 Choose Colours</label>
+
+<div class="colour-grid">
+<label class="colour-choice"><input type="checkbox" name="customColour" value="Pink">Pink</label>
+<label class="colour-choice"><input type="checkbox" name="customColour" value="Purple">Purple</label>
+<label class="colour-choice"><input type="checkbox" name="customColour" value="White">White</label>
+<label class="colour-choice"><input type="checkbox" name="customColour" value="Blue">Blue</label>
+<label class="colour-choice"><input type="checkbox" name="customColour" value="Yellow">Yellow</label>
+<label class="colour-choice"><input type="checkbox" name="customColour" value="Orange">Orange</label>
+<label class="colour-choice"><input type="checkbox" name="customColour" value="Red">Red</label>
+<label class="colour-choice"><input type="checkbox" name="customColour" value="Grey">Grey</label>
+<label class="colour-choice"><input type="checkbox" name="customColour" value="Brown">Brown</label>
 </div>
-<label for="customColourText">✏️ Custom colour</label><input id="customColourText" type="text" placeholder="Type another colour you want...">
-<div class="colour-fee-note">More than 3 colours adds a separate <strong>₦300 colour fee</strong>.</div>
-<label for="customOrderImage">📷 Upload a picture</label><input id="customOrderImage" type="file" accept="image/*"><div class="file-name" id="customOrderFileName">No picture selected</div>
-<label for="customOrderDescription">📝 Describe your custom order</label><textarea id="customOrderDescription" placeholder="Tell us what you would like..."></textarea>
-<div class="price-breakdown">Custom design fee: <strong class="custom-fee">₦300</strong><br>More-than-3-colours fee: <strong id="customColourFee">₦0</strong><br><strong>Current fees total: <span id="customFeesTotal">₦300</span></strong></div>
-<button class="btn" type="button" id="customOrderButton">✨ Add Custom Order to Cart</button>
+
+<label>✏️ Custom Colour</label>
+<input id="customColourText" type="text" placeholder="Type another colour...">
+
+<p class="mini-note">
+More than 3 colours adds a separate ₦300 fee.
+</p>
+
+<label>📷 Upload a Picture</label>
+<input id="customOrderImage" type="file" accept="image/*">
+
+<label>📝 Describe Your Custom Order</label>
+<textarea id="customOrderDescription" placeholder="Tell us what you would like..."></textarea>
+
+<div class="fee-box">
+Custom design fee: <strong>₦300</strong><br>
+More-than-3-colours fee: <strong id="customColourFee">₦0</strong><br>
+<strong>Total fees: <span id="customFeesTotal">₦300</span></strong>
+</div>
+
+<button class="btn" type="button" id="customOrderButton">
+✨ Add Custom Order to Cart
+</button>
+
 </div>
 </section>
 
+
+<!-- CART -->
+
 <section class="cart-section" id="cart">
-<h2>🛍 Your Cart</h2><div id="cartItems"><div class="empty">Your cart is empty. ♡</div></div><div class="cart-total" id="cartTotal">Total: ₦0</div>
-<div class="product-options" style="max-width:650px;margin:25px auto 0">
-<h3 style="text-align:center;color:#e83b73;font-size:25px;margin-bottom:10px">💌 Customer Details</h3>
-<label for="customerName">👤 Full Name</label><input id="customerName" type="text" placeholder="Enter your full name">
-<label for="customerPhone">📱 Phone Number</label><input id="customerPhone" type="tel" placeholder="Enter your phone number">
-<label for="customerEmail">📧 Email Address</label><input id="customerEmail" type="email" placeholder="Enter your email address">
-<label for="customerAddress">🏠 Delivery Address</label><textarea id="customerAddress" placeholder="Enter your delivery address..."></textarea>
-<label for="customerNotes">📝 Extra Notes (optional)</label><textarea id="customerNotes" placeholder="Anything else you would like Nkem's Cozy Stitches to know?"></textarea>
-<p style="font-size:14px;color:#9b607c;margin:10px 0">When you place your order, your email app will open with the order details prepared for <strong>nkems.cozy.stiches@gmail.com</strong>. If you uploaded a design picture, attach it to the email before sending.</p>
-<button class="btn" type="button" id="placeOrderButton">💌 Place Order & Email Nkem</button>
-</div></section>
 
-<section class="cart-section" id="about"><h2>♡ About Nkem's Cozy Stitches ♡</h2><p style="text-align:center;font-size:20px;line-height:1.5"><strong>Nkem's Cozy Stitches</strong> is a handmade crochet brand creating carefully crafted accessories, plushies, and everyday pieces designed with creativity, comfort, and attention to detail.</p><p style="text-align:center;font-size:22px;line-height:1.5;margin-top:18px;color:#ed3d75;font-weight:700">Handmade with care. Made to be loved. 🌸</p></section>
-<section class="cart-section" id="contact"><h2>🌸 Contact</h2><p style="text-align:center;font-size:20px">Have a question about an item or an order? ♡</p><div style="text-align:center;margin-top:12px"><a class="btn" style="display:inline-block;text-decoration:none;width:auto" href="mailto:nkems.cozy.stiches@gmail.com">✉ Email Nkem</a></div></section>
+<h2>🛍 Your Cart</h2>
 
-<footer><div class="footer-message">♥ Thank you for supporting small dreams! ♥</div><div class="socials"><a class="social" href="#" aria-label="Instagram">◎</a><a class="social" href="#" aria-label="TikTok">♪</a><a class="social" href="#" aria-label="Pinterest">P</a><a class="social" href="mailto:nkems.cozy.stiches@gmail.com" aria-label="Email">✉</a></div></footer>
+<div id="cartItems">
+<div class="empty">Your cart is empty. ♡</div>
+</div>
+
+<div class="cart-total" id="cartTotal">
+Total: ₦0
 </div>
 
 
-<div class="details-modal" id="detailsModal" onclick="closeDetails(event)">
-  <div class="details-content" onclick="event.stopPropagation()">
-    <button class="close-details" type="button" onclick="closeDetails()">×</button>
-    <div id="detailsContent"></div>
-  </div>
+<div class="product-options" style="max-width:650px;margin:25px auto">
+
+<h3 style="text-align:center;color:#e83b73;font-size:25px">
+💌 Customer Details
+</h3>
+
+<label>👤 Full Name</label>
+<input id="customerName" type="text">
+
+<label>📱 Phone Number</label>
+<input id="customerPhone" type="tel">
+
+<label>📧 Email Address</label>
+<input id="customerEmail" type="email">
+
+<label>🏠 Delivery Address</label>
+<textarea id="customerAddress"></textarea>
+
+<label>📝 Extra Notes</label>
+<textarea id="customerNotes"></textarea>
+
+<button class="btn" type="button" id="placeOrderButton">
+💌 Place Order & Email Nkem
+</button>
+
 </div>
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="cart-section" id="about">
+
+<h2>♡ About Nkem's Cozy Stitches ♡</h2>
+
+<p style="text-align:center;font-size:20px;line-height:1.5">
+<strong>Nkem's Cozy Stitches</strong> is a handmade crochet brand creating
+carefully crafted accessories, plushies and everyday pieces designed
+with creativity, comfort and attention to detail.
+</p>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section class="cart-section" id="contact">
+
+<h2>🌸 Contact</h2>
+
+<p style="text-align:center;font-size:20px">
+Have a question about an item or an order? ♡
+</p>
+
+<div style="text-align:center;margin-top:15px">
+
+<a class="btn"
+style="display:inline-block;text-decoration:none;width:auto"
+href="mailto:nkems.cozy.stiches@gmail.com">
+✉ Email Nkem
+</a>
+
+</div>
+
+</section>
+
+
+<footer>
+♥ Thank you for supporting small dreams! ♥
+</footer>
+
+</div>
+
+
+<!-- DETAILS POPUP -->
+
+<div class="details-modal" id="detailsModal">
+
+<div class="details-content">
+
+<button class="close-details" onclick="closeDetails()">
+×
+</button>
+
+<div id="detailsContent"></div>
+
+</div>
+</div>
+
 
 <script>
-const colours=["Pink","Purple","White","Blue","Yellow","Orange","Red","Grey","Brown"];
-const plushies=[
-{name:"Froggie Friend",emoji:"🐸",image:"frog-plushie.png",description:"A sweet handmade frog friend with a soft, cuddly crochet look.",sizes:{Small:3300,Medium:5300,Large:6800,"Extra Large":8300}},
-{name:"Mushroom Magic",emoji:"🍄",image:"mushroom-plushie.png",description:"A cute little mushroom plushie made to bring a bit of handmade magic.",sizes:{Small:3800,Medium:5300,Large:6800,"Extra Large":8300}},
-{name:"Snuggly Cuddles",emoji:"🧸",image:"bear-plushie.png",description:"A soft, cuddly crochet bear ready for lots of snuggles.",sizes:{Small:2800,Medium:4800,Large:6300,"Extra Large":8300}},
-{name:"Whaley Wishes",emoji:"🐳",image:"whale-plushie.png",description:"A gentle crochet whale with a sweet, simple shape.",sizes:{Small:2800,Medium:4800,Large:6300,"Extra Large":8300}},
-{name:"Tilly Turtle",emoji:"🐢",image:"turtle-plushie.png",description:"A charming handmade turtle with a smooth rounded shell.",sizes:{Small:2800,Medium:4800,Large:6300,"Extra Large":7800}},
-{name:"Panda Puffs",emoji:"🐼",image:"panda-plushie.png",description:"A fluffy-looking crochet panda friend made with lots of care.",sizes:{Small:3300,Medium:5300,Large:7300,"Extra Large":8800}},
-{name:"Cotton Cuddles",emoji:"🐰",image:"bunny-plushie.png",description:"A soft bunny friend with floppy ears and a cuddly handmade feel.",sizes:{Small:4500,Medium:6000,Large:9000,"Extra Large":11000}},
-{name:"Octo Boo",emoji:"🐙",image:"octo-plushie.png",description:"A cute crochet octopus with playful, curly tentacles.",sizes:{Small:2800,Medium:5000,Large:7500,"Extra Large":9000}}
+
+const colours=[
+"Pink","Purple","White","Blue","Yellow",
+"Orange","Red","Grey","Brown"
 ];
-const oldProducts={
-"Twisty Jelly Buddies":{
- image:"jellyfish.png",
- description:"Sweet little jelly friends full of curls and charm. A cute handmade crochet buddy perfect for gifts and collecting.",
- sizes:{Small:4000,Medium:5000,Large:6000,"Extra Large":7000}
-},
-"Bow Keychains":{
- image:"bow-keychain.png",
- description:"Perfect little crochet bows to brighten your day. ♡",
- sizes:{Small:2000,Medium:2900,Large:3500}
-},
-"Ruffle Handbag":{
- image:"cozy-carry.png",
- description:"Stylish, soft and handmade with lots of love. ♡",
- sizes:{Small:8000,Medium:9500,Large:11000,"Extra Large":13000}
-},
-"Cozy Scrunchies":{
- image:"cozy-scrunchies.png",
- description:"Soft, comfy and cute for every hair day. ♡",
- sizes:{Small:2000,Medium:2500,Large:3000}
+
+
+/* =========================
+   PLUSHIES
+========================= */
+
+const plushies=[
+
+{
+name:"Froggie Friend",
+emoji:"🐸",
+image:"frog-plushie.png",
+description:"A sweet handmade frog friend with a soft, cuddly crochet look.",
+sizes:{
+Small:3300,
+Medium:5300,
+Large:6800,
+"Extra Large":8300
 }
+},
+
+{
+name:"Mushroom Magic",
+emoji:"🍄",
+image:"mushroom-plushie.png",
+description:"A cute little mushroom plushie made to bring a bit of handmade magic.",
+sizes:{
+Small:3800,
+Medium:5300,
+Large:6800,
+"Extra Large":8300
+}
+},
+
+{
+name:"Snuggly Cuddles",
+emoji:"🧸",
+image:"bear-plushie.png",
+description:"A soft, cuddly crochet bear ready for lots of snuggles.",
+sizes:{
+Small:2800,
+Medium:4800,
+Large:6300,
+"Extra Large":8300
+}
+},
+
+{
+name:"Whaley Wishes",
+emoji:"🐳",
+image:"whale-plushie.png",
+description:"A gentle crochet whale with a sweet simple shape.",
+sizes:{
+Small:2800,
+Medium:4800,
+Large:6300,
+"Extra Large":8300
+}
+},
+
+{
+name:"Tilly Turtle",
+emoji:"🐢",
+image:"turtle-plushie.png",
+description:"A charming handmade turtle with a smooth rounded shell.",
+sizes:{
+Small:2800,
+Medium:4800,
+Large:6300,
+"Extra Large":7800
+}
+},
+
+{
+name:"Panda Puffs",
+emoji:"🐼",
+image:"panda-plushie.png",
+description:"A fluffy-looking crochet panda friend made with lots of care.",
+sizes:{
+Small:3300,
+Medium:5300,
+Large:7300,
+"Extra Large":8800
+}
+},
+
+{
+name:"Cotton Cuddles",
+emoji:"🐰",
+image:"bunny-plushie.png",
+description:"A soft bunny friend with floppy ears and a cuddly handmade feel.",
+sizes:{
+Small:4500,
+Medium:6000,
+Large:9000,
+"Extra Large":11000
+}
+},
+
+{
+name:"Octo Boo",
+emoji:"🐙",
+image:"octo-plushie.png",
+description:"A cute crochet octopus with playful curly tentacles.",
+sizes:{
+Small:2800,
+Medium:5000,
+Large:7500,
+"Extra Large":9000
+}
+}
+];
+
+
+/* =========================
+   KEYCHAINS
+========================= */
+
+const keychains=[
+
+{
+name:"Cherry Keychain",
+emoji:"🍒",
+image:"cherry-keychain.png",
+description:"A cute handmade crochet cherry keychain.",
+sizes:{
+Small:900,
+Medium:1500,
+Large:2500
+}
+},
+
+{
+name:"Octo Keychain",
+emoji:"🐙",
+image:"octo-keychain.png",
+description:"A tiny handmade crochet octopus keychain.",
+sizes:{
+Small:950,
+Medium:1500,
+Large:2500
+}
+},
+
+{
+name:"Ice Cream Keychain",
+emoji:"🍦",
+image:"icecream-keychain.png",
+description:"A sweet little crochet ice cream keychain.",
+sizes:{
+Small:1500,
+Medium:2300,
+Large:3000
+}
+},
+
+{
+name:"Bow Keychain",
+emoji:"🎀",
+image:"bow-keychain-new.png",
+description:"A cute handmade crochet bow keychain.",
+sizes:{
+Small:700,
+Medium:1200,
+Large:2000
+}
+},
+
+{
+name:"Tulip Keychain",
+emoji:"🌷",
+image:"tulip-keychain.png",
+description:"A sweet handmade crochet tulip keychain.",
+sizes:{
+Small:1700,
+Medium:2500,
+Large:3000
+}
+},
+
+{
+name:"Mushroom Keychain",
+emoji:"🍄",
+image:"mushroom-keychain.png",
+description:"A tiny crochet mushroom keychain.",
+sizes:{
+Small:1500,
+Medium:2300,
+Large:2800
+}
+},
+
+{
+name:"Star Keychain",
+emoji:"⭐",
+image:"star-keychain.png",
+description:"A cute crochet star keychain.",
+sizes:{
+Small:500,
+Medium:900,
+Large:1500
+}
+},
+
+{
+name:"Jellyfish Keychain",
+emoji:"🪼",
+image:"jellyfish-keychain-new.png",
+description:"A tiny crochet jellyfish keychain with curly tentacles.",
+sizes:{
+Small:2000,
+Medium:3000,
+Large:4000
+}
+},
+
+{
+name:"Flower Keychain",
+emoji:"🌸",
+image:"flower-keychain.png",
+description:"A pretty handmade crochet flower keychain.",
+sizes:{
+Small:600,
+Medium:900,
+Large:1500
+}
+}
+];
+
+
+/* =========================
+   ORIGINAL PRODUCTS
+========================= */
+
+const oldProducts={
+
+"Twisty Jelly Buddies":{
+image:"jellyfish.png",
+description:"Sweet little jelly friends full of curls and charm.",
+sizes:{
+Small:4000,
+Medium:5000,
+Large:6000,
+"Extra Large":7000
+}
+},
+
+"Bow Keychains":{
+image:"bow-keychain.png",
+description:"Perfect little crochet bows to brighten your day.",
+sizes:{
+Small:2000,
+Medium:2900,
+Large:3500
+}
+},
+
+"Ruffle Handbag":{
+image:"cozy-carry.png",
+description:"Stylish, soft and handmade with lots of love.",
+sizes:{
+Small:8000,
+Medium:9500,
+Large:11000,
+"Extra Large":13000
+}
+},
+
+"Cozy Scrunchies":{
+image:"cozy-scrunchies.png",
+description:"Soft, comfy and cute for every hair day.",
+sizes:{
+Small:2000,
+Medium:2500,
+Large:3000
+}
+}
+
 };
 
-const allProductColours=["Pink","Purple","White","Blue","Yellow","Orange","Red","Grey","Brown"];
-function showDetails(name){ showOldDetails(name); }
 
 let cart=[];
-function naira(n){return "₦"+Number(n).toLocaleString("en-NG")}
-function escapeHtml(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+
+
+function naira(number){
+return "₦"+Number(number).toLocaleString("en-NG");
+}
+
+
+function escapeHtml(value){
+return String(value).replace(/[&<>"']/g,function(char){
+return {
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+}[char];
+});
+}
+
+
+/* =========================
+   PLUSHIE CARDS
+========================= */
 
 function renderPlushies(){
- const grid=document.getElementById("plushieGrid");
- grid.innerHTML=plushies.map((p,i)=>{
-   const prices=Object.values(p.sizes);
-   const low=Math.min(...prices);
-   const high=Math.max(...prices);
-   return `
-   <article class="card plush-card">
-    <img class="product-image" src="${p.image}" alt="${escapeHtml(p.name)}">
-    <h3>${p.emoji} ${escapeHtml(p.name)}</h3>
-    <p>${escapeHtml(p.description)}</p>
-    <span class="price">${naira(low)} - ${naira(high)}</span>
-    <button class="details-btn" type="button" onclick="showPlushDetails(${i})">♥ View Details ♥</button>
-   </article>`;
- }).join("");
+
+const grid=document.getElementById("plushieGrid");
+
+grid.innerHTML=plushies.map((p,i)=>{
+
+const prices=Object.values(p.sizes);
+
+return `
+<article class="card">
+
+<img class="product-image"
+src="${p.image}"
+alt="${escapeHtml(p.name)}">
+
+<h3>${p.emoji} ${escapeHtml(p.name)}</h3>
+
+<p>${escapeHtml(p.description)}</p>
+
+<span class="price">
+${naira(Math.min(...prices))} - ${naira(Math.max(...prices))}
+</span>
+
+<button class="details-btn"
+onclick="showPlushDetails(${i})">
+♥ View Details ♥
+</button>
+
+</article>
+`;
+
+}).join("");
+
 }
+
+
+/* =========================
+   KEYCHAIN CARDS
+========================= */
+
+function renderKeychains(){
+
+const grid=document.getElementById("keychainGrid");
+
+grid.innerHTML=keychains.map((p,i)=>{
+
+const prices=Object.values(p.sizes);
+
+return `
+<article class="card">
+
+<img class="product-image"
+src="${p.image}"
+alt="${escapeHtml(p.name)}">
+
+<h3>${p.emoji} ${escapeHtml(p.name)}</h3>
+
+<p>${escapeHtml(p.description)}</p>
+
+<span class="price">
+${naira(Math.min(...prices))} - ${naira(Math.max(...prices))}
+</span>
+
+<button class="details-btn"
+onclick="showKeychainDetails(${i})">
+♥ View Details ♥
+</button>
+
+</article>
+`;
+
+}).join("");
+
+}
+
+
+/* =========================
+   PLUSHIE DETAILS
+========================= */
+
 function showPlushDetails(i){
- const p=plushies[i];
- const sizeOptions=Object.entries(p.sizes).map(([size,price])=>`<option value="${size}">${size} — ${naira(price)}</option>`).join("");
- document.getElementById("detailsContent").innerHTML=`
-   <h2>${p.emoji} ${escapeHtml(p.name)}</h2>
-   <img class="product-image" src="${p.image}" alt="${escapeHtml(p.name)}" style="max-width:300px;display:block;margin:0 auto 14px">
-   <p style="text-align:center">${escapeHtml(p.description)}</p>
-   <div class="plush-options" style="display:block;margin-top:18px">
-     <label for="size-${i}">📏 Size</label>
-     <select id="size-${i}" onchange="updatePlush(${i})">${sizeOptions}</select>
 
-     <label>✨ Custom Design</label>
-     <select id="design-${i}" onchange="updatePlush(${i})">
-       <option value="no">No custom design</option>
-       <option value="yes">Yes — custom design (+₦300)</option>
-     </select>
+showProductDetails(plushies[i],"plush",i);
 
-     <div id="design-box-${i}" style="display:none">
-       <label for="details-${i}">📝 Describe your custom design</label>
-       <textarea id="details-${i}" placeholder="Describe what you want..."></textarea>
-       <label for="file-${i}">📷 Upload a picture (optional)</label>
-       <input id="file-${i}" type="file" accept="image/*">
-       <div class="file-name" id="file-name-${i}">No picture selected</div>
-     </div>
+}
 
-     <label>🎨 Custom Colour</label>
-     <div class="colour-grid">${colours.map(c=>`<label class="colour-choice"><input type="checkbox" class="colour-${i}" value="${c}" onchange="updatePlush(${i})">${c}</label>`).join("")}</div>
-     <input class="custom-colour-input" id="custom-colour-${i}" type="text" placeholder="Type a custom colour..." oninput="updatePlush(${i})">
-     <div class="mini-note">More than 3 colours adds a separate ₦300 fee.</div>
-     <div class="fee-box" id="fee-${i}"></div>
-     <button class="btn plush-add" type="button" onclick="addPlush(${i})">🛍 Add to Cart</button>
-   </div>`;
- document.getElementById("detailsModal").classList.add("open");
- const file=document.getElementById("file-"+i);
- if(file) file.addEventListener("change",function(){
-   document.getElementById("file-name-"+i).textContent=this.files.length?this.files[0].name:"No picture selected";
- });
- updatePlush(i);
+
+/* =========================
+   KEYCHAIN DETAILS
+========================= */
+
+function showKeychainDetails(i){
+
+showProductDetails(keychains[i],"keychain",i);
+
 }
-function closeDetails(event){
- if(event && event.target && event.target.id!=="detailsModal") return;
- document.getElementById("detailsModal").classList.remove("open");
+
+
+/* =========================
+   PRODUCT DETAILS
+========================= */
+
+function showProductDetails(product,type,index){
+
+const sizeOptions=Object.entries(product.sizes)
+.map(([size,price])=>
+`<option value="${size}">
+${size} — ${naira(price)}
+</option>`
+).join("");
+
+const colourOptions=colours.map(colour=>`
+
+<label class="colour-choice">
+<input
+type="checkbox"
+class="detail-colour"
+value="${colour}"
+onchange="updateDetailPrice()">
+${colour}
+</label>
+
+`).join("");
+
+
+document.getElementById("detailsContent").innerHTML=`
+
+<h2>
+${product.emoji} ${escapeHtml(product.name)}
+</h2>
+
+<img
+class="product-image"
+src="${product.image}"
+alt="${escapeHtml(product.name)}"
+style="max-width:300px;display:block;margin:0 auto 15px">
+
+<p style="text-align:center">
+${escapeHtml(product.description)}
+</p>
+
+<div class="details-options">
+
+<label>📏 Size</label>
+
+<select id="detail-size" onchange="updateDetailPrice()">
+${sizeOptions}
+</select>
+
+
+<label>🎨 Colour</label>
+
+<div class="colour-grid">
+${colourOptions}
+</div>
+
+<input
+id="detail-custom-colour"
+type="text"
+placeholder="Type a custom colour..."
+oninput="updateDetailPrice()">
+
+
+<label>✨ Custom Design</label>
+
+<select id="detail-design" onchange="updateDetailPrice()">
+
+<option value="no">
+No custom design
+</option>
+
+<option value="yes">
+Yes — custom design (+₦300)
+</option>
+
+</select>
+
+
+<div id="customDesignBox" style="display:none">
+
+<label>📝 Describe Your Custom Design</label>
+
+<textarea
+id="detail-description"
+placeholder="Tell us what you would like...">
+</textarea>
+
+<label>📷 Upload a Picture</label>
+
+<input
+id="detail-file"
+type="file"
+accept="image/*">
+
+</div>
+
+
+<p class="mini-note">
+More than 3 colours adds a separate ₦300 fee.
+</p>
+
+<div class="fee-box" id="detailFee"></div>
+
+
+<button
+class="btn"
+onclick="addDetailProduct('${type}',${index})">
+
+🛍 Add to Cart
+
+</button>
+
+</div>
+`;
+
+document.getElementById("detailsModal").classList.add("open");
+
+updateDetailPrice();
+
 }
-function updatePlush(i){
- const p=plushies[i], size=document.getElementById("size-"+i).value, base=p.sizes[size];
- const custom=document.getElementById("design-"+i).value==="yes";
- const checked=[...document.querySelectorAll(".colour-"+i+":checked")].map(x=>x.value);
- const typed=document.getElementById("custom-colour-"+i).value.trim();
- const count=checked.length+(typed?1:0), colourFee=count>3?300:0, designFee=custom?300:0, total=base+designFee+colourFee;
- document.getElementById("design-box-"+i).style.display=custom?"block":"none";
- document.getElementById("fee-"+i).innerHTML=`Size price: <strong>${naira(base)}</strong><br>Custom design fee: <strong>${naira(designFee)}</strong><br>More-than-3-colours fee: <strong>${naira(colourFee)}</strong><br><strong>Total: ${naira(total)}</strong>`;
+
+
+/* =========================
+   PRICE CALCULATOR
+========================= */
+
+function updateDetailPrice(){
+
+const size=document.getElementById("detail-size").value;
+
+const currentName=document.querySelector("#detailsContent h2")
+.textContent
+.replace(/[🐸🍄🧸🐳🐢🐼🐰🐙🍒🍦🎀🌷⭐🪼🌸♡]/g,"")
+.trim();
+
+let product=
+plushies.find(p=>p.name===currentName) ||
+keychains.find(p=>p.name===currentName);
+
+if(!product)return;
+
+const base=product.sizes[size];
+
+const checked=[
+...document.querySelectorAll(".detail-colour:checked")
+];
+
+const typed=document.getElementById("detail-custom-colour").value.trim();
+
+const colourCount=checked.length+(typed?1:0);
+
+const colourFee=colourCount>3?300:0;
+
+const custom=
+document.getElementById("detail-design").value==="yes";
+
+const designFee=custom?300:0;
+
+const total=base+colourFee+designFee;
+
+document.getElementById("customDesignBox").style.display=
+custom?"block":"none";
+
+document.getElementById("detailFee").innerHTML=`
+
+Size price:
+<strong>${naira(base)}</strong><br>
+
+Custom design fee:
+<strong>${naira(designFee)}</strong><br>
+
+More-than-3-colours fee:
+<strong>${naira(colourFee)}</strong><br>
+
+<strong>Total: ${naira(total)}</strong>
+
+`;
+
 }
-function addPlush(i){
- const p=plushies[i],size=document.getElementById("size-"+i).value,base=p.sizes[size],custom=document.getElementById("design-"+i).value==="yes";
- const checked=[...document.querySelectorAll(".colour-"+i+":checked")].map(x=>x.value),typed=document.getElementById("custom-colour-"+i).value.trim(),count=checked.length+(typed?1:0);
- if(count===0){alert("Please choose at least one colour or type a custom colour.");return}
- const colour=[...checked,...(typed?["Custom: "+typed]:[])].join(", ");
- const colourFee=count>3?300:0,designFee=custom?300:0;
- const details=custom?document.getElementById("details-"+i).value.trim():"";
- const input=document.getElementById("file-"+i),imageName=input.files.length?input.files[0].name:"";
- if(custom && !details && !imageName){const e=document.getElementById("old-error");if(e){e.textContent="Please describe your custom design or upload a picture.";e.style.display="block";}return}
- cart.push({name:p.name,size,colour,customDesign:custom,details,imageName,customFee:designFee,colourFee,total:base+designFee+colourFee});
- updateCart();
- closeDetails();
- document.getElementById("cart").scrollIntoView({behavior:"smooth",block:"start"});
+
+
+/* =========================
+   ADD PLUSHIE / KEYCHAIN
+========================= */
+
+function addDetailProduct(type,index){
+
+const product=
+type==="plush"
+?plushies[index]
+:keychains[index];
+
+const size=document.getElementById("detail-size").value;
+
+const base=product.sizes[size];
+
+const checked=[
+...document.querySelectorAll(".detail-colour:checked")
+].map(x=>x.value);
+
+const typed=
+document.getElementById("detail-custom-colour").value.trim();
+
+const colourCount=
+checked.length+(typed?1:0);
+
+if(colourCount===0){
+
+alert("Please choose at least one colour.");
+
+return;
+
 }
+
+const custom=
+document.getElementById("detail-design").value==="yes";
+
+const description=
+custom
+?document.getElementById("detail-description").value.trim()
+:"";
+
+const file=
+document.getElementById("detail-file");
+
+const fileName=
+file.files.length
+?file.files[0].name
+:"";
+
+if(custom && !description && !fileName){
+
+alert("Please describe your custom design or upload a picture.");
+
+return;
+
+}
+
+const colourFee=
+colourCount>3?300:0;
+
+const designFee=
+custom?300:0;
+
+cart.push({
+
+name:product.name,
+
+size:size,
+
+colour:[
+...checked,
+...(typed?["Custom: "+typed]:[])
+].join(", "),
+
+customDesign:custom,
+
+details:description,
+
+imageName:fileName,
+
+customFee:designFee,
+
+colourFee:colourFee,
+
+total:base+designFee+colourFee
+
+});
+
+updateCart();
+
+closeDetails();
+
+document.getElementById("cart")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+/* =========================
+   ORIGINAL PRODUCTS DETAILS
+========================= */
+
 function showOldDetails(name){
- const p=oldProducts[name];
- const sizeOptions=Object.entries(p.sizes).map(([size,price])=>`<option value="${size}">${size} — ${naira(price)}</option>`).join("");
- const colourOptions=allProductColours.map(c=>`<label class="colour-choice"><input type="checkbox" class="old-colour" value="${c}" onchange="updateOldDetails()"> ${c}</label>`).join("");
- document.getElementById("detailsContent").innerHTML=`
-   <h2>♡ ${escapeHtml(name)} ♡</h2>
-   <img class="product-image" src="${p.image}" alt="${escapeHtml(name)}" style="max-width:300px;display:block;margin:0 auto 14px">
-   <p style="text-align:center">${escapeHtml(p.description)}</p>
-   <div class="plush-options" style="display:block;margin-top:18px">
-     <label>📏 Size</label>
-     <select id="old-size" onchange="updateOldDetails()">${sizeOptions}</select>
 
-     <label>🎨 Colour</label>
-     <div class="colour-grid" id="old-colours">${colourOptions}</div>
-     <input id="old-custom-colour" class="custom-colour-input" type="text" placeholder="Type a custom colour..." oninput="updateOldDetails()">
+const product=oldProducts[name];
 
-     <label>✨ Custom Design</label>
-     <select id="old-design" onchange="updateOldDetails()">
-       <option value="no">No custom design</option>
-       <option value="yes">Yes — custom design (+₦300)</option>
-     </select>
+const sizeOptions=
+Object.entries(product.sizes)
+.map(([size,price])=>
+`<option value="${size}">
+${size} — ${naira(price)}
+</option>`
+).join("");
 
-     <div id="old-design-box" style="display:none">
-       <label for="old-details">📝 Custom Order Details</label>
-       <textarea id="old-details" placeholder="Tell us what you would like..."></textarea>
-       <label for="old-file">📷 Upload a picture of your design (optional)</label>
-       <input id="old-file" type="file" accept="image/*">
-       <div class="file-name" id="old-file-name">No picture selected</div>
-     </div>
+document.getElementById("detailsContent").innerHTML=`
 
-     <div class="mini-note">More than 3 colours adds a separate ₦300 colour fee.</div>
-     <div class="details-error" id="old-error"></div>
-     <div class="fee-box" id="old-fee"></div>
-     <button class="btn plush-add" type="button" onclick="addOldProduct()">🛍 Add to Cart</button>
-   </div>`;
- document.getElementById("detailsModal").classList.add("open");
- const file=document.getElementById("old-file");
- if(file) file.addEventListener("change",function(){
-   document.getElementById("old-file-name").textContent=this.files.length?this.files[0].name:"No picture selected";
- });
- updateOldDetails();
+<h2>♡ ${escapeHtml(name)} ♡</h2>
+
+<img
+class="product-image"
+src="${product.image}"
+alt="${escapeHtml(name)}"
+style="max-width:300px;display:block;margin:0 auto 15px">
+
+<p style="text-align:center">
+${escapeHtml(product.description)}
+</p>
+
+<div class="details-options">
+
+<label>📏 Size</label>
+
+<select id="detail-size" onchange="updateOldPrice('${name}')">
+${sizeOptions}
+</select>
+
+<label>🎨 Colour</label>
+
+<div class="colour-grid">
+
+${colours.map(c=>`
+
+<label class="colour-choice">
+
+<input
+type="checkbox"
+class="old-colour"
+value="${c}"
+onchange="updateOldPrice('${name}')">
+
+${c}
+
+</label>
+
+`).join("")}
+
+</div>
+
+<input
+id="detail-custom-colour"
+type="text"
+placeholder="Type a custom colour..."
+oninput="updateOldPrice('${name}')">
+
+
+<label>✨ Custom Design</label>
+
+<select id="detail-design" onchange="updateOldPrice('${name}')">
+
+<option value="no">
+No custom design
+</option>
+
+<option value="yes">
+Yes — custom design (+₦300)
+</option>
+
+</select>
+
+
+<div id="customDesignBox" style="display:none">
+
+<label>📝 Describe Your Custom Design</label>
+
+<textarea
+id="detail-description"
+placeholder="Tell us what you would like...">
+</textarea>
+
+<label>📷 Upload a Picture</label>
+
+<input
+id="detail-file"
+type="file"
+accept="image/*">
+
+</div>
+
+
+<p class="mini-note">
+More than 3 colours adds a separate ₦300 fee.
+</p>
+
+<div class="fee-box" id="detailFee"></div>
+
+<button
+class="btn"
+onclick="addOldProduct('${name}')">
+
+🛍 Add to Cart
+
+</button>
+
+</div>
+`;
+
+document.getElementById("detailsModal").classList.add("open");
+
+updateOldPrice(name);
+
 }
 
-function updateOldDetails(){
- const name=document.querySelector("#detailsContent h2").textContent.replace(/^♡ | ♡$/g,"").trim();
- const p=oldProducts[name];
- if(!p) return;
- const base=p.sizes[document.getElementById("old-size").value];
- const checked=[...document.querySelectorAll(".old-colour:checked")].map(x=>x.value);
- const typed=document.getElementById("old-custom-colour").value.trim();
- const colourCount=checked.length+(typed?1:0);
- const colourFee=colourCount>3?300:0;
- const designFee=document.getElementById("old-design").value==="yes"?300:0;
- document.getElementById("old-design-box").style.display=designFee?"block":"none";
- document.getElementById("old-fee").innerHTML=
-   `Size price: <strong>${naira(base)}</strong><br>`+
-   `Custom design fee: <strong>${naira(designFee)}</strong><br>`+
-   `More-than-3-colours fee: <strong>${naira(colourFee)}</strong><br>`+
-   `<strong>Total: ${naira(base+designFee+colourFee)}</strong>`;
+
+function updateOldPrice(name){
+
+const product=oldProducts[name];
+
+const size=document.getElementById("detail-size").value;
+
+const base=product.sizes[size];
+
+const checked=[
+...document.querySelectorAll(".old-colour:checked")
+];
+
+const typed=
+document.getElementById("detail-custom-colour").value.trim();
+
+const count=
+checked.length+(typed?1:0);
+
+const colourFee=count>3?300:0;
+
+const custom=
+document.getElementById("detail-design").value==="yes";
+
+const designFee=custom?300:0;
+
+document.getElementById("customDesignBox").style.display=
+custom?"block":"none";
+
+document.getElementById("detailFee").innerHTML=`
+
+Size price:
+<strong>${naira(base)}</strong><br>
+
+Custom design fee:
+<strong>${naira(designFee)}</strong><br>
+
+More-than-3-colours fee:
+<strong>${naira(colourFee)}</strong><br>
+
+<strong>Total: ${naira(base+designFee+colourFee)}</strong>
+
+`;
+
 }
 
-function addOldProduct(){
- const title=document.querySelector("#detailsContent h2").textContent.replace(/^♡ | ♡$/g,"").trim();
- const p=oldProducts[title];
- const size=document.getElementById("old-size").value;
- const base=p.sizes[size];
- const checked=[...document.querySelectorAll(".old-colour:checked")].map(x=>x.value);
- const typed=document.getElementById("old-custom-colour").value.trim();
- const colourCount=checked.length+(typed?1:0);
- if(!colourCount){const e=document.getElementById("old-error");if(e){e.textContent="Please choose at least one colour or type a custom colour.";e.style.display="block";}return}
- const custom=document.getElementById("old-design").value==="yes";
- const details=custom?document.getElementById("old-details").value.trim():"";
- const file=document.getElementById("old-file");
- const imageName=file.files.length?file.files[0].name:"";
- if(custom && !details && !imageName){alert("Please describe your custom design or upload a picture.");return}
- const colourFee=colourCount>3?300:0,designFee=custom?300:0;
- cart.push({
-   name:title,size,
-   colour:[...checked,...(typed?["Custom: "+typed]:[])].join(", "),
-   customDesign:custom,details,imageName,
-   customFee:designFee,colourFee,total:base+designFee+colourFee
- });
- updateCart();
- closeDetails();
- document.getElementById("cart").scrollIntoView({behavior:"smooth",block:"start"});
+
+function addOldProduct(name){
+
+const product=oldProducts[name];
+
+const size=document.getElementById("detail-size").value;
+
+const base=product.sizes[size];
+
+const checked=[
+...document.querySelectorAll(".old-colour:checked")
+].map(x=>x.value);
+
+const typed=
+document.getElementById("detail-custom-colour").value.trim();
+
+const count=
+checked.length+(typed?1:0);
+
+if(count===0){
+
+alert("Please choose at least one colour.");
+
+return;
+
 }
+
+const custom=
+document.getElementById("detail-design").value==="yes";
+
+const details=
+custom
+?document.getElementById("detail-description").value.trim()
+:"";
+
+const file=document.getElementById("detail-file");
+
+const imageName=
+file.files.length
+?file.files[0].name
+:"";
+
+if(custom && !details && !imageName){
+
+alert("Please describe your custom design or upload a picture.");
+
+return;
+
+}
+
+const colourFee=
+count>3?300:0;
+
+const designFee=
+custom?300:0;
+
+cart.push({
+
+name:name,
+
+size:size,
+
+colour:[
+...checked,
+...(typed?["Custom: "+typed]:[])
+].join(", "),
+
+customDesign:custom,
+
+details:details,
+
+imageName:imageName,
+
+customFee:designFee,
+
+colourFee:colourFee,
+
+total:base+designFee+colourFee
+
+});
+
+updateCart();
+
+closeDetails();
+
+document.getElementById("cart")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+/* =========================
+   CART
+========================= */
 
 function updateCart(){
- const count=document.getElementById("cartCount"),items=document.getElementById("cartItems"),total=document.getElementById("cartTotal");
- count.textContent=cart.length;if(!cart.length){items.innerHTML='<div class="empty">Your cart is empty. ♡</div>';total.textContent="Total: ₦0";return}
- let sum=0;items.innerHTML="";
- cart.forEach((x,i)=>{sum+=x.total;const row=document.createElement("div");row.className="cart-item";row.innerHTML=`<span><strong>${escapeHtml(x.name)}</strong><br>Size: ${escapeHtml(x.size)}<br>Colour: ${escapeHtml(x.colour)}${x.customDesign?"<br>Custom design fee: ₦300":""}${x.colourFee?"<br>More-than-3-colours fee: ₦300":""}${x.details?"<br>Details: "+escapeHtml(x.details):""}${x.imageName?"<br>Design picture: "+escapeHtml(x.imageName):""}<br><strong>${naira(x.total)}</strong></span><button class="btn" style="width:auto;font-size:15px;padding:5px 12px" onclick="removeItem(${i})">Remove</button>`;items.appendChild(row)});
- total.textContent="Total: "+naira(sum);
+
+const items=document.getElementById("cartItems");
+
+const count=document.getElementById("cartCount");
+
+const totalElement=document.getElementById("cartTotal");
+
+count.textContent=cart.length;
+
+if(cart.length===0){
+
+items.innerHTML=
+'<div class="empty">Your cart is empty. ♡</div>';
+
+totalElement.textContent="Total: ₦0";
+
+return;
+
 }
-function removeItem(i){cart.splice(i,1);updateCart()}
+
+let total=0;
+
+items.innerHTML="";
+
+cart.forEach((item,index)=>{
+
+total+=item.total;
+
+const row=document.createElement("div");
+
+row.className="cart-item";
+
+row.innerHTML=`
+
+<span>
+
+<strong>
+${escapeHtml(item.name)}
+</strong>
+
+<br>
+
+Size: ${escapeHtml(item.size)}
+
+<br>
+
+Colour: ${escapeHtml(item.colour)}
+
+${item.customDesign
+?`<br>Custom design fee: ₦300`
+:""}
+
+${item.colourFee
+?`<br>More-than-3-colours fee: ₦300`
+:""}
+
+${item.details
+?`<br>Details: ${escapeHtml(item.details)}`
+:""}
+
+${item.imageName
+?`<br>Design picture: ${escapeHtml(item.imageName)}`
+:""}
+
+<br>
+
+<strong>
+${naira(item.total)}
+</strong>
+
+</span>
+
+<button
+class="btn"
+style="width:auto"
+onclick="removeItem(${index})">
+
+Remove
+
+</button>
+
+`;
+
+items.appendChild(row);
+
+});
+
+totalElement.textContent=
+"Total: "+naira(total);
+
+}
+
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+updateCart();
+
+}
+
+
+/* =========================
+   CUSTOM ORDER
+========================= */
+
 function updateCustomOrderFees(){
- const c=[...document.querySelectorAll('input[name="customColour"]:checked')].length,typed=document.getElementById("customColourText").value.trim()?1:0,fee=(c+typed)>3?300:0;
- document.getElementById("customColourFee").textContent=naira(fee);document.getElementById("customFeesTotal").textContent=naira(300+fee);
+
+const selected=
+document.querySelectorAll(
+'input[name="customColour"]:checked'
+).length;
+
+const typed=
+document.getElementById("customColourText")
+.value.trim()
+?1
+:0;
+
+const colourFee=
+selected+typed>3
+?300
+:0;
+
+document.getElementById("customColourFee")
+.textContent=naira(colourFee);
+
+document.getElementById("customFeesTotal")
+.textContent=naira(300+colourFee);
+
 }
-document.querySelectorAll('input[name="customColour"]').forEach(x=>x.addEventListener("change",updateCustomOrderFees));document.getElementById("customColourText").addEventListener("input",updateCustomOrderFees);
-document.getElementById("customOrderImage").addEventListener("change",function(){document.getElementById("customOrderFileName").textContent=this.files.length?this.files[0].name:"No picture selected"});
-document.getElementById("customOrderButton").addEventListener("click",function(){
- const d=document.getElementById("customOrderDescription").value.trim(),f=document.getElementById("customOrderImage"),image=f.files.length?f.files[0].name:"",checked=[...document.querySelectorAll('input[name="customColour"]:checked')].map(x=>x.value),typed=document.getElementById("customColourText").value.trim(),count=checked.length+(typed?1:0);
- if(!d&&!image){alert("Please upload a picture or describe your custom order.");return} if(!count){alert("Please choose at least one colour or type a custom colour.");return}
- const cf=count>3?300:0;cart.push({name:"Custom Order",size:"To be discussed",colour:[...checked,...(typed?["Custom: "+typed]:[])].join(", "),customDesign:true,details:d||"See uploaded picture.",imageName:image,customFee:300,colourFee:cf,total:300+cf});updateCart();
-document.getElementById("cart").scrollIntoView({behavior:"smooth",block:"start"});
+
+
+document.querySelectorAll(
+'input[name="customColour"]'
+).forEach(input=>{
+
+input.addEventListener(
+"change",
+updateCustomOrderFees
+);
+
 });
-document.getElementById("placeOrderButton").addEventListener("click",function(){
- if(!cart.length){alert("Your cart is empty. Please add an item first.");return}
- const name=document.getElementById("customerName").value.trim(),phone=document.getElementById("customerPhone").value.trim(),email=document.getElementById("customerEmail").value.trim(),address=document.getElementById("customerAddress").value.trim(),notes=document.getElementById("customerNotes").value.trim();
- if(!name||!phone||!email||!address){alert("Please fill in your name, phone number, email address, and delivery address.");return}
- let total=0;const lines=cart.map((x,i)=>{total+=x.total;return `${i+1}. ${x.name}\\n   Size: ${x.size}\\n   Colour: ${x.colour}\\n   Custom design fee: ${naira(x.customFee||0)}\\n   More-than-3-colours fee: ${naira(x.colourFee||0)}\\n   Details: ${x.details||"None"}\\n   Design picture: ${x.imageName||"None"}\\n   Item total: ${naira(x.total)}\\n`}).join("\\n");
- const subject=`New Order - ${name}`,body=`Hello Nkem's Cozy Stitches,\\n\\nI would like to place an order.\\n\\nCUSTOMER DETAILS\\nName: ${name}\\nPhone: ${phone}\\nEmail: ${email}\\nDelivery Address: ${address}\\n\\nORDER DETAILS\\n${lines}\\nORDER TOTAL: ${naira(total)}\\n\\nEXTRA NOTES\\n${notes||"None"}\\n\\nPlease confirm my order and let me know the next steps.\\n\\nThank you!`;
- window.location.href=`mailto:nkems.cozy.stiches@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+
+document.getElementById(
+"customColourText"
+).addEventListener(
+"input",
+updateCustomOrderFees
+);
+
+
+document.getElementById(
+"customOrderButton"
+).addEventListener(
+"click",
+function(){
+
+const description=
+document.getElementById(
+"customOrderDescription"
+).value.trim();
+
+const file=
+document.getElementById(
+"customOrderImage"
+);
+
+const imageName=
+file.files.length
+?file.files[0].name
+:"";
+
+const checked=[
+...document.querySelectorAll(
+'input[name="customColour"]:checked'
+)
+].map(x=>x.value);
+
+const typed=
+document.getElementById(
+"customColourText"
+).value.trim();
+
+const count=
+checked.length+(typed?1:0);
+
+if(!description && !imageName){
+
+alert(
+"Please describe your custom order or upload a picture."
+);
+
+return;
+
+}
+
+if(!count){
+
+alert(
+"Please choose at least one colour."
+);
+
+return;
+
+}
+
+const colourFee=
+count>3?300:0;
+
+cart.push({
+
+name:"Custom Order",
+
+size:"To be discussed",
+
+colour:[
+...checked,
+...(typed?["Custom: "+typed]:[])
+].join(", "),
+
+customDesign:true,
+
+details:
+description||"See uploaded picture.",
+
+imageName:imageName,
+
+customFee:300,
+
+colourFee:colourFee,
+
+total:300+colourFee
+
 });
-renderPlushies();updateCart();updateCustomOrderFees();
+
+updateCart();
+
+document.getElementById("cart")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+);
+
+
+/* =========================
+   EMAIL CHECKOUT
+========================= */
+
+document.getElementById(
+"placeOrderButton"
+).addEventListener(
+"click",
+function(){
+
+if(!cart.length){
+
+alert(
+"Your cart is empty. Please add an item first."
+);
+
+return;
+
+}
+
+const name=
+document.getElementById("customerName")
+.value.trim();
+
+const phone=
+document.getElementById("customerPhone")
+.value.trim();
+
+const email=
+document.getElementById("customerEmail")
+.value.trim();
+
+const address=
+document.getElementById("customerAddress")
+.value.trim();
+
+const notes=
+document.getElementById("customerNotes")
+.value.trim();
+
+if(!name||!phone||!email||!address){
+
+alert(
+"Please fill in your name, phone number, email address and delivery address."
+);
+
+return;
+
+}
+
+let total=0;
+
+const orderLines=cart.map((item,index)=>{
+
+total+=item.total;
+
+return `
+
+${index+1}. ${item.name}
+
+Size: ${item.size}
+
+Colour: ${item.colour}
+
+Custom design fee: ${naira(item.customFee||0)}
+
+More-than-3-colours fee: ${naira(item.colourFee||0)}
+
+Details: ${item.details||"None"}
+
+Design picture: ${item.imageName||"None"}
+
+Item total: ${naira(item.total)}
+
+`;
+
+}).join("\n");
+
+
+const subject=
+`New Order - ${name}`;
+
+
+const body=`
+
+Hello Nkem's Cozy Stitches,
+
+I would like to place an order.
+
+CUSTOMER DETAILS
+
+Name: ${name}
+
+Phone: ${phone}
+
+Email: ${email}
+
+Delivery Address: ${address}
+
+
+ORDER DETAILS
+
+${orderLines}
+
+ORDER TOTAL:
+${naira(total)}
+
+
+EXTRA NOTES
+
+${notes||"None"}
+
+
+Please confirm my order and let me know the next steps.
+
+Thank you!
+`;
+
+
+window.location.href=
+`mailto:nkems.cozy.stiches@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+}
+);
+
+
+/* =========================
+   CLOSE DETAILS
+========================= */
+
+function closeDetails(){
+
+document.getElementById(
+"detailsModal"
+).classList.remove("open");
+
+}
+
+
+/* =========================
+   START WEBSITE
+========================= */
+
+renderPlushies();
+
+renderKeychains();
+
+updateCart();
+
+updateCustomOrderFees();
+
 </script>
+
 </body>
 </html>

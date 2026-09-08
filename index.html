@@ -90,6 +90,11 @@ footer{position:relative;z-index:10;text-align:center;padding:25px 15px 35px}.fo
 <div class="products" id="plushieGrid"></div>
 </section>
 
+<section class="creations" id="hats">
+<h2 class="section-title"><span>♥</span>Hats & Beanies<span>♥</span></h2>
+<div class="products" id="hatGrid"></div>
+</section>
+
 <section class="cart-section" id="custom-order">
 <h2>✨ Custom Order</h2>
 <p style="text-align:center;font-size:20px">Want something that isn't in our collection? ♡ Request any crochet item you would like.</p>
@@ -168,6 +173,13 @@ const plushies=[
 {name:"Octo Boo",emoji:"🐙",image:"octo-plushie.png",description:"A cute crochet octopus with playful curly tentacles.",sizes:{Small:2800,Medium:5000,Large:7500,"Extra Large":9000}}
 ];
 
+const hats=[
+{name:"Ruffle Cat-Eared Beanie",emoji:"🎀",image:"ruffle-cat-eared-beanie.png",description:"A cute pink-and-white cat-eared beanie with a playful ruffled brim and bow.",sizes:{Small:7500,Medium:10900,Large:13000,"Extra Large":15000},sizeCm:{Small:"51–53 cm",Medium:"54–57 cm",Large:"58–60 cm","Extra Large":"61–63 cm"}},
+{name:"Cat-Eared Beanie",emoji:"🐱",image:"cat-eared-beanie.png",description:"A cozy pink-and-white striped cat-eared beanie with a sweet handmade look.",sizes:{Small:6500,Medium:8000,Large:9500,"Extra Large":11000},sizeCm:{Small:"51–53 cm",Medium:"54–57 cm",Large:"58–60 cm","Extra Large":"61–63 cm"}},
+{name:"Ruffle Hat",emoji:"🌸",image:"ruffle-hat.png",description:"A soft pink-and-white crochet ruffle hat with a cute frilly edge.",sizes:{Small:6500,Medium:8000,Large:9500,"Extra Large":12900},sizeCm:{Small:"51–53 cm",Medium:"54–57 cm",Large:"58–60 cm","Extra Large":"61–63 cm"}},
+{name:"Foldover Beanie",emoji:"🧶",image:"foldover-beanies.png",description:"A cozy ribbed foldover beanie available in sweet solid and striped styles.",sizes:{Small:5000,Medium:6500,Large:8000,"Extra Large":11000},sizeCm:{Small:"51–53 cm",Medium:"54–57 cm",Large:"58–60 cm","Extra Large":"61–63 cm"}}
+];
+
 let cart=[],activeProduct=null;
 
 function naira(n){return "₦"+Number(n).toLocaleString("en-NG")}
@@ -181,7 +193,7 @@ return `<article class="card"><img class="product-image" src="${p.image}" alt="$
 }
 
 function showProduct(type,i){
-let data=type==="original"?originalProducts:type==="keychain"?keychains:plushies;
+let data=type==="original"?originalProducts:type==="keychain"?keychains:type==="plushie"?plushies:hats;
 activeProduct={...data[i]};
 document.getElementById("detailsContent").innerHTML=`
 <h2>${activeProduct.emoji} ${esc(activeProduct.name)}</h2>
@@ -189,7 +201,8 @@ document.getElementById("detailsContent").innerHTML=`
 <p style="text-align:center">${esc(activeProduct.description)}</p>
 <div class="plush-options">
 <label>📏 Size</label>
-<select id="itemSize">${Object.entries(activeProduct.sizes).map(([s,p])=>`<option value="${esc(s)}">${esc(s)} — ${naira(p)}</option>`).join("")}</select>
+<select id="itemSize">${Object.entries(activeProduct.sizes).map(([s,p])=>`<option value="${esc(s)}">${esc(s)}${activeProduct.sizeCm?` — ${activeProduct.sizeCm[s]}`:""} — ${naira(p)}</option>`).join("")}</select>
+${activeProduct.sizeCm?'<div class="mini-note">📏 Hat size is based on head circumference. Measure around the fullest part of your head, just above the eyebrows and ears.</div>':''}
 <label>🎨 Colour</label>
 <div class="colour-grid">${colours.map(c=>`<label class="colour-choice"><input type="checkbox" class="itemColour" value="${c}">${c}</label>`).join("")}</div>
 <input id="itemCustomColour" type="text" placeholder="Type a custom colour...">
@@ -310,6 +323,7 @@ window.open(gmail,"_blank");
 renderGrid(originalProducts,"originalGrid","original");
 renderGrid(keychains,"keychainGrid","keychain");
 renderGrid(plushies,"plushieGrid","plushie");
+renderGrid(hats,"hatGrid","hat");
 renderCustomColours();updateCustomFees();updateCart();
 </script>
 </body>

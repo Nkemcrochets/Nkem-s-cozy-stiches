@@ -95,16 +95,21 @@ footer{position:relative;z-index:10;text-align:center;padding:25px 15px 35px}.fo
 <div class="products" id="hatGrid"></div>
 </section>
 
+<section class="creations" id="bags">
+<h2 class="section-title"><span>♥</span>Bags<span>♥</span></h2>
+<div class="products" id="bagGrid"></div>
+</section>
+
 <section class="cart-section" id="custom-order">
 <h2>✨ Custom Order</h2>
 <p style="text-align:center;font-size:20px">Want something that isn't in our collection? ♡ Request any crochet item you would like.</p>
 <div class="product-options" style="max-width:650px;margin:22px auto">
 <label>🎨 Choose your colours</label><div class="custom-colour-grid" id="customColourGrid"></div>
 <label>✏️ Custom colour</label><input id="customColourText" type="text" placeholder="Type another colour...">
-<div class="colour-fee-note">More than 3 colours adds a separate <strong>₦300 colour fee</strong>.</div>
+<div class="colour-fee-note">More than 3 colours adds a separate <strong>₦2,000 colour fee</strong>.</div>
 <label>📷 Upload a picture</label><input id="customOrderImage" type="file" accept="image/*"><div class="file-name" id="customOrderFileName">No picture selected</div>
 <label>📝 Describe your custom order</label><textarea id="customOrderDescription" placeholder="Tell us what you would like..."></textarea>
-<div class="price-breakdown">Custom design fee: <strong>₦300</strong><br>More-than-3-colours fee: <strong id="customColourFee">₦0</strong><br><strong>Current fees total: <span id="customFeesTotal">₦300</span></strong></div>
+<div class="price-breakdown">Custom design fee: <strong>₦4,800</strong><br>More-than-3-colours fee: <strong id="customColourFee">₦0</strong><br><strong>Current fees total: <span id="customFeesTotal">₦4,800</span></strong></div>
 <button class="btn" type="button" id="customOrderButton">✨ Add Custom Order to Cart</button>
 </div>
 </section>
@@ -180,6 +185,14 @@ const hats=[
 {name:"Foldover Beanie",emoji:"🧶",image:"foldover-beanies.png",description:"A cozy ribbed foldover beanie available in sweet solid and striped styles.",sizes:{Small:5000,Medium:6500,Large:8000,"Extra Large":11000},sizeCm:{Small:"51–53 cm",Medium:"54–57 cm",Large:"58–60 cm","Extra Large":"61–63 cm"}}
 ];
 
+const bags=[
+{name:"Granny Square Tote",emoji:"👜",image:"granny-square-tote.png",description:"A handmade granny square crochet tote with a cozy, colorful square design.",sizes:{Small:4500,Medium:6000,Large:8900}},
+{name:"Granny Square Handbag",emoji:"👜",image:"granny-square-handbag.png",description:"A cute handmade granny square crochet handbag.",sizes:{Small:5000,Medium:7000,Large:9000}},
+{name:"Mesh Tote Bag",emoji:"🛍️",image:"mesh-tote-bag.png",description:"A lightweight handmade crochet mesh tote bag.",sizes:{Small:7000,Medium:9500,Large:11900}},
+{name:"Shoulder Bag",emoji:"🎀",image:"shoulder-bag.png",description:"A sweet handmade crochet shoulder bag.",sizes:{Small:4500,Medium:6000,Large:8500}},
+{name:"Foldover Bag",emoji:"🧶",image:"foldover-bag.png",description:"A cozy handmade crochet foldover bag.",sizes:{Small:6000,Medium:8000,Large:13000}}
+];
+
 let cart=[],activeProduct=null;
 
 function naira(n){return "₦"+Number(n).toLocaleString("en-NG")}
@@ -188,17 +201,17 @@ function esc(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",
 function renderGrid(data,id,type){
 document.getElementById(id).innerHTML=data.map((p,i)=>{
 let a=Object.values(p.sizes),low=Math.min(...a),high=Math.max(...a);
-return `<article class="card"><img class="product-image" src="${p.image}" alt="${esc(p.name)}"><h3>${p.emoji} ${esc(p.name)}</h3><p>${esc(p.description)}</p><span class="price">${naira(low)} - ${naira(high)}</span><button class="details-btn" onclick="showProduct('${type}',${i})">♥ View Details ♥</button></article>`;
+return `<article class="card"><img class="product-image" src="${p.image}" alt="${esc(p.name)}"${type==="bag"?` onerror="this.onerror=null;this.src='bag-placeholder.png'"`:""}><h3>${p.emoji} ${esc(p.name)}</h3><p>${esc(p.description)}</p><span class="price">${naira(low)} - ${naira(high)}</span><button class="details-btn" onclick="showProduct('${type}',${i})">♥ View Details ♥</button></article>`;
 }).join("");
 }
 
 let customizeSession=null;
 
-function productData(type,i){return type==="original"?originalProducts:type==="keychain"?keychains:type==="plushie"?plushies:hats}
+function productData(type,i){return type==="original"?originalProducts:type==="keychain"?keychains:type==="plushie"?plushies:type==="hat"?hats:bags}
 
 function showProduct(type,i){
 let data=productData(type,i);
-activeProduct={...data[i]};
+activeProduct={...data[i],productType:type};
 customizeSession=null;
 renderProductDetails();
 }
@@ -206,7 +219,7 @@ renderProductDetails();
 function renderProductDetails(){
 document.getElementById("detailsContent").innerHTML=`
 <h2>${activeProduct.emoji} ${esc(activeProduct.name)}</h2>
-<img class="product-image" src="${activeProduct.image}" alt="${esc(activeProduct.name)}" style="max-width:300px;display:block;margin:0 auto 14px">
+<img class="product-image" src="${activeProduct.image}" alt="${esc(activeProduct.name)}"${activeProduct.productType==="bag"?` onerror="this.onerror=null;this.src='bag-placeholder.png'"`:""} style="max-width:300px;display:block;margin:0 auto 14px">
 <p style="text-align:center">${esc(activeProduct.description)}</p>
 <div class="plush-options">
 ${customizeSession?`<div class="mini-note" style="font-weight:700">🧶 Customizing item ${customizeSession.current} of ${customizeSession.total}. Choose its size, colours and design below.</div>`:""}
@@ -223,9 +236,9 @@ ${activeProduct.sizeCm?'<div class="mini-note">📏 Hat size is based on head ci
 <label>🎨 Colour</label>
 <div class="colour-grid">${colours.map(c=>`<label class="colour-choice"><input type="checkbox" class="itemColour" value="${c}">${c}</label>`).join("")}</div>
 <input id="itemCustomColour" type="text" placeholder="Type a custom colour...">
-<div class="mini-note">More than 3 colours adds a separate ₦300 fee.</div>
+<div class="mini-note">More than 3 colours adds a separate ₦2,000 fee.</div>
 <label>✨ Custom Design</label>
-<select id="itemDesign"><option value="no">No custom design</option><option value="yes">Yes — custom design (+₦300)</option></select>
+<select id="itemDesign"><option value="no">No custom design</option><option value="yes">Yes — custom design (+₦4,800)</option></select>
 <div id="itemDesignBox" style="display:none">
 <label>📝 Custom Design Details</label><textarea id="itemDetails" placeholder="Tell us what you would like..."></textarea>
 <label>📷 Upload a picture (optional)</label><input id="itemFile" type="file" accept="image/*"><div class="file-name" id="itemFileName">No picture selected</div>
@@ -251,8 +264,8 @@ function updateItem(){
 let size=document.getElementById("itemSize").value,base=activeProduct.sizes[size];
 let checked=[...document.querySelectorAll(".itemColour:checked")].map(x=>x.value);
 let typed=document.getElementById("itemCustomColour").value.trim();
-let count=checked.length+(typed?1:0),cf=count>3?300:0;
-let custom=document.getElementById("itemDesign").value==="yes",df=custom?300:0;
+let count=checked.length+(typed?1:0),cf=count>3?2000:0;
+let custom=document.getElementById("itemDesign").value==="yes",df=custom?4800:0;
 let q=Number(document.getElementById("itemQuantity").value||1);
 let choice=document.getElementById("quantityChoice");
 if(choice)choice.style.display=q>1?"block":"none";
@@ -269,7 +282,7 @@ if(!count){err.textContent="Please choose at least one colour or type a custom c
 let custom=document.getElementById("itemDesign").value==="yes",details=custom?document.getElementById("itemDetails").value.trim():"";
 let f=document.getElementById("itemFile"),imageName=f.files.length?f.files[0].name:"";
 if(custom&&!details&&!imageName){err.textContent="Please describe your custom design or upload a picture.";err.style.display="block";return}
-let cf=count>3?300:0,df=custom?300:0,unit=base+df+cf;
+let cf=count>3?2000:0,df=custom?4800:0,unit=base+df+cf;
 let colour=[...checked,...(typed?["Custom: "+typed]:[])].join(", ");
 let q=Number(document.getElementById("itemQuantity").value||1);
 let mode=q>1?getMultiMode():"same";
@@ -301,7 +314,7 @@ let items=document.getElementById("cartItems"),total=document.getElementById("ca
 let itemCount=cart.reduce((n,x)=>n+(Number(x.quantity)||1),0);
 document.getElementById("cartCount").textContent=itemCount;
 if(!cart.length){items.innerHTML='<div class="empty">Your cart is empty. ♡</div>';total.textContent="Total: ₦0";return}
-let sum=0;items.innerHTML="";cart.forEach((x,i)=>{sum+=x.total;let qty=Number(x.quantity)||1;let row=document.createElement("div");row.className="cart-item";row.innerHTML=`<span><strong>${esc(x.name)}</strong><br>Quantity: ${qty}<br>Size: ${esc(x.size)}<br>Colour: ${esc(x.colour)}${x.customDesign?"<br>Custom design fee: ₦300":""}${x.colourFee?"<br>More-than-3-colours fee: ₦300":""}${x.details?"<br>Details: "+esc(x.details):""}${x.imageName?"<br>Design picture: "+esc(x.imageName):""}<br><strong>${naira(x.total)}</strong></span><button class="btn" style="width:auto;font-size:15px;padding:5px 12px" onclick="removeItem(${i})">Remove</button>`;items.appendChild(row)});
+let sum=0;items.innerHTML="";cart.forEach((x,i)=>{sum+=x.total;let qty=Number(x.quantity)||1;let row=document.createElement("div");row.className="cart-item";row.innerHTML=`<span><strong>${esc(x.name)}</strong><br>Quantity: ${qty}<br>Size: ${esc(x.size)}<br>Colour: ${esc(x.colour)}${x.customDesign?"<br>Custom design fee: ₦4,800":""}${x.colourFee?"<br>More-than-3-colours fee: ₦2,000":""}${x.details?"<br>Details: "+esc(x.details):""}${x.imageName?"<br>Design picture: "+esc(x.imageName):""}<br><strong>${naira(x.total)}</strong></span><button class="btn" style="width:auto;font-size:15px;padding:5px 12px" onclick="removeItem(${i})">Remove</button>`;items.appendChild(row)});
 total.textContent="Total: "+naira(sum);
 }
 
@@ -312,8 +325,8 @@ document.getElementById("customColourGrid").innerHTML=colours.map(c=>`<label><in
 document.querySelectorAll('input[name="customColour"]').forEach(x=>x.onchange=updateCustomFees);
 }
 function updateCustomFees(){
-let c=document.querySelectorAll('input[name="customColour"]:checked').length,t=document.getElementById("customColourText").value.trim()?1:0,f=c+t>3?300:0;
-document.getElementById("customColourFee").textContent=naira(f);document.getElementById("customFeesTotal").textContent=naira(300+f);
+let c=document.querySelectorAll('input[name="customColour"]:checked').length,t=document.getElementById("customColourText").value.trim()?1:0,f=c+t>3?2000:0;
+document.getElementById("customColourFee").textContent=naira(f);document.getElementById("customFeesTotal").textContent=naira(4800+f);
 }
 document.getElementById("customColourText").oninput=updateCustomFees;
 document.getElementById("customOrderImage").onchange=e=>document.getElementById("customOrderFileName").textContent=e.target.files.length?e.target.files[0].name:"No picture selected";
@@ -323,8 +336,8 @@ let d=document.getElementById("customOrderDescription").value.trim(),f=document.
 let c=[...document.querySelectorAll('input[name="customColour"]:checked')].map(x=>x.value),typed=document.getElementById("customColourText").value.trim(),count=c.length+(typed?1:0);
 if(!d&&!image){alert("Please upload a picture or describe your custom order.");return}
 if(!count){alert("Please choose at least one colour or type a custom colour.");return}
-let cf=count>3?300:0;
-cart.push({name:"Custom Order",size:"To be discussed",colour:[...c,...(typed?["Custom: "+typed]:[])].join(", "),customDesign:true,details:d||"See uploaded picture.",imageName:image,customFee:300,colourFee:cf,total:300+cf});
+let cf=count>3?2000:0;
+cart.push({name:"Custom Order",size:"To be discussed",colour:[...c,...(typed?["Custom: "+typed]:[])].join(", "),customDesign:true,details:d||"See uploaded picture.",imageName:image,customFee:4800,colourFee:cf,total:4800+cf});
 updateCart();document.getElementById("cart").scrollIntoView({behavior:"smooth"});
 };
 
@@ -371,7 +384,7 @@ window.open(gmail,"_blank");
 renderGrid(originalProducts,"originalGrid","original");
 renderGrid(keychains,"keychainGrid","keychain");
 renderGrid(plushies,"plushieGrid","plushie");
-renderGrid(hats,"hatGrid","hat");
+renderGrid(hats,"hatGrid","hat");renderGrid(bags,"bagGrid","bag");
 renderCustomColours();updateCustomFees();updateCart();
 </script>
 </body>

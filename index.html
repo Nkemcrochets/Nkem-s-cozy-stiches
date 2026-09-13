@@ -217,95 +217,71 @@ renderProductDetails();
 }
 
 function renderProductDetails(){
-document.getElementById("detailsContent").innerHTML=`
-<h2>${activeProduct.emoji} ${esc(activeProduct.name)}</h2>
-<img class="product-image" src="${activeProduct.image}" alt="${esc(activeProduct.name)}"${activeProduct.productType==="bag"?` onerror="this.onerror=null;this.src='bag-placeholder.png'"`:""} style="max-width:300px;display:block;margin:0 auto 14px">
-<p style="text-align:center">${esc(activeProduct.description)}</p>
-<div class="plush-options">
-${customizeSession?`<div class="mini-note" style="font-weight:700">🧶 Customizing item ${customizeSession.current} of ${customizeSession.total}. Choose its size, colours and design below.</div>`:""}
-<label>📏 Size</label>
-<select id="itemSize">${Object.entries(activeProduct.sizes).map(([s,p])=>`<option value="${esc(s)}">${esc(s)}${activeProduct.sizeCm?` — ${activeProduct.sizeCm[s]}`:""} — ${naira(p)}</option>`).join("")}</select>
-${activeProduct.sizeCm?'<div class="mini-note">📏 Hat size is based on head circumference. Measure around the fullest part of your head, just above the eyebrows and ears.</div>':''}
-<label>🔢 Quantity</label>
-<select id="itemQuantity">${customizeSession?'<option value="1">1</option>':Array.from({length:20},(_,i)=>`<option value="${i+1}">${i+1}</option>`).join("")}</select>
-<div id="quantityChoice" class="mini-note" style="display:none;margin-top:8px">
-<strong>Buying more than one?</strong><br>
-<label style="display:block;margin-top:6px"><input type="radio" name="multiMode" value="same" checked> Keep the same size, colours and design for all</label>
-<label style="display:block;margin-top:6px"><input type="radio" name="multiMode" value="custom"> Customize each one separately</label>
-</div>
-<label>🎨 Colour</label>
-<div class="colour-grid">${colours.map(c=>`<label class="colour-choice"><input type="checkbox" class="itemColour" value="${c}">${c}</label>`).join("")}</div>
-<input id="itemCustomColour" type="text" placeholder="Type a custom colour...">
-<div class="mini-note">More than 3 colours adds a separate ₦2,000 fee.</div>
-<label>✨ Custom Design</label>
-<select id="itemDesign"><option value="no">No custom design</option><option value="yes">Yes — custom design (+₦4,800)</option></select>
-<div id="itemDesignBox" style="display:none">
-<label>📝 Custom Design Details</label><textarea id="itemDetails" placeholder="Tell us what you would like..."></textarea>
-<label>📷 Upload a picture (optional)</label><input id="itemFile" type="file" accept="image/*"><div class="file-name" id="itemFileName">No picture selected</div>
-</div>
-<div class="details-error" id="itemError"></div><div class="fee-box" id="itemFee"></div>
-<button class="btn" onclick="addItem()">🛍 Add to Cart</button>
-</div>`;
-document.getElementById("detailsModal").classList.add("open");
-document.querySelectorAll(".itemColour").forEach(x=>x.onchange=updateItem);
-document.getElementById("itemCustomColour").oninput=updateItem;
-document.getElementById("itemSize").onchange=updateItem;
-document.getElementById("itemDesign").onchange=updateItem;
-document.getElementById("itemQuantity").onchange=updateItem;
-document.querySelectorAll('input[name="multiMode"]').forEach(x=>x.onchange=updateItem);
-document.getElementById("itemFile").onchange=e=>document.getElementById("itemFileName").textContent=e.target.files.length?e.target.files[0].name:"No picture selected";
-updateItem();
+  const isPlush=activeProduct.productType==="plushie";
+  const partMap={
+    "Froggie Friend":["Body","Arms","Legs","Belly"],
+    "Mushroom Magic":["Mushroom Head","Mushroom Spots","Stem"],
+    "Snuggly Cuddles":["Body","Ears","Paws","Belly"],
+    "Whaley Wishes":["Body","Fins","Tail"],
+    "Tilly Turtle":["Body","Shell","Legs"],
+    "Panda Puffs":["Body","Ears","Arms & Legs","Eye Patches"],
+    "Cotton Cuddles":["Body","Ears","Arms & Legs","Bow/Details"],
+    "Octo Boo":["Head & Body","Tentacles"]
+  };
+  const parts=partMap[activeProduct.name]||["Main Colour"];
+  const normalOrChange=`<label>🎨 Colour</label><label class="colour-choice"><input type="radio" name="colourMode" value="normal" checked> Normal Colour — exactly as shown in the product picture</label><label class="colour-choice"><input type="radio" name="colourMode" value="change"> Choose Another Colour</label>`;
+  const normalColourNote=`<div class="mini-note">🤍 Any white parts shown in the original design stay white. When another colour is chosen, only the non-white/main coloured parts change unless a specific part is given its own colour choice.</div>`;
+  const regularColours=`<div id="regularColourOptions" style="display:none"><label>Choose your new colour(s)</label><div class="colour-grid">${colours.map(c=>`<label class="colour-choice"><input type="checkbox" class="itemColour" value="${c}">${c}</label>`).join("")}</div><input id="itemCustomColour" type="text" placeholder="Type a custom colour..."><div class="mini-note">⚠️ Custom colours may not always be available. If we do not have the requested colour, you may need to choose another available colour.</div><div class="mini-note">More than 3 colours adds a separate ₦2,000 fee.</div></div>`;
+  const plushColours=`<div id="plushColourOptions" style="display:none"><div class="mini-note">Choose colours for the specific parts you want to change. Each part can stay <strong>Normal</strong> to keep its original colour.</div>${parts.map(part=>`<div class="part-colour-box"><label>🧶 ${part} Colour</label><select class="plushPartColour" data-part="${esc(part)}"><option value="Normal">Normal — as shown</option>${colours.map(c=>`<option value="${c}">${c}</option>`).join("")}<option value="Custom">Custom colour...</option></select><input class="plushPartCustom" data-part="${esc(part)}" type="text" placeholder="Custom colour for ${esc(part)} (only if Custom is selected)" style="display:none"></div>`).join("")}<div class="mini-note">⚠️ Custom colours may not always be available. If we do not have the requested colour, you may need to choose another available colour.</div><div class="mini-note">🤍 White parts that are not specifically listed above stay white.</div><div class="mini-note">More than 3 changed colours adds a separate ₦2,000 fee.</div></div>`;
+  document.getElementById("detailsContent").innerHTML=`
+  <h2>${activeProduct.emoji} ${esc(activeProduct.name)}</h2>
+  <img class="product-image" src="${activeProduct.image}" alt="${esc(activeProduct.name)}"${activeProduct.productType==="bag"?` onerror="this.onerror=null;this.src='bag-placeholder.png'"`:""} style="max-width:300px;display:block;margin:0 auto 14px">
+  <p style="text-align:center">${esc(activeProduct.description)}</p>
+  <div class="plush-options">
+  ${customizeSession?`<div class="mini-note" style="font-weight:700">🧶 Customizing item ${customizeSession.current} of ${customizeSession.total}. Choose its size, colours and design below.</div>`:""}
+  <label>📏 Size</label><select id="itemSize">${Object.entries(activeProduct.sizes).map(([s,p])=>`<option value="${esc(s)}">${esc(s)}${activeProduct.sizeCm?` — ${activeProduct.sizeCm[s]}`:""} — ${naira(p)}</option>`).join("")}</select>
+  ${activeProduct.sizeCm?'<div class="mini-note">📏 Hat size is based on head circumference. Measure around the fullest part of your head, just above the eyebrows and ears.</div>':''}
+  <label>🔢 Quantity</label><select id="itemQuantity">${customizeSession?'<option value="1">1</option>':Array.from({length:20},(_,i)=>`<option value="${i+1}">${i+1}</option>`).join("")}</select>
+  <div id="quantityChoice" class="mini-note" style="display:none;margin-top:8px"><strong>Buying more than one?</strong><br><label style="display:block;margin-top:6px"><input type="radio" name="multiMode" value="same" checked> Keep the same size, colours and design for all</label><label style="display:block;margin-top:6px"><input type="radio" name="multiMode" value="custom"> Customize each one separately</label></div>
+  ${normalOrChange}${normalColourNote}${isPlush?plushColours:regularColours}
+  <label>✨ Custom Design</label><select id="itemDesign"><option value="no">No custom design</option><option value="yes">Yes — custom design (+₦4,800)</option></select>
+  <div id="itemDesignBox" style="display:none"><label>📝 Custom Design Details</label><textarea id="itemDetails" placeholder="Tell us what you would like..."></textarea><label>📷 Upload a picture (optional)</label><input id="itemFile" type="file" accept="image/*"><div class="file-name" id="itemFileName">No picture selected</div></div>
+  <div class="details-error" id="itemError"></div><div class="fee-box" id="itemFee"></div><button class="btn" onclick="addItem()">🛍 Add to Cart</button></div>`;
+  document.getElementById("detailsModal").classList.add("open");
+  document.querySelectorAll('input[name="colourMode"]').forEach(x=>x.onchange=()=>{const change=document.querySelector('input[name="colourMode"]:checked').value==="change";let a=document.getElementById("regularColourOptions"),b=document.getElementById("plushColourOptions");if(a)a.style.display=change?"block":"none";if(b)b.style.display=change?"block":"none";updateItem()});
+  document.querySelectorAll(".itemColour").forEach(x=>x.onchange=updateItem);
+  let cc=document.getElementById("itemCustomColour"); if(cc)cc.oninput=updateItem;
+  document.querySelectorAll(".plushPartColour").forEach(sel=>sel.onchange=()=>{let input=document.querySelector(`.plushPartCustom[data-part="${CSS.escape(sel.dataset.part)}"]`);if(input)input.style.display=sel.value==="Custom"?"block":"none";updateItem()});
+  document.querySelectorAll(".plushPartCustom").forEach(x=>x.oninput=updateItem);
+  document.getElementById("itemSize").onchange=updateItem;document.getElementById("itemDesign").onchange=updateItem;document.getElementById("itemQuantity").onchange=updateItem;document.querySelectorAll('input[name="multiMode"]').forEach(x=>x.onchange=updateItem);
+  document.getElementById("itemFile").onchange=e=>document.getElementById("itemFileName").textContent=e.target.files.length?e.target.files[0].name:"No picture selected";updateItem();
+}
+
+function getColourData(){
+  const mode=document.querySelector('input[name="colourMode"]:checked')?.value||"normal";
+  if(mode==="normal")return {label:"Normal Colour — exactly as shown",count:0};
+  if(activeProduct.productType==="plushie"){
+    let chosen=[];document.querySelectorAll(".plushPartColour").forEach(sel=>{if(sel.value!=="Normal"){let v=sel.value;if(v==="Custom"){let input=document.querySelector(`.plushPartCustom[data-part="${CSS.escape(sel.dataset.part)}"]`);v=input?.value.trim()||"Custom colour"}chosen.push(`${sel.dataset.part}: ${v}`)}});return {label:chosen.length?chosen.join(", "):"Choose another colour",count:chosen.length};
+  }
+  let checked=[...document.querySelectorAll(".itemColour:checked")].map(x=>x.value),typed=document.getElementById("itemCustomColour")?.value.trim()||"";return {label:[...checked,...(typed?["Custom: "+typed]:[])].join(", ")||"Choose another colour",count:checked.length+(typed?1:0)};
+}
+
+function updateItem(){
+  let size=document.getElementById("itemSize").value,base=activeProduct.sizes[size],cd=getColourData(),cf=cd.count>3?2000:0;
+  let custom=document.getElementById("itemDesign").value==="yes",df=custom?4800:0,q=Number(document.getElementById("itemQuantity").value||1),choice=document.getElementById("quantityChoice");if(choice)choice.style.display=q>1?"block":"none";let unit=base+df+cf,total=unit*q;document.getElementById("itemDesignBox").style.display=custom?"block":"none";document.getElementById("itemFee").innerHTML=`Size price: <strong>${naira(base)}</strong><br>Custom design fee: <strong>${naira(df)}</strong><br>More-than-3-colours fee: <strong>${naira(cf)}</strong><br>Price per item: <strong>${naira(unit)}</strong><br><strong>Total for ${q}: ${naira(total)}</strong>`;
+}
+
+function addItem(){
+  let size=document.getElementById("itemSize").value,base=activeProduct.sizes[size],cd=getColourData(),err=document.getElementById("itemError");
+  if(document.querySelector('input[name="colourMode"]:checked')?.value==="change"&&!cd.count){err.textContent=activeProduct.productType==="plushie"?"Please choose at least one plushie part and colour.":"Please choose at least one colour or type a custom colour.";err.style.display="block";return}
+  let custom=document.getElementById("itemDesign").value==="yes",details=custom?document.getElementById("itemDetails").value.trim():"",f=document.getElementById("itemFile"),imageName=f.files.length?f.files[0].name:"";if(custom&&!details&&!imageName){err.textContent="Please describe your custom design or upload a picture.";err.style.display="block";return}
+  let cf=cd.count>3?2000:0,df=custom?4800:0,unit=base+df+cf,q=Number(document.getElementById("itemQuantity").value||1),mode=q>1?getMultiMode():"same";
+  if(customizeSession){cart.push({name:activeProduct.name,size,colour:cd.label,customDesign:custom,details,imageName,customFee:df,colourFee:cf,quantity:1,total:unit});customizeSession.current++;if(customizeSession.current<=customizeSession.total){updateCart();renderProductDetails();return}customizeSession=null;}else if(mode==="custom"&&q>1){cart.push({name:activeProduct.name,size,colour:cd.label,customDesign:custom,details,imageName,customFee:df,colourFee:cf,quantity:1,total:unit});customizeSession={current:2,total:q};renderProductDetails();return;}else{cart.push({name:activeProduct.name,size,colour:cd.label,customDesign:custom,details,imageName,customFee:df,colourFee:cf,quantity:q,total:unit*q,unitTotal:unit});}
+  updateCart();closeDetails();document.getElementById("cart").scrollIntoView({behavior:"smooth"});
 }
 
 function getMultiMode(){let r=document.querySelector('input[name="multiMode"]:checked');return r?r.value:"same"}
 
-
-function updateItem(){
-let size=document.getElementById("itemSize").value,base=activeProduct.sizes[size];
-let checked=[...document.querySelectorAll(".itemColour:checked")].map(x=>x.value);
-let typed=document.getElementById("itemCustomColour").value.trim();
-let count=checked.length+(typed?1:0),cf=count>3?2000:0;
-let custom=document.getElementById("itemDesign").value==="yes",df=custom?4800:0;
-let q=Number(document.getElementById("itemQuantity").value||1);
-let choice=document.getElementById("quantityChoice");
-if(choice)choice.style.display=q>1?"block":"none";
-let unit=base+df+cf,total=unit*q;
-document.getElementById("itemDesignBox").style.display=custom?"block":"none";
-document.getElementById("itemFee").innerHTML=`Size price: <strong>${naira(base)}</strong><br>Custom design fee: <strong>${naira(df)}</strong><br>More-than-3-colours fee: <strong>${naira(cf)}</strong><br>Price per item: <strong>${naira(unit)}</strong><br><strong>Total for ${q}: ${naira(total)}</strong>`;
-}
-
-function addItem(){
-let size=document.getElementById("itemSize").value,base=activeProduct.sizes[size];
-let checked=[...document.querySelectorAll(".itemColour:checked")].map(x=>x.value);
-let typed=document.getElementById("itemCustomColour").value.trim(),count=checked.length+(typed?1:0),err=document.getElementById("itemError");
-if(!count){err.textContent="Please choose at least one colour or type a custom colour.";err.style.display="block";return}
-let custom=document.getElementById("itemDesign").value==="yes",details=custom?document.getElementById("itemDetails").value.trim():"";
-let f=document.getElementById("itemFile"),imageName=f.files.length?f.files[0].name:"";
-if(custom&&!details&&!imageName){err.textContent="Please describe your custom design or upload a picture.";err.style.display="block";return}
-let cf=count>3?2000:0,df=custom?4800:0,unit=base+df+cf;
-let colour=[...checked,...(typed?["Custom: "+typed]:[])].join(", ");
-let q=Number(document.getElementById("itemQuantity").value||1);
-let mode=q>1?getMultiMode():"same";
-
-if(customizeSession){
-  cart.push({name:activeProduct.name,size,colour,customDesign:custom,details,imageName,customFee:df,colourFee:cf,quantity:1,total:unit});
-  customizeSession.current++;
-  if(customizeSession.current<=customizeSession.total){
-    updateCart();
-    renderProductDetails();
-    return;
-  }
-  customizeSession=null;
-}else if(mode==="custom"&&q>1){
-  cart.push({name:activeProduct.name,size,colour,customDesign:custom,details,imageName,customFee:df,colourFee:cf,quantity:1,total:unit});
-  customizeSession={current:2,total:q};
-  renderProductDetails();
-  return;
-}else{
-  cart.push({name:activeProduct.name,size,colour,customDesign:custom,details,imageName,customFee:df,colourFee:cf,quantity:q,total:unit*q,unitTotal:unit});
-}
-updateCart();closeDetails();document.getElementById("cart").scrollIntoView({behavior:"smooth"});
-}
 
 function closeDetails(e){if(e&&e.target.id!=="detailsModal")return;document.getElementById("detailsModal").classList.remove("open");activeProduct=null;customizeSession=null}
 

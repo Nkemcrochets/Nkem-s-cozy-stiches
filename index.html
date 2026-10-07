@@ -35,13 +35,13 @@ nav{position:relative;z-index:20;display:flex;justify-content:space-between;alig
 .creations{position:relative;z-index:10;padding:10px 2% 20px}.section-title{text-align:center;color:#ed3d75;font-size:38px;font-weight:700;margin:10px 0 18px}.section-title span{color:#ff5b8a;margin:0 12px}
 .products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1500px;margin:auto}
 .card{background:#fffbfcf2;border:2px solid #ffc2d4;border-radius:25px;padding:10px;box-shadow:0 5px 15px #c64d751f,inset 0 0 0 4px #ffffffa6;text-align:center;overflow:hidden;transition:.25s}
-.card:hover{transform:translateY(-5px)}.product-image{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:18px;border:3px solid white;background:#ffe8ef}
+.card:hover{transform:translateY(-5px)}.card-badge{display:inline-block;margin-top:7px;padding:3px 10px;border-radius:999px;background:#fff0f5;border:1px solid #ffc0d4;color:#d93670;font-size:13px;font-weight:700}.product-image{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:18px;border:3px solid white;background:#ffe8ef}
 .card h3{color:#ed3c75;font-size:24px;margin:9px 3px 2px;line-height:1.05}.card p{color:#7e4564;font-size:16px;line-height:1.25;padding:0 6px}
 .price{display:block;color:#e32f6c;font-size:18px;font-weight:700;margin:5px 0}
 .btn{border:0;border-radius:25px;background:linear-gradient(90deg,#ff4d83,#ff6a98);color:white;font:18px "Baloo 2",cursive;padding:8px 18px;cursor:pointer;box-shadow:0 3px #dc356a;transition:.2s;width:92%}
 .btn:hover{transform:translateY(-2px)}.details-btn{margin:10px auto 0;display:block;width:92%;border:2px solid #ff82a8;border-radius:22px;background:#fff0f5;color:#e83b73;font:700 18px "Baloo 2",cursive;padding:9px 14px;cursor:pointer}
 .cart-section{position:relative;z-index:10;max-width:1100px;margin:30px auto;padding:25px;background:#fffafce6;border:2px solid #ffc0d4;border-radius:28px}
-.cart-section h2{text-align:center;color:#e83b73;font-size:34px;margin-bottom:15px}.cart-item{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:12px;margin:8px 0;background:white;border-radius:15px;border:1px solid #ffd0de}
+.cart-section h2{text-align:center;color:#e83b73;font-size:34px;margin-bottom:15px}.order-status{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;max-width:1000px;margin:22px auto 0}.status-step{background:#fff;border:2px solid #ffc2d4;border-radius:18px;padding:14px 8px;text-align:center;box-shadow:0 3px 10px #c64d7512}.status-step .status-num{display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;border-radius:50%;background:#ff5b8a;color:#fff;font-weight:700;margin-bottom:6px}.status-step strong{display:block;color:#e83b73;font-size:16px}.status-step span{display:block;font-size:13px;color:#8b5270;line-height:1.2;margin-top:2px}.cart-item{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:12px;margin:8px 0;background:white;border-radius:15px;border:1px solid #ffd0de}
 .cart-total{text-align:right;font-size:23px;font-weight:700;color:#e83b73;margin-top:15px}.empty{text-align:center;font-size:18px;padding:15px}
 .product-options label{display:block;color:#7b3157;font-size:17px;font-weight:600;margin:10px 0 5px}
 .product-options input,.product-options select,.product-options textarea,.plush-options input,.plush-options select,.plush-options textarea{width:100%;border:2px solid #ffc2d4;border-radius:14px;background:white;color:#7b3157;font:16px "Baloo 2",cursive;padding:9px 11px}
@@ -55,8 +55,13 @@ input[type=checkbox]{accent-color:#ed3d75}.mini-note,.file-name,.colour-fee-note
 footer{position:relative;z-index:10;text-align:center;padding:25px 15px 35px}.footer-message{color:#ef4d80;font-size:21px;margin-bottom:15px}
 .socials{display:flex;justify-content:center;gap:12px}.social{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#ff4f86;color:white;border:3px solid white;text-decoration:none;font-size:18px;font-weight:700}
 @media(max-width:1100px){.products{grid-template-columns:repeat(3,1fr)}.hero{grid-template-columns:1fr 1.3fr 1fr}.nav-link{font-size:19px}}
-@media(max-width:750px){nav{flex-direction:column}.hero{grid-template-columns:1fr;min-height:auto}.hero-center{order:1}.hero-side:first-child{order:2}.hero-side:last-child{order:3}.products{grid-template-columns:repeat(2,1fr)}.brand-title{font-size:44px;-webkit-text-stroke:3px white}.colour-grid,.custom-colour-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:480px){.nav-group{width:96%;justify-content:center;flex-wrap:wrap}.nav-link{font-size:16px;padding:5px 7px}.products{grid-template-columns:1fr}.brand-subtitle{font-size:17px;padding:3px 20px}}
+@media(max-width:750px){.order-status{grid-template-columns:repeat(2,1fr)}nav{flex-direction:column}.hero{grid-template-columns:1fr;min-height:auto}.hero-center{order:1}.hero-side:first-child{order:2}.hero-side:last-child{order:3}.products{grid-template-columns:repeat(2,1fr)}.brand-title{font-size:44px;-webkit-text-stroke:3px white}.colour-grid,.custom-colour-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.order-status{grid-template-columns:1fr}.nav-group{width:96%;justify-content:center;flex-wrap:wrap}.nav-link{font-size:16px;padding:5px 7px}.products{grid-template-columns:1fr}.brand-subtitle{font-size:17px;padding:3px 20px}}
+
+.category-nav{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px auto 0;max-width:1100px;width:100%;}
+.category-link{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;padding:9px 14px;border:2px solid #ffb4cb;border-radius:999px;background:#fff9fb;color:#e83b73;text-decoration:none;font-weight:700;font-size:15px;box-shadow:0 3px 8px #c64d7518;transition:.2s;}
+.category-link:hover{transform:translateY(-2px);background:#fff0f5;color:#d92e68;box-shadow:0 5px 12px #c64d7526;}
+@media(max-width:750px){.category-nav{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;max-width:100%;padding:4px 4px 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}.category-nav::-webkit-scrollbar{display:none}.category-link{flex:0 0 auto;font-size:14px;padding:8px 12px;}}
 </style>
 </head>
 <body>
@@ -71,7 +76,16 @@ footer{position:relative;z-index:10;text-align:center;padding:25px 15px 35px}.fo
 
 <section class="hero" id="home">
 <div class="hero-side"><img class="basket" src="basket.png" alt="Pink yarn basket with crochet hooks"></div>
-<div class="hero-center"><img class="logo" src="logo.png" alt="Nkem's Cozy Stitches logo"><h1 class="brand-title">Nkem's Cozy Stitches</h1><div class="brand-subtitle">Handmade ♥ With Love</div></div>
+<div class="hero-center"><img class="logo" src="logo.png" alt="Nkem's Cozy Stitches logo"><h1 class="brand-title">Nkem's Cozy Stitches</h1><div class="brand-subtitle">Handmade ♥ With Love</div>
+<div class="category-nav" aria-label="Shop categories">
+<a class="category-link" href="#shop">Shop</a>
+<a class="category-link" href="#bags">Bags</a>
+<a class="category-link" href="#plushies">Plushies</a>
+<a class="category-link" href="#hats">Hats &amp; Beanies</a>
+<a class="category-link" href="#keychains">Keychains</a>
+<a class="category-link" href="#hair-accessories">Hair Accessories</a>
+<a class="category-link" href="#custom-order">Custom Orders</a>
+</div></div>
 <div class="hero-side"><div class="yarn-ball"><div class="yarn-string"></div></div><img class="hero-logo-basket" src="logo-basket.png" alt="Crochet basket"></div>
 </section>
 
@@ -119,12 +133,20 @@ footer{position:relative;z-index:10;text-align:center;padding:25px 15px 35px}.fo
 <p style="text-align:center;font-size:20px;line-height:1.5;max-width:850px;margin:0 auto 24px">Every order is reviewed by Nkem before it is made, so we can check your choices, materials, availability, and any special requests. ♡</p>
 <div class="products" style="grid-template-columns:repeat(4,1fr);max-width:1100px;margin:0 auto">
 <div class="product-card" style="padding:24px;text-align:center"><div style="font-size:42px">🛍️</div><h3>1. Choose</h3><p>Pick your product, size, and the normal colour or choose another colour. Add any extra notes you want us to see.</p></div>
-<div class="product-card" style="padding:24px;text-align:center"><div style="font-size:42px">💌</div><h3>2. Send</h3><p>Add your items to the cart, enter your customer details, then click <strong>Place Order & Email Nkem</strong>.</p></div>
+<div class="product-card" style="padding:24px;text-align:center"><div style="font-size:42px">💌</div><h3>2. Send</h3><p>Add your items to the cart, enter your customer details, then click <strong>Place Order &amp; Email Nkem</strong>.</p></div>
 <div class="product-card" style="padding:24px;text-align:center"><div style="font-size:42px">🔎</div><h3>3. Nkem Reviews</h3><p>I review your order, colour choices, notes, and material availability. If a requested colour is unavailable or needs extra materials, I will contact you first.</p></div>
 <div class="product-card" style="padding:24px;text-align:center"><div style="font-size:42px">🧶</div><h3>4. We Make It</h3><p>Once everything is confirmed, your crochet item is made according to the approved order and prepared for delivery.</p></div>
 </div>
-<div class="mini-note" style="max-width:900px;margin:24px auto 0;text-align:center">💗 <strong>About colour changes:</strong> Our products are designed using the colours and materials planned for the original design. Changing colours may mean using or purchasing yarn specifically for your order. A colour-change fee applies, and an additional charge may be discussed if a requested colour is unavailable, unusually expensive, or requires extra materials. You will be told about any additional charge before we proceed.</div>
+<div class="mini-note" style="max-width:900px;margin:24px auto 0;text-align:center">💗 <strong>About colour changes:</strong> Our products are designed using the colours and materials planned for the original design. Changing colours may mean using or purchasing yarn specifically for your order. A <strong>₦2,500 colour-change fee</strong> applies when you choose another colour. If a requested colour is unavailable, unusually expensive, or requires extra materials, an additional charge may be discussed after review. You will be told about any additional charge before we proceed.</div>
 <div class="mini-note" style="max-width:900px;margin:12px auto 0;text-align:center">✨ <strong>Need something completely different?</strong> Use <strong>Custom Orders</strong> to explain exactly what you want. You can even request a custom version of one of our existing products.</div>
+<h3 style="text-align:center;color:#e83b73;font-size:26px;margin:28px 0 10px">📦 Your Order Status</h3>
+<div class="order-status">
+<div class="status-step"><span class="status-num">1</span><strong>Received</strong><span>Your order is sent to Nkem.</span></div>
+<div class="status-step"><span class="status-num">2</span><strong>Under Review</strong><span>Choices and materials are checked.</span></div>
+<div class="status-step"><span class="status-num">3</span><strong>Confirmed</strong><span>Any questions or extra costs are discussed.</span></div>
+<div class="status-step"><span class="status-num">4</span><strong>In Progress</strong><span>Your handmade item is being created.</span></div>
+<div class="status-step"><span class="status-num">5</span><strong>Ready</strong><span>Your order is prepared for delivery.</span></div>
+</div>
 </section>
 
 <section class="cart-section" id="cart">
@@ -136,7 +158,7 @@ footer{position:relative;z-index:10;text-align:center;padding:25px 15px 35px}.fo
 <label>📧 Email Address</label><input id="customerEmail" type="email" placeholder="Enter your email address">
 <label>🏠 Delivery Address</label><textarea id="customerAddress" placeholder="Enter your delivery address..."></textarea>
 <label>📝 Extra Notes (optional)</label><textarea id="customerNotes" placeholder="Anything else?"></textarea>
-<p style="font-size:14px;color:#9b607c;margin:10px 0">The order button opens Gmail with the order prepared for <strong>nkems.cozy.stiches@gmail.com</strong>. Uploaded pictures must be attached manually before sending.</p>
+<div class="mini-note" style="margin:12px 0">💌 <strong>What happens next:</strong> Your order opens as a prepared Gmail message to Nkem. Please check the order details, attach any required pictures, and press <strong>Send</strong>. Nkem will review the request and contact you if anything needs to be confirmed.</div>
 <button class="btn" type="button" id="placeOrderButton">💌 Place Order & Email Nkem</button>
 </div>
 </section>
@@ -192,10 +214,10 @@ const plushies=[
 ];
 
 const hats=[
-{name:"Ruffle Cat-Eared Beanie",emoji:"🎀",image:"ruffle-cat-eared-beanie.jpeg",description:"A cute pink-and-white cat-eared beanie with a playful ruffled brim and bow.",sizes:{Small:7500,Medium:10900,Large:13000,"Extra Large":15000},sizeCm:{Small:"51–53 cm",Medium:"54–57 cm",Large:"58–60 cm","Extra Large":"61–63 cm"}},
-{name:"Cat-Eared Beanie",emoji:"🐱",image:"cat-eared-beanie.png",description:"A cozy pink-and-white striped cat-eared beanie with a sweet handmade look.",sizes:{Small:6500,Medium:8000,Large:9500,"Extra Large":11000},sizeCm:{Small:"51–53 cm",Medium:"54–57 cm",Large:"58–60 cm","Extra Large":"61–63 cm"}},
-{name:"Ruffle Hat",emoji:"🌸",image:"ruffle-hat.png",description:"A soft pink-and-white crochet ruffle hat with a cute frilly edge.",sizes:{Small:6500,Medium:8000,Large:9500,"Extra Large":12900},sizeCm:{Small:"51–53 cm",Medium:"54–57 cm",Large:"58–60 cm","Extra Large":"61–63 cm"}},
-{name:"Foldover Beanie",emoji:"🧶",image:"foldover-beanies.png",description:"A cozy ribbed foldover beanie available in sweet solid and striped styles.",sizes:{Small:5000,Medium:6500,Large:8000,"Extra Large":11000},sizeCm:{Small:"51–53 cm",Medium:"54–57 cm",Large:"58–60 cm","Extra Large":"61–63 cm"}}
+{name:"Ruffle Cat-Eared Beanie",emoji:"🎀",image:"ruffle-cat-eared-beanie.jpg",description:"A cute pink-and-white cat-eared beanie with a playful ruffled brim and bow.",sizes:{Small:7500,Medium:10900,Large:13000,"Extra Large":15000},sizeCm:{Small:"51–53 cm",Medium:"54–57 cm",Large:"58–60 cm","Extra Large":"61–63 cm"}},
+{name:"Cat-Eared Beanie",emoji:"🐱",image:"cat-eared-beanie.jpg",description:"A cozy pink-and-white striped cat-eared beanie with a sweet handmade look.",sizes:{Small:6500,Medium:8000,Large:9500,"Extra Large":11000},sizeCm:{Small:"51–53 cm",Medium:"54–57 cm",Large:"58–60 cm","Extra Large":"61–63 cm"}},
+{name:"Ruffle Hat",emoji:"🌸",image:"ruffle-hat.jpg",description:"A soft pink-and-white crochet ruffle hat with a cute frilly edge.",sizes:{Small:6500,Medium:8000,Large:9500,"Extra Large":12900},sizeCm:{Small:"51–53 cm",Medium:"54–57 cm",Large:"58–60 cm","Extra Large":"61–63 cm"}},
+{name:"Foldover Beanie",emoji:"🧶",image:"foldover-beanies.webp",description:"A cozy ribbed foldover beanie available in sweet solid and striped styles.",sizes:{Small:5000,Medium:6500,Large:8000,"Extra Large":11000},sizeCm:{Small:"51–53 cm",Medium:"54–57 cm",Large:"58–60 cm","Extra Large":"61–63 cm"}}
 ];
 
 const bags=[
@@ -214,7 +236,7 @@ function esc(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",
 function renderGrid(data,id,type){
 document.getElementById(id).innerHTML=data.map((p,i)=>{
 let a=Object.values(p.sizes),low=Math.min(...a),high=Math.max(...a);
-return `<article class="card"><img class="product-image" src="${p.image}" alt="${esc(p.name)}"${type==="bag"?` onerror="this.onerror=null;this.src='bag-placeholder.png'"`:""}><h3>${p.emoji} ${esc(p.name)}</h3><p>${esc(p.description)}</p><span class="price">${naira(low)} - ${naira(high)}</span><button class="details-btn" onclick="showProduct('${type}',${i})">♥ View Details ♥</button></article>`;
+return `<article class="card"><img class="product-image" src="${p.image}" alt="${esc(p.name)}"${type==="bag"?` onerror="this.onerror=null;this.src='bag-placeholder.png'"`:""}><h3>${p.emoji} ${esc(p.name)}</h3><p>${esc(p.description)}</p><span class="price">From ${naira(low)}</span><span class="card-badge">♥ Choose your options</span><button class="details-btn" onclick="showProduct('${type}',${i})">♥ Choose Options ♥</button></article>`;
 }).join("");
 }
 
@@ -339,8 +361,7 @@ let lines=cart.map((x,i)=>{total+=x.total;return `${i+1}. ${x.name}
 Quantity: ${Number(x.quantity)||1}
 Size: ${x.size}
 Colour: ${x.colour}
-${x.customDesign?`Custom order fee: ${naira(x.customFee||4800)}`:""}
-Colour-change fee: ${naira(x.colourFee||0)}
+${x.customDesign?`Custom order fee: ${naira(x.customFee||4800)}\n`:""}${(x.colourFee||0)>0?`Colour-change fee: ${naira(x.colourFee)}\n`:""}
 Extra notes: ${x.details||"None"}
 ${x.imageName?`Design picture: ${x.imageName}`:""}
 Item total: ${naira(x.total)}
@@ -350,22 +371,29 @@ let body=`Hello Nkem's Cozy Stitches,
 
 I would like to place an order.
 
+==============================
 CUSTOMER DETAILS
+==============================
 Name: ${name}
 Phone: ${phone}
 Email: ${email}
 Delivery Address: ${address}
 
+==============================
 ORDER DETAILS
+==============================
 ${lines}
 ORDER TOTAL: ${naira(total)}
 
-EXTRA NOTES
+==============================
+CUSTOMER EXTRA NOTES
+==============================
 ${notes||"None"}
 
-Please confirm my order and let me know the next steps.
+Please review my order and let me know if anything needs to be confirmed before it is made.
 
-Thank you!`;
+Thank you!
+Nkem's Cozy Stitches`;
 let gmail="https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent("nkems.cozy.stiches@gmail.com")+"&su="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
 window.open(gmail,"_blank");
 };
